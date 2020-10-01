@@ -1,0 +1,7 @@
+{
+  "name": "BarcodeCaptureSimpleSample",
+  "displayName": "BarcodeCaptureSimpleSample",
+  "android": {
+    "package": "com.scandit.barcodecapturesimplesample"
+  }
+}
