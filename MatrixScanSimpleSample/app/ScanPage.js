@@ -1,6 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React, { Component } from 'react';
-import { BackHandler } from 'react-native';
+import { AppState, BackHandler } from 'react-native';
 import {
   BarcodeTracking,
   BarcodeTrackingBasicOverlay,
@@ -34,10 +34,9 @@ export class ScanPage extends Component {
     this.results = {};
   }
 
-  async componentDidMount() {
-    this.startCamera();
-    this.startScanner();
-    this.barcodeTracking.isEnabled = true;
+  componentDidMount() {
+    AppState.addEventListener('change', this.handleAppStateChange);
+    this.setupScanning();
 
     this.props.navigation.addListener('focus', () => {
       this.results = {};
@@ -45,8 +44,26 @@ export class ScanPage extends Component {
   }
 
   componentWillUnmount() {
-    this.stopCamera();
+    AppState.removeEventListener('change', this.handleAppStateChange);
     this.dataCaptureContext.dispose();
+  }
+
+  handleAppStateChange = async (nextAppState) => {
+    if (nextAppState.match(/inactive|background/)) {
+      this.stopCapture();
+    } else {
+      this.startCapture();
+    }
+  }
+
+  startCapture() {
+    this.startCamera();
+    this.barcodeTracking.isEnabled = true;
+  }
+
+  stopCapture() {
+    this.barcodeTracking.isEnabled = false;
+    this.stopCamera();
   }
 
   goToResults() {
@@ -78,7 +95,7 @@ export class ScanPage extends Component {
       .catch(() => BackHandler.exitApp());
   }
 
-  startScanner() {
+  setupScanning() {
     // The barcode tracking process is configured through barcode tracking settings
     // which are then applied to the barcode tracking instance that manages barcode tracking.
     const settings = new BarcodeTrackingSettings();

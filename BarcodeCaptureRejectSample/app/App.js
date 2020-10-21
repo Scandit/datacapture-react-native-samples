@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Alert, BackHandler } from 'react-native';
+import { Alert, AppState, BackHandler } from 'react-native';
 import {
   BarcodeCapture,
   BarcodeCaptureOverlay,
@@ -33,15 +33,32 @@ export class App extends Component {
     this.viewRef = React.createRef();
   }
 
-  async componentDidMount() {
-    this.startCamera();
-    this.startScanner();
-    this.barcodeCaptureMode.isEnabled = true;
+  componentDidMount() {
+    AppState.addEventListener('change', this.handleAppStateChange);
+    this.setupScanning();
   }
 
   componentWillUnmount() {
-    this.stopCamera();
+    AppState.removeEventListener('change', this.handleAppStateChange);
     this.dataCaptureContext.dispose();
+  }
+
+  handleAppStateChange = async (nextAppState) => {
+    if (nextAppState.match(/inactive|background/)) {
+      this.stopCapture();
+    } else {
+      this.startCapture();
+    }
+  }
+
+  startCapture() {
+    this.startCamera();
+    this.barcodeCaptureMode.isEnabled = true;
+  }
+
+  stopCapture() {
+    this.barcodeCaptureMode.isEnabled = false;
+    this.stopCamera();
   }
 
   stopCamera() {
@@ -69,7 +86,7 @@ export class App extends Component {
       .catch(() => BackHandler.exitApp());
   }
 
-  startScanner() {
+  setupScanning() {
     // The barcode capturing process is configured through barcode capture settings
     // and are then applied to the barcode capture instance that manages barcode recognition.
     const settings = new BarcodeCaptureSettings();

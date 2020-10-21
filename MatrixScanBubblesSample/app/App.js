@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BackHandler, Dimensions, View } from 'react-native';
+import { AppState, BackHandler, Dimensions, View } from 'react-native';
 import {
   BarcodeTracking,
   BarcodeTrackingAdvancedOverlay,
@@ -51,15 +51,32 @@ export class App extends Component {
     this.state = { scanning: true };
   }
 
-  async componentDidMount() {
-    this.startCamera();
+  componentDidMount() {
+    AppState.addEventListener('change', this.handleAppStateChange);
     this.setupScanning();
-    this.barcodeTracking.isEnabled = true;
   }
 
   componentWillUnmount() {
-    this.stopCamera();
+    AppState.removeEventListener('change', this.handleAppStateChange);
     this.dataCaptureContext.dispose();
+  }
+
+  handleAppStateChange = async (nextAppState) => {
+    if (nextAppState.match(/inactive|background/)) {
+      this.stopCapture();
+    } else {
+      this.startCapture();
+    }
+  }
+
+  startCapture() {
+    this.startCamera();
+    this.barcodeTracking.isEnabled = true;
+  }
+
+  stopCapture() {
+    this.barcodeTracking.isEnabled = false;
+    this.stopCamera();
   }
 
   stopCamera() {
