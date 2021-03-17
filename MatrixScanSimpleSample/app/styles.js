@@ -14,19 +14,28 @@ export const styles = StyleSheet.create({
     marginBottom: 68,
   },
 
+  buttonContainer: {
+    backgroundColor: 'transparent',
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 12,
+    display: 'flex',
+    alignItems: 'center',
+    alignSelf: 'stretch'
+  },
+
   button: {
     display: 'flex',
     flex: 1,
     justifyContent: 'center',
     height: 42,
+    width: '90%',
     maxHeight: 42,
     backgroundColor: '#2EC1CE',
     borderColor: 'transparent',
     borderRadius: 5,
-    position: 'absolute',
-    bottom: 12,
-    left: 24,
-    right: 24,
+    bottom: 24,
   },
 
   buttonText: {

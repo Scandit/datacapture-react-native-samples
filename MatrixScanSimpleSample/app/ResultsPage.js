@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Text, View, ScrollView } from 'react-native';
-
+import { ScrollView, Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { SymbologyDescription } from 'scandit-react-native-datacapture-barcode';
 
 import { Button } from './Button';
@@ -31,13 +31,13 @@ export class ResultsPage extends Component {
       .map(({ data, symbology }) => ({ data, symbology: SymbologyDescription(symbology)?.readableName }));
 
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <ScrollView style={styles.listContainer}>
           {results.map(result => <Result key={result.data} result={result}/>)}
         </ScrollView>
 
-        <Button styles={styles.button} textStyles={styles.buttonText} title='Scan Again' onPress={() => this.goBack()}/>
-      </View>
+        <Button styles={{ ...styles.button }} textStyles={styles.buttonText} title='Scan Again' onPress={() => this.goBack()}/>
+      </SafeAreaView>
     );
   }
 }
