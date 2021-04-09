@@ -161,7 +161,7 @@ export class ScanPage extends Component {
   logoOffset() {
     return new PointWithUnit(
         new NumberWithUnit(0, MeasureUnit.Pixel),
-        new NumberWithUnit(-values.cardMinHeight, MeasureUnit.DIP)
+        new NumberWithUnit(-values.cardMinHeight * 2, MeasureUnit.Pixel)
     );
   }
 

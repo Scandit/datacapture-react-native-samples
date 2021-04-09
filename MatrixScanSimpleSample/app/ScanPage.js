@@ -1,7 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React, { Component } from 'react';
 import { AppState, BackHandler } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   BarcodeTracking,
   BarcodeTrackingBasicOverlay,
@@ -137,9 +136,7 @@ export class ScanPage extends Component {
     return (
       <>
         <DataCaptureView style={{ flex: 1 }} context={this.dataCaptureContext} ref={this.viewRef} />
-        <SafeAreaView style={styles.buttonContainer}>
-          <Button styles={styles.button} textStyles={styles.buttonText} title='Done' onPress={() => this.goToResults()} />
-        </SafeAreaView>
+        <Button styles={{ ...styles.button, bottom: 36 }} textStyles={styles.buttonText} title='Done' onPress={() => this.goToResults()} />
       </>
     );
   };
