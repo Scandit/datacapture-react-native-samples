@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppState, BackHandler, Dimensions, View } from 'react-native';
+import { AppState, BackHandler, Dimensions, SafeAreaView } from 'react-native';
 import {
   BarcodeTracking,
   BarcodeTrackingAdvancedOverlay,
@@ -54,6 +54,7 @@ export class App extends Component {
   componentDidMount() {
     AppState.addEventListener('change', this.handleAppStateChange);
     this.setupScanning();
+    this.startCapture();
   }
 
   componentWillUnmount() {
@@ -64,7 +65,7 @@ export class App extends Component {
   handleAppStateChange = async (nextAppState) => {
     if (nextAppState.match(/inactive|background/)) {
       this.stopCapture();
-    } else {
+    } else if (this.state.scanning) {
       this.startCapture();
     }
   }
@@ -134,7 +135,7 @@ export class App extends Component {
 
         // Update AR views
         Object.values(session.trackedBarcodes).forEach((trackedBarcode) => {
-          this.viewRef.current.viewQuadrilateralForFrameQuadrilateral(trackedBarcode.barcode.location)
+          this.viewRef.current.viewQuadrilateralForFrameQuadrilateral(trackedBarcode.location)
             .then((location) => this.updateView(trackedBarcode, location));
         });
       },
@@ -211,9 +212,9 @@ export class App extends Component {
     return (
       <>
         <DataCaptureView style={styles.dataCaptureView} context={this.dataCaptureContext} ref={this.viewRef} />
-        <View style={styles.toggleContainer}>
+        <SafeAreaView style={styles.toggleContainer}>
           {this.state.scanning ? <Freeze onPress={this.toggleScan} /> : <Unfreeze onPress={this.toggleScan} />}
-        </View>
+        </SafeAreaView>
       </>
     );
   }
