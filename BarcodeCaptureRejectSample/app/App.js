@@ -18,6 +18,8 @@ import {
   MeasureUnit,
   NumberWithUnit,
   RectangularViewfinder,
+  RectangularViewfinderStyle,
+  RectangularViewfinderLineStyle,
   VideoResolution,
 } from 'scandit-react-native-datacapture-core';
 
@@ -138,9 +140,10 @@ export class App extends Component {
     this.overlay.brush = Brush.transparent;
 
     // Add a square viewfinder as we are only scanning square QR codes.
-    const viewfinder = new RectangularViewfinder();
-    viewfinder.setWidthAndAspectRatio(new NumberWithUnit(0.8, MeasureUnit.Fraction), 1);
-    this.overlay.viewfinder = viewfinder;
+    this.overlay.viewfinder = new RectangularViewfinder(
+        RectangularViewfinderStyle.Square,
+        RectangularViewfinderLineStyle.Light,
+    );
   }
 
   render() {

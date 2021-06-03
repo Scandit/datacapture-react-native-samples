@@ -1,0 +1,22 @@
+[
+    {
+        'id': '0',
+        'displayLabel': 'Barcode Capture',
+        'routeName': 'barcodeCaptureSettings'
+    },
+    {
+        'id': '1',
+        'displayLabel': 'Camera',
+        'routeName': 'cameraSettings'
+    },
+    {
+        'id': '2',
+        'displayLabel': 'View',
+        'routeName': 'viewSettings'
+    },
+    {
+        'id': '3',
+        'displayLabel': 'Result',
+        'routeName': 'resultSettings'
+    }
+]

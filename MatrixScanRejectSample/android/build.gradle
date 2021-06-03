@@ -13,7 +13,7 @@ buildscript {
     }
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
     dependencies {
         classpath "com.android.tools.build:gradle:${versions.gradle}"
@@ -21,8 +21,10 @@ buildscript {
     }
 }
 
+def parentFile = project.projectDir.parentFile
 allprojects {
     repositories {
+        maven { url "file://${parentFile}/../../.m2/repository" }
         mavenLocal()
         maven {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
@@ -34,7 +36,12 @@ allprojects {
         }
 
         google()
-        jcenter()
+        mavenCentral()
         maven { url 'https://www.jitpack.io' }
+        jcenter {
+            content {
+                excludeGroup "com.scandit.datacapture"
+            }
+        }
     }
 }

@@ -22,6 +22,8 @@ import {
   NumberWithUnit,
   PointWithUnit,
   RectangularViewfinder,
+  RectangularViewfinderStyle,
+  RectangularViewfinderLineStyle,
   VideoResolution,
 } from 'scandit-react-native-datacapture-core';
 
@@ -163,7 +165,10 @@ export class MainScreen extends Component {
     this.barcodeCaptureMode = BarcodeCapture.forContext(null, settings);
 
     this.barcodeCaptureOverlay = BarcodeCaptureOverlay.withBarcodeCaptureForView(this.barcodeCaptureMode, null);
-    this.barcodeCaptureOverlay.viewfinder = new RectangularViewfinder();
+    this.barcodeCaptureOverlay.viewfinder = new RectangularViewfinder(
+        RectangularViewfinderStyle.Square,
+        RectangularViewfinderLineStyle.Light,
+    );
 
     this.barcodeCaptureListener = {
       didScan: (_, session) => {

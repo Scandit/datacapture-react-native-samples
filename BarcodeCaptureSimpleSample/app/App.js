@@ -14,6 +14,8 @@ import {
   DataCaptureView,
   FrameSourceState,
   RectangularViewfinder,
+  RectangularViewfinderStyle,
+  RectangularViewfinderLineStyle,
   VideoResolution,
 } from 'scandit-react-native-datacapture-core';
 
@@ -138,7 +140,10 @@ export class App extends Component {
     // Add a barcode capture overlay to the data capture view to render the location of captured barcodes on top of
     // the video preview. This is optional, but recommended for better visual feedback.
     this.overlay = BarcodeCaptureOverlay.withBarcodeCaptureForView(this.barcodeCaptureMode, this.viewRef.current);
-    this.overlay.viewfinder = new RectangularViewfinder();
+    this.overlay.viewfinder = new RectangularViewfinder(
+        RectangularViewfinderStyle.Square,
+        RectangularViewfinderLineStyle.Light,
+    );
     this.overlay = this.overlay;
   }
 
