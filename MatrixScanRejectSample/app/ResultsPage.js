@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, ScrollView } from 'react-native';
+import { SafeAreaView, Text, View, ScrollView } from 'react-native';
 
 import { SymbologyDescription } from 'scandit-react-native-datacapture-barcode';
 
@@ -31,13 +31,13 @@ export class ResultsPage extends Component {
       .map(({ data, symbology }) => ({ data, symbology: SymbologyDescription(symbology)?.readableName }));
 
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <ScrollView style={styles.listContainer}>
           {results.map(result => <Result key={result.data} result={result}/>)}
         </ScrollView>
 
         <Button styles={styles.button} textStyles={styles.buttonText} title='Scan Again' onPress={() => this.goBack()}/>
-      </View>
+      </SafeAreaView>
     );
   }
 }

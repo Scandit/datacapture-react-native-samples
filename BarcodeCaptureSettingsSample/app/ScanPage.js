@@ -7,6 +7,7 @@ import {
     BarcodeCaptureSettings,
     BarcodeCaptureFeedback,
     SymbologyDescription,
+    CompositeFlag,
 } from 'scandit-react-native-datacapture-barcode';
 import {
     CameraSettings,
@@ -119,9 +120,37 @@ class ScanPage extends Component {
                 // longer periods of time. See the documentation to learn more about this.
                 this.context.barcodeCaptureMode.isEnabled = false;
 
+                let alertText = `Scanned: ${barcode.data} (${symbology.readableName})`;
+
+                // Show data scanned for Composite Codes.
+                if (barcode.compositeFlag && barcode.compositeFlag !== CompositeFlag.Unknown) {
+                    let compositeCodeType = '';
+
+                    switch (barcode.compositeFlag) {
+                        case CompositeFlag.GS1TypeA:
+                            compositeCodeType = "CC Type A";
+                            break;
+                        case CompositeFlag.GS1TypeB:
+                            compositeCodeType = "CC Type B";
+                            break;
+                        case CompositeFlag.GS1TypeC:
+                            compositeCodeType = "CC Type C";
+                            break;
+                        default:
+                            break;
+                    }
+
+                    alertText = `${compositeCodeType}\n${symbology.readableName}:\n${barcode.data}\n${barcode.compositeData}\nSymbol Count: ${barcode.symbolCount}`;
+                }
+
+                // Show data scanned for Add-on Codes.
+                if (barcode.addOnData) {
+                    alertText = `${symbology.readableName}:\n${barcode.data} ${barcode.addOnData}\nSymbol Count: ${barcode.symbolCount}`;
+                }
+
                 Alert.alert(
-                    null,
-                    `Scanned: ${barcode.data} (${symbology.readableName})`,
+                    'Scan Results',
+                    alertText,
                     [{ text: 'OK', onPress: () => this.context.barcodeCaptureMode.isEnabled = true }],
                     { cancelable: false }
                 );
