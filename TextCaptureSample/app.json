@@ -1,0 +1,7 @@
+{
+  "name": "TextCaptureSample",
+  "displayName": "TextCaptureSample",
+  "android": {
+    "package": "com.scandit.textcapturesample"
+  }
+}
