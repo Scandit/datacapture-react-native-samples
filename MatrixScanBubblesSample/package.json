@@ -13,8 +13,8 @@
         "react": "16.13.1",
         "react-native": "0.63.2",
         "react-native-svg": "^12.1.0",
-        "scandit-react-native-datacapture-core": "6.9.0-beta.1",
-        "scandit-react-native-datacapture-barcode": "6.9.0-beta.1"
+        "scandit-react-native-datacapture-core": "6.9.0-beta.2",
+        "scandit-react-native-datacapture-barcode": "6.9.0-beta.2"
     },
     "devDependencies": {
         "@babel/core": "^7.8.4",

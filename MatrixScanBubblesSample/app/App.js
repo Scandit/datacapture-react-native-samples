@@ -12,7 +12,6 @@ import {
   Anchor,
   Brush,
   Camera,
-  CameraSettings,
   Color,
   DataCaptureContext,
   DataCaptureView,
@@ -93,7 +92,7 @@ export class App extends Component {
       this.camera = Camera.default;
       this.dataCaptureContext.setFrameSource(this.camera);
 
-      const cameraSettings = new CameraSettings();
+      const cameraSettings = BarcodeTracking.recommendedCameraSettings;
       cameraSettings.preferredResolution = VideoResolution.UHD4K;
       this.camera.applySettings(cameraSettings);
     }

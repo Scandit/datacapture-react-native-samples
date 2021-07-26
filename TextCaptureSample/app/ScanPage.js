@@ -119,7 +119,7 @@ export class ScanPage extends Component {
           this.parser.parseString(text.value)
             .then(parsedData => this.showResult(parsedData.fields
               .map(field => `${field.name}: ${JSON.stringify(field.parsed)}`).join('\n')))
-            .catch(error => this.showResult(`Error while parsing "${text.value}": ${error.message}`));
+            .catch(error => this.textCapture.isEnabled = true);
         } else {
           this.showResult(text.value);
         }
@@ -148,7 +148,7 @@ export class ScanPage extends Component {
       return viewfinder;
     })()
     const gs1Settings = (() => {
-      const settings = TextCaptureSettings.fromJSON({ regex: "((\\\(\\\d+\\\)[\\\dA-Za-z]+)+)" })
+      const settings = TextCaptureSettings.fromJSON({ regex: "((\\\(\\\d+\\\)[\\\dA-Z]+)+)" })
       settings.locationSelection = RectangularLocationSelection
         .withWidthAndAspectRatio(new NumberWithUnit(0.9, MeasureUnit.Fraction), 0.2);
       return settings;

@@ -9,7 +9,6 @@ import {
 } from 'scandit-react-native-datacapture-barcode';
 import {
   Camera,
-  CameraSettings,
   DataCaptureContext,
   DataCaptureView,
   FrameSourceState,
@@ -93,7 +92,7 @@ export class ScanPage extends Component {
       this.camera = Camera.default;
       this.dataCaptureContext.setFrameSource(this.camera);
 
-      const cameraSettings = new CameraSettings();
+      const cameraSettings = BarcodeTracking.recommendedCameraSettings;
       cameraSettings.preferredResolution = VideoResolution.FullHD;
       this.camera.applySettings(cameraSettings);
     }

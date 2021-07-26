@@ -9,14 +9,13 @@ import {
 } from 'scandit-react-native-datacapture-barcode';
 import {
   Brush,
+  Color,
   Camera,
   CameraSettings,
   DataCaptureContext,
   DataCaptureView,
   Feedback,
   FrameSourceState,
-  MeasureUnit,
-  NumberWithUnit,
   RectangularViewfinder,
   RectangularViewfinderStyle,
   RectangularViewfinderLineStyle,
@@ -137,7 +136,10 @@ export class App extends Component {
     // Add a barcode capture overlay to the data capture view to render the location of captured barcodes on top of
     // the video preview. This is optional, but recommended for better visual feedback.
     this.overlay = BarcodeCaptureOverlay.withBarcodeCaptureForView(this.barcodeCaptureMode, this.viewRef.current);
-    this.overlay.brush = Brush.transparent;
+
+    // Adjust the overlay's barcode highlighting to match the new viewfinder styles and improve the visibility of
+    // feedback. With 6.10 we will introduce this visual treatment as a new style for the overlay.
+    this.overlay.brush = new Brush(Color.fromRGBA(0, 0, 0, 0), Color.fromHex('FFFF'), 3);
 
     // Add a square viewfinder as we are only scanning square QR codes.
     this.overlay.viewfinder = new RectangularViewfinder(
