@@ -306,12 +306,12 @@ PODS:
     - React-Core
   - RNVectorIcons (7.1.0):
     - React
-  - scandit-react-native-datacapture-core (6.9.0-beta.1.snapshot):
+  - scandit-react-native-datacapture-core (6.10.0-beta.1.snapshot):
     - React
-  - scandit-react-native-datacapture-parser (6.9.0-beta.1.snapshot):
+  - scandit-react-native-datacapture-parser (6.10.0-beta.1.snapshot):
     - React
     - scandit-react-native-datacapture-core
-  - scandit-react-native-datacapture-text (6.9.0-beta.1.snapshot):
+  - scandit-react-native-datacapture-text (6.10.0-beta.1.snapshot):
     - React
     - scandit-react-native-datacapture-core
   - Yoga (1.14.0)
@@ -506,12 +506,12 @@ SPEC CHECKSUMS:
   RNReanimated: 514a11da3a2bcc6c3dfd9de32b38e2b9bf101926
   RNScreens: f7ad633b2e0190b77b6a7aab7f914fad6f198d8d
   RNVectorIcons: bc69e6a278b14842063605de32bec61f0b251a59
-  scandit-react-native-datacapture-core: 5f381372553112bebb46f001397346463af01edd
-  scandit-react-native-datacapture-parser: 241bd8c4a9c2413d655a6e9eaa200d0e07eb6e92
-  scandit-react-native-datacapture-text: 5ecb04db88ede8e99c71ce075c36a650958d7752
+  scandit-react-native-datacapture-core: fb06c43ffb17cf617e8cfa970b67c2ac467961c3
+  scandit-react-native-datacapture-parser: b324de6de437d5e5db6f92eafa274302c416f97a
+  scandit-react-native-datacapture-text: 360e8ce1cf39ec7110c8983e76d5fd450c99145a
   Yoga: 7740b94929bbacbddda59bf115b5317e9a161598
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
 PODFILE CHECKSUM: 5749515da1d95aba7e70e2fc7baf4a4b80c286cd
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.10.1
