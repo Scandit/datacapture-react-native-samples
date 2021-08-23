@@ -21,9 +21,10 @@ export default class ViewfinderFactory {
                 );
             case 'laserline':
                 return this.laserlineVF(
+                    settings['laserlinesettings.style'],
                     settings['laserlinesettings.color.enabled'],
                     settings['laserlinesettings.color.disabled'],
-                    settings['laserlinesettings.size']
+                    settings['laserlinesettings.size.width']
                 );
             case 'spotlight':
                 return this.spotlightVF(
@@ -98,8 +99,12 @@ export default class ViewfinderFactory {
         return rectangularViewfinder;
     }
 
-    laserlineVF(enabledColor, disabledColor, size) {
-        const laserlineViewfinder = new LaserlineViewfinder();
+    laserlineVF(style, enabledColor, disabledColor, size) {
+        let laserlineViewfinder = new LaserlineViewfinder();
+
+        if (!!style) {
+            laserlineViewfinder = new LaserlineViewfinder(style.styleName);
+        }
 
         if (!!enabledColor) {
             laserlineViewfinder.enabledColor = Color.fromHex(enabledColor);
@@ -110,7 +115,7 @@ export default class ViewfinderFactory {
         }
 
         if (!!size) {
-            laserlineViewfinder.width = new NumberWithUnit(parseFloat(size.Width), MeasureUnit.DIP);
+            laserlineViewfinder.width = new NumberWithUnit(parseFloat(size.inputBoxValue), size.measurementUnitValue);
         }
 
         return laserlineViewfinder;
