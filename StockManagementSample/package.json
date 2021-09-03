@@ -17,8 +17,8 @@
         "react-native-reanimated": "^1.9.0",
         "react-native-safe-area-context": "^3.0.3",
         "react-native-screens": "^2.8.0",
-        "scandit-react-native-datacapture-core": "6.9.1",
-        "scandit-react-native-datacapture-barcode": "6.9.1"
+        "scandit-react-native-datacapture-core": "6.9.2",
+        "scandit-react-native-datacapture-barcode": "6.9.2"
     },
     "devDependencies": {
         "@babel/core": "^7.6.2",
