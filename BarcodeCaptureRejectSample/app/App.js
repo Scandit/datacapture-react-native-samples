@@ -3,6 +3,7 @@ import { Alert, AppState, BackHandler } from 'react-native';
 import {
   BarcodeCapture,
   BarcodeCaptureOverlay,
+  BarcodeCaptureOverlayStyle,
   BarcodeCaptureSettings,
   Symbology,
   SymbologyDescription,
@@ -112,8 +113,11 @@ export class App extends Component {
 
         // If the code scanned doesn't start with '09:', we will just ignore it and continue scanning.
         if (!barcode.data.startsWith('09:')) {
+          this.overlay.brush = Brush.transparent;
           return;
         }
+
+        this.overlay.brush = new Brush(Color.fromHex('FFF0'), Color.fromHex('FFFF'), 3);
 
         // Stop recognizing barcodes for as long as we are displaying the result. There won't be any
         // new results until the capture mode is enabled again. Note that disabling the capture mode
@@ -134,12 +138,12 @@ export class App extends Component {
     this.barcodeCaptureMode.addListener(this.barcodeCaptureListener);
 
     // Add a barcode capture overlay to the data capture view to render the location of captured barcodes on top of
-    // the video preview. This is optional, but recommended for better visual feedback.
-    this.overlay = BarcodeCaptureOverlay.withBarcodeCaptureForView(this.barcodeCaptureMode, this.viewRef.current);
-
-    // Adjust the overlay's barcode highlighting to match the new viewfinder styles and improve the visibility of
-    // feedback. With 6.10 we will introduce this visual treatment as a new style for the overlay.
-    this.overlay.brush = new Brush(Color.fromRGBA(0, 0, 0, 0), Color.fromHex('FFFF'), 3);
+    // the video preview, using the Frame overlay style. This is optional, but recommended for better visual feedback.
+    this.overlay = BarcodeCaptureOverlay.withBarcodeCaptureForViewWithStyle(
+        this.barcodeCaptureMode,
+        this.viewRef.current,
+        BarcodeCaptureOverlayStyle.Frame
+    );
 
     // Add a square viewfinder as we are only scanning square QR codes.
     this.overlay.viewfinder = new RectangularViewfinder(

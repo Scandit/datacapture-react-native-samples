@@ -3,6 +3,7 @@ import { Alert, AppState, BackHandler } from 'react-native';
 import {
   BarcodeCapture,
   BarcodeCaptureOverlay,
+  BarcodeCaptureOverlayStyle,
   BarcodeCaptureSettings,
   Symbology,
   SymbologyDescription,
@@ -140,16 +141,16 @@ export class App extends Component {
     this.barcodeCaptureMode.addListener(this.barcodeCaptureListener);
 
     // Add a barcode capture overlay to the data capture view to render the location of captured barcodes on top of
-    // the video preview. This is optional, but recommended for better visual feedback.
-    this.overlay = BarcodeCaptureOverlay.withBarcodeCaptureForView(this.barcodeCaptureMode, this.viewRef.current);
+    // the video preview, using the Frame overlay style. This is optional, but recommended for better visual feedback.
+    this.overlay = BarcodeCaptureOverlay.withBarcodeCaptureForViewWithStyle(
+        this.barcodeCaptureMode,
+        this.viewRef.current,
+        BarcodeCaptureOverlayStyle.Frame
+    );
     this.overlay.viewfinder = new RectangularViewfinder(
         RectangularViewfinderStyle.Square,
         RectangularViewfinderLineStyle.Light,
     );
-
-    // Adjust the overlay's barcode highlighting to match the new viewfinder styles and improve the visibility of
-    // feedback. With 6.10 we will introduce this visual treatment as a new style for the overlay.
-    this.overlay.brush = new Brush(Color.fromRGBA(0, 0, 0, 0), Color.fromHex('FFFF'), 3);
 
     this.overlay = this.overlay;
   }

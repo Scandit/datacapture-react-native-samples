@@ -4,20 +4,29 @@ import {SafeAreaView} from 'react-native';
 import {EmptySpaceDivider, SettingsSection, ToggleItem,} from '../../../common';
 
 import BCContext from '../../../data/BCContext';
-import {TorchSwitchControl} from 'scandit-react-native-datacapture-core';
+import {TorchSwitchControl, ZoomSwitchControl} from 'scandit-react-native-datacapture-core';
 
-const control = new TorchSwitchControl();
+const torchSwitchControl = new TorchSwitchControl();
+const zoomSwitchControl = new ZoomSwitchControl();
 
 export const Controls = () => {
     const appContext = useContext(BCContext);
 
     const controls = appContext.viewRef.current?.view?.controls;
 
-    const toggleSwitch = (isEnabled) => {
+    const toggleTorchSwitch = (isEnabled) => {
         if (isEnabled) {
-            appContext.viewRef.current.addControl(control);
+            appContext.viewRef.current.addControl(torchSwitchControl);
         } else {
-            appContext.viewRef.current.removeControl(control);
+            appContext.viewRef.current.removeControl(torchSwitchControl);
+        }
+    }
+
+    const toggleZoomSwitch = (isEnabled) => {
+        if (isEnabled) {
+            appContext.viewRef.current.addControl(zoomSwitchControl);
+        } else {
+            appContext.viewRef.current.removeControl(zoomSwitchControl);
         }
     }
 
@@ -28,8 +37,13 @@ export const Controls = () => {
             <SettingsSection>
                 <ToggleItem
                     title={'Torch Button'}
-                    isEnabledInitially={controls.includes(control)}
-                    onValueChange={toggleSwitch}
+                    isEnabledInitially={controls.includes(torchSwitchControl)}
+                    onValueChange={toggleTorchSwitch}
+                />
+                <ToggleItem
+                    title={'Zoom Switch Button'}
+                    isEnabledInitially={controls.includes(zoomSwitchControl)}
+                    onValueChange={toggleZoomSwitch}
                 />
             </SettingsSection>
         </SafeAreaView>

@@ -4,6 +4,7 @@ import {
   BarcodeTracking,
   BarcodeTrackingAdvancedOverlay,
   BarcodeTrackingBasicOverlay,
+  BarcodeTrackingBasicOverlayStyle,
   BarcodeTrackingScenario,
   BarcodeTrackingSettings,
   Symbology,
@@ -145,7 +146,11 @@ export class App extends Component {
     // Add a barcode tracking overlay to the data capture view to render the tracked barcodes on top of the video
     // preview. This is optional, but recommended for better visual feedback. The overlay is automatically added
     // to the view.
-    const basicOverlay = BarcodeTrackingBasicOverlay.withBarcodeTrackingForView(this.barcodeTracking, this.viewRef.current);
+    const basicOverlay = BarcodeTrackingBasicOverlay.withBarcodeTrackingForViewWithStyle(
+        this.barcodeTracking,
+        this.viewRef.current,
+        BarcodeTrackingBasicOverlayStyle.Dot
+    );
     basicOverlay.brush = new Brush(Color.fromHex('FFF0'), Color.fromHex('FFFF'), 2);
 
     // Add an advanced barcode tracking overlay to the data capture view to render AR visualization on top of

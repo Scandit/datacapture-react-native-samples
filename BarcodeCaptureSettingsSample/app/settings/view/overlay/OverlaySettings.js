@@ -5,10 +5,12 @@ import {
     PickerItem,
     SettingsSection,
     EmptySpaceDivider,
+    RadioList,
 } from '../../../common';
 
 import BCContext from '../../../data/BCContext';
 import {Brush, Color} from 'scandit-react-native-datacapture-core';
+import {BarcodeCaptureOverlay, BarcodeCaptureOverlayStyle} from 'scandit-react-native-datacapture-barcode';
 
 const availableBrushes = {
     'default': new Brush(),
@@ -26,6 +28,14 @@ export const Overlay = () => {
 
     const [pickerValue, setPickerValue] = useState(brushFillColorMapping[appContext.overlay.brush.fillColor.toJSON()] || 'default');
 
+    const onRadioItemClick = (overlayStyle) => {
+        appContext.overlay = BarcodeCaptureOverlay.withBarcodeCaptureForViewWithStyle(
+            appContext.barcodeCaptureMode,
+            appContext.viewRef.current,
+            overlayStyle
+        );
+    }
+
     const onValueChange = (pickerValue) => {
         setPickerValue(pickerValue);
         appContext.overlay.brush = availableBrushes[pickerValue];
@@ -33,6 +43,17 @@ export const Overlay = () => {
 
     return (
         <SafeAreaView>
+            <EmptySpaceDivider height={25}/>
+
+            <SettingsSection>
+                <RadioList
+                    selectedIcon={'checkmark-outline'}
+                    initialSelectedValue={appContext.overlay.style}
+                    onSelectedValue={onRadioItemClick}
+                    items={Object.entries(BarcodeCaptureOverlayStyle).map(([key, value]) => ({label: key, value}))}
+                />
+            </SettingsSection>
+
             <EmptySpaceDivider height={25}/>
 
             <SettingsSection>

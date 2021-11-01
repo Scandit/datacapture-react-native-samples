@@ -3,6 +3,7 @@ import { AppState, BackHandler } from 'react-native';
 import {
   BarcodeTracking,
   BarcodeTrackingBasicOverlay,
+  BarcodeTrackingBasicOverlayStyle,
   BarcodeTrackingSettings,
   Symbology,
 } from 'scandit-react-native-datacapture-barcode';
@@ -144,15 +145,19 @@ export class ScanPage extends Component {
 
     // Add a barcode tracking overlay to the data capture view to render the location of captured barcodes on top of
     // the video preview. This is optional, but recommended for better visual feedback.
-    const overlay = BarcodeTrackingBasicOverlay.withBarcodeTrackingForView(this.barcodeTracking, this.viewRef.current);
+    const overlay = BarcodeTrackingBasicOverlay.withBarcodeTrackingForViewWithStyle(
+        this.barcodeTracking,
+        this.viewRef.current,
+        BarcodeTrackingBasicOverlayStyle.Frame
+    );
 
     // Implement the BarcodeTrackingBasicOverlayListener interface. 
     // The method BarcodeTrackingBasicOverlayListener.brushForTrackedBarcode() is invoked every time a new tracked 
     // barcode appears and it can be used to set a brush that will highlight that specific barcode in the overlay.
     overlay.listener = {
       brushForTrackedBarcode: (overlay, trackedBarcode) => new Brush(
-        Color.fromRGBA(255, 255, 255, 0.4),
-        Color.fromRGBA(255, 255, 255, 1),
+        Color.fromRGBA(0, 255, 0, 0.4),
+        Color.fromRGBA(0, 255, 0, 1),
         2
       )
     };
