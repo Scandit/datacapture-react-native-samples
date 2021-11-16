@@ -159,9 +159,9 @@ export class ScanPage extends Component {
         const { barcode } = trackedBarcode;
 
         if (barcode.data.isRejected()) {
-          return new Brush(Color.fromRGBA(255, 57, 57, 0.3), Color.fromRGBA(255, 57, 57, 1), 1);
+          return new Brush(Color.fromRGBA(255, 255, 255, 0), Color.fromHex('#FA4446'), 3);
         } else {
-          return new Brush(Color.fromRGBA(57, 255, 57, 0.3), Color.fromRGBA(57, 255, 57, 1), 1);
+          return new Brush(Color.fromRGBA(255, 255, 255, 0), Color.fromHex('#26D381'), 3);
         }
       },
     };

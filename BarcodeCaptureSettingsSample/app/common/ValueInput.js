@@ -26,7 +26,7 @@ export const ValueInput = ({title = '', defaultValue = {}, onValueUpdate, measur
                 <TextInput
                     style={styles.valueInput}
                     placeholder='0'
-                    onEndEditing={e => onEndEditing(e.nativeEvent.text)}
+                    onChange={e => onEndEditing(e.nativeEvent.text)}
                     keyboardType='numeric'
                     returnKeyLabel='Update'
                     maxLength={5}

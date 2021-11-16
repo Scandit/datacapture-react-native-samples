@@ -156,9 +156,9 @@ export class ScanPage extends Component {
     // barcode appears and it can be used to set a brush that will highlight that specific barcode in the overlay.
     overlay.listener = {
       brushForTrackedBarcode: (overlay, trackedBarcode) => new Brush(
-        Color.fromRGBA(0, 255, 0, 0.4),
-        Color.fromRGBA(0, 255, 0, 1),
-        2
+        Color.fromRGBA(255, 255, 255, 0),
+        Color.fromRGBA(255, 255, 255, 1),
+        3
       )
     };
   }
