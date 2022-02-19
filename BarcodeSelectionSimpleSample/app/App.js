@@ -110,6 +110,9 @@ export default class App extends Component {
     if (!this.camera) {
       this.camera = Camera.default;
       this.dataCaptureContext.setFrameSource(this.camera);
+
+      const cameraSettings = BarcodeSelection.recommendedCameraSettings;
+      this.camera.applySettings(cameraSettings);
     }
 
     requestCameraPermissionsIfNeeded()

@@ -24,6 +24,47 @@ import { Mode, SettingsContext } from './SettingsContext';
 export class ScanPage extends Component {
   static contextType = SettingsContext;
 
+  // Settings for GS1 mode.
+  gs1Viewfinder = (() => {
+    const viewfinder = new RectangularViewfinder(
+      RectangularViewfinderStyle.Square,
+      RectangularViewfinderLineStyle.Light,
+    );
+    viewfinder.dimming = 0.2;
+    viewfinder.setWidthAndAspectRatio(new NumberWithUnit(0.9, MeasureUnit.Fraction), 0.2);
+
+    viewfinder.defaultDisabledDimming = viewfinder.disabledDimming;
+    viewfinder.defaultDisabledColor = viewfinder.disabledColor;
+
+    viewfinder.disabledDimming = viewfinder.dimming;
+    viewfinder.disabledColor = viewfinder.color;
+
+    return viewfinder;
+  })()
+  gs1Settings = (() => {
+    const settings = TextCaptureSettings.fromJSON({ regex: "((\\\(\\\d+\\\)[\\\dA-Z]+)+)" })
+    settings.locationSelection = RectangularLocationSelection
+      .withWidthAndAspectRatio(new NumberWithUnit(0.9, MeasureUnit.Fraction), 0.2);
+    return settings;
+  })()
+
+  // Settings for LOT mode.
+  lotViewfinder = (() => {
+    const viewfinder = new RectangularViewfinder(
+      RectangularViewfinderStyle.Square,
+      RectangularViewfinderLineStyle.Light,
+    );
+    viewfinder.dimming = 0.2;
+    viewfinder.setWidthAndAspectRatio(new NumberWithUnit(0.6, MeasureUnit.Fraction), 0.2);
+    return viewfinder;
+  })()
+  lotSettings = (() => {
+    const settings = TextCaptureSettings.fromJSON({ regex: "([A-Z0-9]{6,8})" });
+    settings.locationSelection = RectangularLocationSelection
+      .withWidthAndAspectRatio(new NumberWithUnit(0.6, MeasureUnit.Fraction), 0.2);
+    return settings;
+  })()
+
   constructor() {
     super();
 
@@ -39,6 +80,11 @@ export class ScanPage extends Component {
 
     this.props.navigation.addListener('focus', () => {
       this.updateSettings();
+      this.startCapture();
+    });
+
+    this.props.navigation.addListener('blur', () => {
+      this.stopCapture();
     });
   }
 
@@ -137,49 +183,27 @@ export class ScanPage extends Component {
       new NumberWithUnit(this.context.settings.position, MeasureUnit.Fraction),
     )
 
-    // Settings for GS1 mode.
-    const gs1Viewfinder = (() => {
-      const viewfinder = new RectangularViewfinder(
-        RectangularViewfinderStyle.Square,
-        RectangularViewfinderLineStyle.Light,
-      );
-      viewfinder.dimming = 0.2;
-      viewfinder.setWidthAndAspectRatio(new NumberWithUnit(0.9, MeasureUnit.Fraction), 0.2);
-      return viewfinder;
-    })()
-    const gs1Settings = (() => {
-      const settings = TextCaptureSettings.fromJSON({ regex: "((\\\(\\\d+\\\)[\\\dA-Z]+)+)" })
-      settings.locationSelection = RectangularLocationSelection
-        .withWidthAndAspectRatio(new NumberWithUnit(0.9, MeasureUnit.Fraction), 0.2);
-      return settings;
-    })()
-
-    // Settings for LOT mode.
-    const lotViewfinder = (() => {
-      const viewfinder = new RectangularViewfinder(
-        RectangularViewfinderStyle.Square,
-        RectangularViewfinderLineStyle.Light,
-      );
-      viewfinder.dimming = 0.2;
-      viewfinder.setWidthAndAspectRatio(new NumberWithUnit(0.6, MeasureUnit.Fraction), 0.2);
-      return viewfinder;
-    })()
-    const lotSettings = (() => {
-      const settings = TextCaptureSettings.fromJSON({ regex: "([A-Z0-9]{6,8})" });
-      settings.locationSelection = RectangularLocationSelection
-        .withWidthAndAspectRatio(new NumberWithUnit(0.6, MeasureUnit.Fraction), 0.2);
-      return settings;
-    })()
-
     // Apply settings for the given mode.
-    this.textCapture.applySettings(this.context.settings.mode === Mode.LOT ? lotSettings : gs1Settings);
-    this.overlay.viewfinder = this.context.settings.mode === Mode.LOT ? lotViewfinder : gs1Viewfinder;
+    this.textCapture.applySettings(this.context.settings.mode === Mode.LOT ? this.lotSettings : this.gs1Settings);
+    this.overlay.viewfinder = this.context.settings.mode === Mode.LOT ? this.lotViewfinder : this.gs1Viewfinder;
   }
 
   showResult(result) {
+    this.gs1Viewfinder.disabledDimming = this.gs1Viewfinder.defaultDisabledDimming;
+    this.gs1Viewfinder.disabledColor = this.gs1Viewfinder.defaultDisabledColor;
+
+    this.textCapture.isEnabled = false;
+
     Alert.alert(
       null, result,
-      [{ text: 'OK', onPress: () => this.textCapture.isEnabled = true }],
+      [{
+        text: 'OK', onPress: () => {
+          this.gs1Viewfinder.disabledDimming = this.gs1Viewfinder.dimming;
+          this.gs1Viewfinder.disabledColor = this.gs1Viewfinder.color;
+
+          this.textCapture.isEnabled = true;
+        }
+      }],
       { cancelable: false }
     );
   }

@@ -11,9 +11,7 @@ import {
 } from 'scandit-react-native-datacapture-barcode';
 import {
   Anchor,
-  Brush,
   Camera,
-  Color,
   DataCaptureContext,
   DataCaptureView,
   FrameSourceState,
@@ -151,7 +149,6 @@ export class App extends Component {
         this.viewRef.current,
         BarcodeTrackingBasicOverlayStyle.Dot
     );
-    basicOverlay.brush = new Brush(Color.fromHex('FFF0'), Color.fromHex('FFFF'), 2);
 
     // Add an advanced barcode tracking overlay to the data capture view to render AR visualization on top of
     // the camera preview.

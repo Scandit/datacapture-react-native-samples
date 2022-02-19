@@ -79,6 +79,10 @@ export class App extends Component {
       IdDocumentType.IdCardVIZ,
       IdDocumentType.AAMVABarcode,
       IdDocumentType.DLVIZ,
+      IdDocumentType.ArgentinaIdBarcode,
+      IdDocumentType.ColombiaIdBarcode,
+      IdDocumentType.SouthAfricaDlBarcode,
+      IdDocumentType.SouthAfricaIdBarcode,
     ];
 
     // Create new Id capture mode with the settings from above.
@@ -106,6 +110,8 @@ export class App extends Component {
           result = this.descriptionForUsDriverLicenseBarcodeResult(session.newlyCapturedId);
         } else if (session.newlyCapturedId.usUniformedServicesBarcodeResult != null) {
           result = this.descriptionForUsUniformedServicesBarcodeResult(session.newlyCapturedId);
+        } else {
+          result = this.descriptionForCapturedId(session.newlyCapturedId);
         }
 
         Alert.alert(

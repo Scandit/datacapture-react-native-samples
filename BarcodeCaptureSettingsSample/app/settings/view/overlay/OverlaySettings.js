@@ -29,6 +29,8 @@ export const Overlay = () => {
     const [pickerValue, setPickerValue] = useState(brushFillColorMapping[appContext.overlay.brush.fillColor.toJSON()] || 'default');
 
     const onRadioItemClick = (overlayStyle) => {
+        appContext.viewRef.current.view.overlays.forEach(overlay => appContext.viewRef.current.view.removeOverlay(overlay));
+
         appContext.overlay = BarcodeCaptureOverlay.withBarcodeCaptureForViewWithStyle(
             appContext.barcodeCaptureMode,
             appContext.viewRef.current,

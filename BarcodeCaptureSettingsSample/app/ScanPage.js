@@ -4,6 +4,7 @@ import {useIsFocused} from '@react-navigation/native';
 import {
     BarcodeCapture,
     BarcodeCaptureOverlay,
+    BarcodeCaptureOverlayStyle,
     BarcodeCaptureSettings,
     BarcodeCaptureFeedback,
     SymbologyDescription,
@@ -186,7 +187,11 @@ class ScanPage extends Component {
         // Add a barcode capture overlay to the data capture view to render the location of captured barcodes on top of
         // the video preview. This is optional, but recommended for better visual feedback.
         if (!this.context.overlay) {
-            this.context.overlay = BarcodeCaptureOverlay.withBarcodeCaptureForView(this.context.barcodeCaptureMode, this.context.viewRef.current);
+            this.context.overlay = BarcodeCaptureOverlay.withBarcodeCaptureForViewWithStyle(
+                this.context.barcodeCaptureMode,
+                this.context.viewRef.current,
+                BarcodeCaptureOverlayStyle.Frame,
+            );
         }
     }
 
