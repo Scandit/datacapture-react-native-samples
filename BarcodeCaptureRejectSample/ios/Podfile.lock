@@ -333,10 +333,10 @@ PODS:
     - React-cxxreact (= 0.65.1)
     - React-jsi (= 0.65.1)
     - React-perflogger (= 0.65.1)
-  - scandit-react-native-datacapture-barcode (6.11.0-beta.1.snapshot):
+  - scandit-react-native-datacapture-barcode (6.12.0-beta.1.snapshot):
     - React
     - scandit-react-native-datacapture-core
-  - scandit-react-native-datacapture-core (6.11.0-beta.1.snapshot):
+  - scandit-react-native-datacapture-core (6.12.0-beta.1.snapshot):
     - React
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
@@ -519,11 +519,11 @@ SPEC CHECKSUMS:
   React-RCTVibration: 92d41c2442e5328cc4d342cd7f78e5876b68bae5
   React-runtimeexecutor: 85187f19dd9c47a7c102f9994f9d14e4dc2110de
   ReactCommon: eafed38eec7b591c31751bfa7494801618460459
-  scandit-react-native-datacapture-barcode: 642826ee59a147eec71be31f02eb486276e74bb7
-  scandit-react-native-datacapture-core: cd581d5b65f4eca33a792e163c2e8a5768c8282f
+  scandit-react-native-datacapture-barcode: c991af7ead03d569d6102250ab5c9852aaeb1fb3
+  scandit-react-native-datacapture-core: 7f7ec8fb5281c7cf78569d27e16995943c6f8568
   Yoga: aa0cb45287ebe1004c02a13f279c55a95f1572f4
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
 PODFILE CHECKSUM: 40346421bdc647436df2a1c386917a506e6c46b9
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.11.2

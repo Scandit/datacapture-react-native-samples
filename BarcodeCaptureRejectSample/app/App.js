@@ -10,16 +10,16 @@ import {
 } from 'scandit-react-native-datacapture-barcode';
 import {
   Brush,
-  Color,
   Camera,
   CameraSettings,
+  Color,
   DataCaptureContext,
   DataCaptureView,
   Feedback,
   FrameSourceState,
   RectangularViewfinder,
-  RectangularViewfinderStyle,
   RectangularViewfinderLineStyle,
+  RectangularViewfinderStyle,
   VideoResolution,
 } from 'scandit-react-native-datacapture-core';
 
@@ -117,12 +117,12 @@ export class App extends Component {
           return;
         }
 
-        this.overlay.brush = new Brush(Color.fromHex('FFF0'), Color.fromHex('FFFF'), 3);
-
         // Stop recognizing barcodes for as long as we are displaying the result. There won't be any
         // new results until the capture mode is enabled again. Note that disabling the capture mode
         // does not stop the camera, the camera continues to stream frames until it is turned off.
         this.barcodeCaptureMode.isEnabled = false;
+
+        this.overlay.brush = new Brush(Color.fromHex('FFF0'), Color.fromHex('FFFF'), 3);
 
         Feedback.defaultFeedback.emit()
 

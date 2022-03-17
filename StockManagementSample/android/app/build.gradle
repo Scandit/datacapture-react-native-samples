@@ -146,12 +146,6 @@ android {
         }
     }
     signingConfigs {
-        release {
-            storeFile file('keystore-scandit.jks')
-            storePassword System.getenv("ANDROID_KEYSTORE_PASSWORD")
-            keyAlias "scandit-release-key"
-            keyPassword System.getenv("ANDROID_KEYSTORE_PASSWORD")
-        }
         debug {
             storeFile file('debug.keystore')
             storePassword 'android'
@@ -164,7 +158,6 @@ android {
             signingConfig signingConfigs.debug
         }
         release {
-            signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }

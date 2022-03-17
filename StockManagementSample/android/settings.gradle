@@ -7,3 +7,15 @@ project(':scandit-react-native-datacapture-barcode:android').projectDir = new Fi
 rootProject.name = 'StockManagementSample'
 apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
 include ':app'
+
+if (file("../../../../common/libs.versions.toml").exists()) {
+    enableFeaturePreview("VERSION_CATALOGS")
+
+    dependencyResolutionManagement {
+        versionCatalogs {
+            libs {
+                from(files("../../../../common/libs.versions.toml"))
+            }
+        }
+    }
+}
