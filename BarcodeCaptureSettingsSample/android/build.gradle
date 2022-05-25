@@ -34,8 +34,14 @@ allprojects {
 
         maven {  url file("$projectDir/../../android-m2repository")  }
 
+        mavenCentral {
+            // We don't want to fetch react-native from Maven Central as there are
+            // older versions over there.
+            content {
+                excludeGroup "com.facebook.react"
+            }
+        }
         google()
-        mavenCentral()
         maven { url 'https://www.jitpack.io' }
     }
 }

@@ -1,0 +1,18 @@
+include 'scandit-react-native-datacapture-core:android'
+project(':scandit-react-native-datacapture-core:android').projectDir = new File("../node_modules/scandit-react-native-datacapture-core/android")
+
+rootProject.name = 'BarcodeCaptureViewsSample'
+apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
+include ':app'
+
+if (file("../../../../common/libs.versions.toml").exists()) {
+    enableFeaturePreview("VERSION_CATALOGS")
+
+    dependencyResolutionManagement {
+        versionCatalogs {
+            libs {
+                from(files("../../../../common/libs.versions.toml"))
+            }
+        }
+    }
+}
