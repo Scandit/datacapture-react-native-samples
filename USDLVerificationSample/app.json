@@ -1,0 +1,7 @@
+{
+  "name": "USDLVerificationSample",
+  "displayName": "USDLVerification",
+  "android": {
+    "package": "com.scandit.usdlverificationsample"
+  }
+}

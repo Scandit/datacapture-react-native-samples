@@ -72,11 +72,8 @@ export default class App extends Component {
           this.setState({ result: result })
           setTimeout(() => {
             this.setState({ result: null });
-            this.barcodeSelection.isEnabled = true;
           }, 500);
         });
-
-        this.barcodeSelection.isEnabled = false;
       }
     });
 
