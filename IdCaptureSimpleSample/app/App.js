@@ -83,6 +83,8 @@ export class App extends Component {
       IdDocumentType.ColombiaIdBarcode,
       IdDocumentType.SouthAfricaDlBarcode,
       IdDocumentType.SouthAfricaIdBarcode,
+      IdDocumentType.ChinaExitEntryPermitMRZ,
+      IdDocumentType.ChinaMainlandTravelPermitMRZ,
     ];
 
     // Create new Id capture mode with the settings from above.
