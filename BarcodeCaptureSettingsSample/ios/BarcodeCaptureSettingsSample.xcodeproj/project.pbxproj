@@ -445,6 +445,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"${PODS_ROOT}/../../node_modules/scandit-react-native-datacapture-barcode/ios/Frameworks\"",
 					"\"${PODS_ROOT}/../../node_modules/scandit-react-native-datacapture-core/ios/Frameworks\"",

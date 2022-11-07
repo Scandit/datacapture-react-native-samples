@@ -3,8 +3,8 @@
 buildscript {
     ext {
         minSdkVersion = 21
-        compileSdkVersion = 30
-        targetSdkVersion = 30
+        compileSdkVersion = 32
+        targetSdkVersion = 32
         kotlin_version = "1.5.31"
         agp_version = "7.0.3"
     }
