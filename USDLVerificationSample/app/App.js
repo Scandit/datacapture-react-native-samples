@@ -36,11 +36,11 @@ export const App = () => {
     const [notification, setNotification] = useState('Align front of document');
 
     useEffect(() => {
-        AppState.addEventListener('change', handleAppStateChange);
+        handleAppStateChangeSubscription = AppState.addEventListener('change', handleAppStateChange);
         startCapture();
         setupCapture();
         return () => {
-            AppState.removeEventListener('change', handleAppStateChange);
+            handleAppStateChangeSubscription.remove();
             dataCaptureContext.dispose()
         }
     }, []);

@@ -85,7 +85,7 @@ export class MainScreen extends Component {
   }
 
   async componentDidMount() {
-    AppState.addEventListener('change', this.handleAppStateChange);
+    this.handleAppStateChangeSubscription = AppState.addEventListener('change', this.handleAppStateChange);
     this.unsubscribeFocusListener = this.navigation.addListener('focus', () => {
       this.startCamera();
       if (this.captureMode) {
@@ -104,7 +104,7 @@ export class MainScreen extends Component {
   }
 
   componentWillUnmount() {
-    AppState.removeEventListener('change', this.handleAppStateChange);
+    this.handleAppStateChangeSubscription.remove();
     this.unsubscribeFocusListener();
     this.unsubscribeBlurListener();
     this.dataCaptureContext.dispose();

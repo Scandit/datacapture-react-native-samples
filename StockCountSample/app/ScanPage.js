@@ -50,21 +50,22 @@ export class ScanPage extends Component {
   }
 
   componentDidMount() {
-    AppState.addEventListener('change', this.handleAppStateChange);
+    this.handleAppStateChangeSubscription = AppState.addEventListener('change', this.handleAppStateChange);
     this.setupScanning();
 
     // Keep Scandit logo visible on screen when scanning.
     this.viewRef.current.logoAnchor = Anchor.BottomRight;
     this.viewRef.current.logoOffset = this.logoOffset();
 
-    this.props.navigation.addListener('focus', () => {
+    this.unsubscribeFocus = this.props.navigation.addListener('focus', () => {
       this.results = {};
     });
   }
 
   componentWillUnmount() {
-    AppState.removeEventListener('change', this.handleAppStateChange);
+    this.handleAppStateChangeSubscription.remove();
     this.dataCaptureContext.dispose();
+    this.unsubscribeFocus();
   }
 
   handleAppStateChange = async (nextAppState) => {
