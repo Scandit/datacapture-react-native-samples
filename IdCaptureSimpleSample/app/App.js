@@ -6,14 +6,7 @@ import {
   DataCaptureView,
   FrameSourceState,
 } from 'scandit-react-native-datacapture-core';
-import {
-  IdCapture,
-  IdCaptureOverlay,
-  IdCaptureSettings,
-  IdDocumentType,
-  IdLayoutStyle,
-  SupportedSides,
-} from 'scandit-react-native-datacapture-id';
+import { IdCapture, IdCaptureOverlay, IdCaptureSettings, IdDocumentType, IdLayoutStyle } from 'scandit-react-native-datacapture-id';
 
 import { requestCameraPermissionsIfNeeded } from './camera-permission-handler';
 
@@ -28,12 +21,12 @@ export class App extends Component {
   }
 
   componentDidMount() {
-    this.handleAppStateChangeSubscription = AppState.addEventListener('change', this.handleAppStateChange);
+    AppState.addEventListener('change', this.handleAppStateChange);
     this.setupCapture();
   }
 
   componentWillUnmount() {
-    this.handleAppStateChangeSubscription.remove();
+    AppState.removeEventListener('change', this.handleAppStateChange);
     this.dataCaptureContext.dispose();
   }
 
@@ -92,9 +85,6 @@ export class App extends Component {
       IdDocumentType.SouthAfricaIdBarcode,
       IdDocumentType.ChinaExitEntryPermitMRZ,
       IdDocumentType.ChinaMainlandTravelPermitMRZ,
-      IdDocumentType.ChinaOneWayPermitBackMRZ,
-      IdDocumentType.ChinaOneWayPermitFrontMRZ,
-      IdDocumentType.ApecBusinessTravelCardMRZ,
     ];
 
     // Create new Id capture mode with the settings from above.
@@ -122,12 +112,6 @@ export class App extends Component {
           result = this.descriptionForUsDriverLicenseBarcodeResult(session.newlyCapturedId);
         } else if (session.newlyCapturedId.usUniformedServicesBarcodeResult != null) {
           result = this.descriptionForUsUniformedServicesBarcodeResult(session.newlyCapturedId);
-        } else if (session.newlyCapturedId.apecBusinessTravelCardMrzResult != null) {
-          result = this.descriptionForApecBusinessTravelCardMrzResult(session.newlyCapturedId);
-        } else if (session.newlyCapturedId.chinaOneWayPermitFrontMrzResult != null) {
-          result = this.descriptionForChinaOneWayPermitFrontMrzResult(session.newlyCapturedId);
-        } else if (session.newlyCapturedId.chinaOneWayPermitBackMrzResult != null) {
-          result = this.descriptionForChinaOneWayPermitBackMrzResult(session.newlyCapturedId);
         } else {
           result = this.descriptionForCapturedId(session.newlyCapturedId);
         }
@@ -185,7 +169,6 @@ export class App extends Component {
   descriptionForUsDriverLicenseBarcodeResult(result) {
     return `${this.descriptionForCapturedId(result)}
     AAMVA Version: ${result.aamvaBarcodeResult.aamvaVersion}
-    Is Real Id Compliant: ${result.aamvaBarcodeResult.isRealId ? "Yes":"No"}
     Jurisdiction Version: ${result.aamvaBarcodeResult.jurisdictionVersion}
     IIN: ${result.aamvaBarcodeResult.iIN}
     Issuing Jurisdiction: ${result.aamvaBarcodeResult.issuingJurisdiction}
@@ -202,7 +185,7 @@ export class App extends Component {
     Vehicle Class: ${result.aamvaBarcodeResult.vehicleClass || "empty"}
     Restrictions Code: ${result.aamvaBarcodeResult.restrictionsCode || "empty"}
     Endorsements Code: ${result.aamvaBarcodeResult.endorsementsCode || "empty"}
-    Card Revision Date: ${this.getDateAsString(result.aamvaBarcodeResult.cardRevisionDate)}
+    Card Revision Date: ${JSON.stringify(result.aamvaBarcodeResult.cardRevisionDate.date) || "empty"}
     Middle Name: ${result.aamvaBarcodeResult.middleName || "empty"}
     Driver Name Suffix: ${result.aamvaBarcodeResult.driverNameSuffix || "empty"}
     Driver Name Prefix: ${result.aamvaBarcodeResult.driverNamePrefix || "empty"}
@@ -236,8 +219,8 @@ export class App extends Component {
     MWR Flag Description: ${result.usUniformedServicesBarcodeResult.mwrFlagDescription}
     Exchange Flag Code: ${result.usUniformedServicesBarcodeResult.exchangeFlagCode}
     Exchange Flag Description: ${result.usUniformedServicesBarcodeResult.exchangeFlagDescription}
-    Champus Effective Date: ${this.getDateAsString(result.usUniformedServicesBarcodeResult.champusEffectiveDate)}
-    Champus Expiry Date: ${this.getDateAsString(result.usUniformedServicesBarcodeResult.champusExpiryDate)}
+    Champus Effective Date: ${JSON.stringify(result.usUniformedServicesBarcodeResult.champusEffectiveDate.date) || "empty"}
+    Champus Expiry Date: ${JSON.stringify(result.usUniformedServicesBarcodeResult.champusExpiryDate.date) || "empty"}
     Form Number: ${result.usUniformedServicesBarcodeResult.formNumber}
     Security Code: ${result.usUniformedServicesBarcodeResult.securityCode}
     Service Code: ${result.usUniformedServicesBarcodeResult.serviceCode}
@@ -254,35 +237,12 @@ export class App extends Component {
     Blood Type: ${result.usUniformedServicesBarcodeResult.bloodType || "empty"}`
   }
 
-  descriptionForChinaOneWayPermitFrontMrzResult(result) {
-    return `${this.descriptionForCapturedId(result)}
-    Document Code: ${result.chinaOneWayPermitFrontMrzResult.documentCode}
-    Full Name Simplified Chinese: ${result.chinaOneWayPermitFrontMrzResult.fullNameSimplifiedChinese}
-    Captured MRZ: ${result.chinaOneWayPermitFrontMrzResult.capturedMrz}`
-  }
-
-  descriptionForChinaOneWayPermitBackMrzResult(result) {
-    return `${this.descriptionForCapturedId(result)}
-    Document Code: ${result.chinaOneWayPermitBackMrzResult.documentCode}
-    Names Are Truncated: ${result.chinaOneWayPermitBackMrzResult.namesAreTruncated ? "Yes":"No"}
-    Captured MRZ: ${result.chinaOneWayPermitBackMrzResult.capturedMrz}`
-  }
-
-  descriptionForApecBusinessTravelCardMrzResult(result) {
-    return `${this.descriptionForCapturedId(result)}
-    Document Code: ${result.apecBusinessTravelCardMrzResult.documentCode}
-    Names Are Truncated: ${result.apecBusinessTravelCardMrzResult.namesAreTruncated ? "Yes" : "No"}
-    Passport Issuer Iso: ${result.apecBusinessTravelCardMrzResult.passportIssuerIso}
-    Passport Number: ${result.apecBusinessTravelCardMrzResult.passportNumber}
-    Passport Date Of Expiry: ${this.getDateAsString(result.apecBusinessTravelCardMrzResult.passportDateOfExpiry)}`
-  }
-
   descriptionForCapturedId(result) {
     return `Name: ${result.firstName || "empty"}
     Last Name: ${result.lastName || "empty"}
     Full Name: ${result.fullName}
     Sex: ${result.sex || "empty"}
-    Date of Birth: ${this.getDateAsString(result.dateOfBirth)}
+    Date of Birth: ${JSON.stringify(result.dateOfBirth && result.dateOfBirth.date) || "empty"}
     Nationality: ${result.nationality || "empty"}
     Address: ${result.address || "empty"}
     Document Type: ${result.documentType}
@@ -290,18 +250,8 @@ export class App extends Component {
     Issuing Country: ${result.issuingCountry || "empty"}
     Issuing Country ISO: ${result.issuingCountryISO || "empty"}
     Document Number: ${result.documentNumber || "empty"}
-    Date of Expiry: ${this.getDateAsString(result.dateOfExpiry)}
-    Date of Issue: ${this.getDateAsString(result.dateOfIssue)}
-    Age: ${result.age || "empty"}
-    Is Expired: ${result.isExpired ? "Yes":"No"}`
-  }
-
-  getDateAsString(dateObject) {
-    return `${(dateObject && new Date(
-        dateObject.year,
-        dateObject.month,
-        dateObject.day
-    ).toLocaleDateString()) || "empty"}`
+    Date of Expiry: ${JSON.stringify(result.dateOfExpiry && result.dateOfExpiry.date) || "empty"}
+    Date of Issue: ${JSON.stringify(result.dateOfIssue && result.dateOfIssue.date) || "empty"}`
   }
 
   render() {

@@ -34,25 +34,28 @@ export class ScanPage extends Component {
     this.viewRef = React.createRef();
 
     this.results = {};
-  }
 
-  is_rejected = (value) => {
-    return value.startsWith('7') || value.startsWith('07');
+    // Define helper function for rejecting barcodes starting with "7". This is done for demo purposes.
+    Object.defineProperty(String.prototype, 'isRejected', {
+      value() {
+        return this.startsWith('7') || this.startsWith('07');
+      }
+    });
   }
 
   componentDidMount() {
-    this.handleAppStateChangeSubscription = AppState.addEventListener('change', this.handleAppStateChange);
+    AppState.addEventListener('change', this.handleAppStateChange);
+
     this.setupScanning();
-    this.unsubscribeFocus = this.props.navigation.addListener('focus', () => {
+
+    this.props.navigation.addListener('focus', () => {
       this.results = {};
     });
   }
 
   componentWillUnmount() {
-    this.handleAppStateChangeSubscription.remove();
-    this.stopCamera();
+    AppState.removeEventListener('change', this.handleAppStateChange);
     this.dataCaptureContext.dispose();
-    this.unsubscribeFocus();
   }
 
   handleAppStateChange = async (nextAppState) => {
@@ -125,12 +128,12 @@ export class ScanPage extends Component {
     this.barcodeTrackingListener = {
       didUpdateSession: (_, session) => {
         this.results = {};
-
+        
         Object.values(session.trackedBarcodes).forEach(trackedBarcode => {
           const { data, symbology } = trackedBarcode.barcode;
 
           // Keep track of all non-rejected barcodes.
-          if (!this.is_rejected(data)) {
+          if (!data.isRejected()) {
             this.results[data] = { data, symbology };
           }
         });
@@ -142,9 +145,9 @@ export class ScanPage extends Component {
     // Add a barcode tracking overlay to the data capture view to render the location of captured barcodes on top of
     // the video preview. This is optional, but recommended for better visual feedback.
     const overlay = BarcodeTrackingBasicOverlay.withBarcodeTrackingForViewWithStyle(
-      this.barcodeTracking,
-      this.viewRef.current,
-      BarcodeTrackingBasicOverlayStyle.Frame
+        this.barcodeTracking,
+        this.viewRef.current,
+        BarcodeTrackingBasicOverlayStyle.Frame
     );
 
     // Implement the BarcodeTrackingBasicOverlayListener interface. 
@@ -155,7 +158,7 @@ export class ScanPage extends Component {
         // Return a custom Brush based on the tracked barcode.
         const { barcode } = trackedBarcode;
 
-        if (this.is_rejected(barcode.data)) {
+        if (barcode.data.isRejected()) {
           return new Brush(Color.fromRGBA(255, 255, 255, 0), Color.fromHex('#FA4446'), 3);
         } else {
           return new Brush(Color.fromRGBA(255, 255, 255, 0), Color.fromHex('#26D381'), 3);

@@ -50,13 +50,13 @@ export class App extends Component {
   }
 
   componentDidMount() {
-    this.handleAppStateChangeSubscription = AppState.addEventListener('change', this.handleAppStateChange);
+    AppState.addEventListener('change', this.handleAppStateChange);
     this.setupScanning();
     this.startCapture();
   }
 
   componentWillUnmount() {
-    this.handleAppStateChangeSubscription.remove();
+    AppState.removeEventListener('change', this.handleAppStateChange);
     this.dataCaptureContext.dispose();
   }
 

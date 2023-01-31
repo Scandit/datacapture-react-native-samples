@@ -34,7 +34,7 @@ export default class App extends Component {
   }
 
   async componentDidMount() {
-    this.handleAppStateChangeSubscription = AppState.addEventListener('change', this.handleAppStateChange);
+    AppState.addEventListener('change', this.handleAppStateChange);
 
     this.startCamera();
 
@@ -85,7 +85,7 @@ export default class App extends Component {
   }
 
   componentWillUnmount() {
-    this.handleAppStateChangeSubscription.remove();
+    AppState.removeEventListener('change', this.handleAppStateChange);
     this.dataCaptureContext.dispose();
   }
 

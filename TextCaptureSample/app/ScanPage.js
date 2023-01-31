@@ -74,25 +74,23 @@ export class ScanPage extends Component {
   }
 
   componentDidMount() {
-    this.handleAppStateChangeSubscription = AppState.addEventListener('change', this.handleAppStateChange);
+    AppState.addEventListener('change', this.handleAppStateChange);
     this.setupScanning();
     this.startCapture();
 
-    this.unsubscribeFocus = this.props.navigation.addListener('focus', () => {
+    this.props.navigation.addListener('focus', () => {
       this.updateSettings();
       this.startCapture();
     });
 
-    this.unsubscribeBlur = this.props.navigation.addListener('blur', () => {
+    this.props.navigation.addListener('blur', () => {
       this.stopCapture();
     });
   }
 
   componentWillUnmount() {
-    this.handleAppStateChangeSubscription.remove();
+    AppState.removeEventListener('change', this.handleAppStateChange);
     this.dataCaptureContext.dispose();
-    this.unsubscribeFocus();
-    this.unsubscribeBlur();
   }
 
   handleAppStateChange = async (nextAppState) => {

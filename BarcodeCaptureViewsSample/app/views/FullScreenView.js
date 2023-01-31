@@ -40,12 +40,12 @@ export const FullScreenView = ({ navigation }) => {
     const [cameraState, setCameraState] = useState(FrameSourceState.Off);
 
     useEffect(() => {
-        handleAppStateChangeSubscription = AppState.addEventListener('change', handleAppStateChange);
+        AppState.addEventListener('change', handleAppStateChange);
         setupScanning();
         startCapture();
         return () => {
+            AppState.removeEventListener('change', handleAppStateChange);
             dataCaptureContext.dispose();
-            handleAppStateChangeSubscription.remove();
         }
     }, []);
 

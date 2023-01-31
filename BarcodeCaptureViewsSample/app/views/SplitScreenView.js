@@ -65,11 +65,11 @@ export const SplitScreenView = ({ navigation }) => {
     }, [navigation]);
 
     useEffect(() => {
-        handleAppStateChangeSubscription = AppState.addEventListener('change', handleAppStateChange);
+        AppState.addEventListener('change', handleAppStateChange);
         setupScanning();
         startCapture();
         return () => {
-            handleAppStateChangeSubscription.remove();
+            AppState.removeEventListener('change', handleAppStateChange);
             dataCaptureContext.dispose();
         }
     }, []);

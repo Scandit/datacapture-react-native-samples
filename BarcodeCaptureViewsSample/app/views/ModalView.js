@@ -40,7 +40,7 @@ export const ModalView = ({ modalVisible, setModalVisible }) => {
     const [cameraState, setCameraState] = useState(FrameSourceState.Off);
 
     useEffect(() => {
-        handleAppStateChangeSubscription = AppState.addEventListener('change', handleAppStateChange);
+        AppState.addEventListener('change', handleAppStateChange);
         // Modals are included in a screen even when not visible. We want to perform the setup steps only
         // once the modal becomes visible to the user.
         if (modalVisible) {
@@ -48,7 +48,7 @@ export const ModalView = ({ modalVisible, setModalVisible }) => {
             startCapture();
         }
         return () => {
-            handleAppStateChangeSubscription.remove();
+            AppState.removeEventListener('change', handleAppStateChange);
         }
     }, [modalVisible]);
 
