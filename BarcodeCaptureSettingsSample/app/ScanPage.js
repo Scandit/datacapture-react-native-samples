@@ -52,13 +52,14 @@ class ScanPage extends Component {
     }
 
     componentDidMount() {
-        AppState.addEventListener('change', this.handleAppStateChange);
+        this.handleAppStateChangeSubscription = AppState.addEventListener('change', this.handleAppStateChange);
         this.setupScanningWithSettings = this.setupScanningWithSettings.bind(this);
         this._unsubscribe = this.props.navigation.addListener('focus', this.setupScanningWithSettings);
     }
 
     componentWillUnmount() {
-        AppState.removeEventListener('change', this.handleAppStateChange);
+        this.handleAppStateChangeSubscription.remove();
+        this.stopCapture();
         this.context.dataCaptureContext.dispose();
         this._unsubscribe();
     }
