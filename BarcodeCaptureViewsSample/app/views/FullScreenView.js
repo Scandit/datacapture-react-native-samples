@@ -3,6 +3,8 @@ import {
     Alert,
     AppState,
     BackHandler,
+    Button,
+    View
 } from 'react-native';
 
 import {
@@ -28,9 +30,11 @@ import { requestCameraPermissionsIfNeeded } from '../camera-permission-handler';
 import { styles } from '../styles';
 
 import licenseKey  from '../license';
+import { useNavigation } from '@react-navigation/native';
 
-export const FullScreenView = ({ navigation }) => {
+export const FullScreenView = ({  }) => {
     const viewRef = useRef(null);
+    const navigation = useNavigation();
 
     const [dataCaptureContext, setDataCaptureContext] = useState(DataCaptureContext.forLicenseKey(licenseKey));
     const [camera, setCamera] = useState(null);
@@ -176,6 +180,14 @@ export const FullScreenView = ({ navigation }) => {
     }
 
     return (
-        <DataCaptureView style={styles.fullScreenView} context={dataCaptureContext} ref={viewRef} />
+        <View style={{flex: 1}}>
+            <DataCaptureView style={styles.fullScreenView} context={dataCaptureContext} ref={viewRef} />
+            <Button 
+                title={"Open split view"}
+                onPress={() => {
+                    navigation.navigate("sv");
+                }}
+            />
+        </View>
     );
 }
