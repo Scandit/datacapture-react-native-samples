@@ -12,7 +12,6 @@ import {
   IdCaptureSettings,
   IdDocumentType,
   IdLayoutStyle,
-  SupportedSides,
 } from 'scandit-react-native-datacapture-id';
 
 import { requestCameraPermissionsIfNeeded } from './camera-permission-handler';

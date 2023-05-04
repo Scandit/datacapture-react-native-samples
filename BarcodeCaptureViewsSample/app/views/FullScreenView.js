@@ -27,7 +27,7 @@ import { requestCameraPermissionsIfNeeded } from '../camera-permission-handler';
 
 import { styles } from '../styles';
 
-import licenseKey  from '../license';
+import licenseKey from '../license';
 
 export const FullScreenView = ({ navigation }) => {
     const viewRef = useRef(null);
@@ -44,8 +44,8 @@ export const FullScreenView = ({ navigation }) => {
         setupScanning();
         startCapture();
         return () => {
-            dataCaptureContext.dispose();
             handleAppStateChangeSubscription.remove();
+            dataCaptureContext.removeAllModes();
         }
     }, []);
 
@@ -112,7 +112,7 @@ export const FullScreenView = ({ navigation }) => {
         symbologySettings.activeSymbolCounts = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
 
         // Create new barcode capture mode with the settings from above.
-        const barcodeCaptureMode = BarcodeCapture.forContext(dataCaptureContext, settings);
+        const barcodeCapture = BarcodeCapture.forContext(dataCaptureContext, settings);
 
         // Register a listener to get informed whenever a new barcode is tracked.
         const barcodeCaptureListener = {
@@ -137,35 +137,35 @@ export const FullScreenView = ({ navigation }) => {
         };
 
         // Add the listener to the barcode capture context.
-        barcodeCaptureMode.addListener(barcodeCaptureListener);
+        barcodeCapture.addListener(barcodeCaptureListener);
 
         // Remove feedback so we can create custom feedback later on.
         const feedback = BarcodeCaptureFeedback.default;
         feedback.success = new Feedback(null, null);
-        barcodeCaptureMode.feedback = feedback;
+        barcodeCapture.feedback = feedback;
 
         // Add an overlay for the scanned barcodes.
-        const barcodeCaptureOverlay = BarcodeCaptureOverlay.withBarcodeCaptureForView(barcodeCaptureMode, null);
+        const barcodeCaptureOverlay = BarcodeCaptureOverlay.withBarcodeCaptureForView(barcodeCapture, null);
         viewRef.current.addOverlay(barcodeCaptureOverlay);
-        setBarcodeCaptureMode(barcodeCaptureMode);
+        setBarcodeCaptureMode(barcodeCapture);
     }
 
     const startCapture = () => {
         startCamera();
         setIsBarcodeCaptureEnabled(true);
-    }
+    };
 
     const startCamera = () => {
         if (!camera) {
             // Use the world-facing (back) camera and set it as the frame source of the context. The camera is off by
             // default and must be turned on to start streaming frames to the data capture context for recognition.
-            const camera = Camera.default;
-            dataCaptureContext.setFrameSource(camera);
+            const defaultCamera = Camera.default;
+            dataCaptureContext.setFrameSource(defaultCamera);
 
             const cameraSettings = new CameraSettings();
             cameraSettings.preferredResolution = VideoResolution.UHD4K;
-            camera.applySettings(cameraSettings);
-            setCamera(camera);
+            defaultCamera.applySettings(cameraSettings);
+            setCamera(defaultCamera);
         }
 
         // Switch camera on to start streaming frames and enable the barcode capture mode.

@@ -34,6 +34,6 @@ export const requestCameraPermissionsIfNeeded = async () => {
   if (!hasPermissions) {
     return requestCameraPermissions();
   } else {
-    return Promise.resolve();;
+    return Promise.resolve();
   }
 }

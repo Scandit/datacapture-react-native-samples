@@ -1,4 +1,4 @@
-import React, {useContext, useState, useEffect} from 'react';
+import React, {useContext} from 'react';
 import {SafeAreaView, ScrollView} from 'react-native';
 
 import {
@@ -9,7 +9,7 @@ import {
 import BCContext from '../../../data/BCContext';
 
 
-export const CodeDuplicateFilterPage = ({navigation}) => {
+export const CodeDuplicateFilterPage = () => {
     const appContext = useContext(BCContext);
 
     const savedFilterValueInSeconds = {

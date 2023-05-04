@@ -147,8 +147,8 @@ export class ScanPage extends Component {
       BarcodeTrackingBasicOverlayStyle.Frame
     );
 
-    // Implement the BarcodeTrackingBasicOverlayListener interface. 
-    // The method BarcodeTrackingBasicOverlayListener.brushForTrackedBarcode() is invoked every time a new tracked 
+    // Implement the BarcodeTrackingBasicOverlayListener interface.
+    // The method BarcodeTrackingBasicOverlayListener.brushForTrackedBarcode() is invoked every time a new tracked
     // barcode appears and it can be used to set a brush that will highlight that specific barcode in the overlay.
     overlay.listener = {
       brushForTrackedBarcode: (overlay, trackedBarcode) => {
@@ -172,6 +172,6 @@ export class ScanPage extends Component {
           <Button styles={styles.button} textStyles={styles.buttonText} title='Done' onPress={() => this.goToResults()} />
         </SafeAreaView>
       </>
-    );
+    )
   };
 }

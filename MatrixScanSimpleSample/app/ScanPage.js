@@ -111,7 +111,6 @@ export class ScanPage extends Component {
       Symbology.UPCE,
       Symbology.Code39,
       Symbology.Code128,
-      Symbology.QR,
     ]);
 
     // Create new barcode tracking mode with the settings from above.

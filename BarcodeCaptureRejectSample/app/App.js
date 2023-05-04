@@ -146,6 +146,8 @@ export class App extends Component {
         BarcodeCaptureOverlayStyle.Frame
     );
 
+    this.overlay.brush = Brush.transparent;
+
     // Add a square viewfinder as we are only scanning square QR codes.
     this.overlay.viewfinder = new RectangularViewfinder(
         RectangularViewfinderStyle.Square,

@@ -213,7 +213,7 @@ class ScanPage extends Component {
                 <DataCaptureView style={{flex: 1, zIndex: 2}} context={this.context.dataCaptureContext} ref={this.context.viewRef}/>
             </View>
         );
-    };
+    }
 }
 
 ScanPage.contextType = BCContext;

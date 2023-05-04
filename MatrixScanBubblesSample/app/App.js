@@ -144,7 +144,7 @@ export class App extends Component {
     // Add a barcode tracking overlay to the data capture view to render the tracked barcodes on top of the video
     // preview. This is optional, but recommended for better visual feedback. The overlay is automatically added
     // to the view.
-    const basicOverlay = BarcodeTrackingBasicOverlay.withBarcodeTrackingForViewWithStyle(
+    BarcodeTrackingBasicOverlay.withBarcodeTrackingForViewWithStyle(
         this.barcodeTracking,
         this.viewRef.current,
         BarcodeTrackingBasicOverlayStyle.Dot

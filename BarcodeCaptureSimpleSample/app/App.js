@@ -9,8 +9,6 @@ import {
   SymbologyDescription,
 } from 'scandit-react-native-datacapture-barcode';
 import {
-  Brush,
-  Color,
   Camera,
   CameraSettings,
   DataCaptureContext,
@@ -152,8 +150,6 @@ export class App extends Component {
         RectangularViewfinderStyle.Square,
         RectangularViewfinderLineStyle.Light,
     );
-
-    this.overlay = this.overlay;
   }
 
   render() {
