@@ -296,11 +296,11 @@ export class App extends Component {
   }
 
   getDateAsString(dateObject) {
-    return `${(dateObject && new Date(
-        dateObject.year,
-        dateObject.month,
-        dateObject.day
-    ).toLocaleDateString()) || "empty"}`
+    return `${(dateObject && new Date(Date.UTC(
+      dateObject.year,
+      dateObject.month - 1,
+      dateObject.day
+    )).toLocaleDateString("en-GB", {timeZone: "UTC"})) || "empty"}`
   }
 
   render() {

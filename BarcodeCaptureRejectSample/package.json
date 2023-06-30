@@ -10,13 +10,17 @@
     "dependencies": {
         "react": "18.1.0",
         "react-native": "0.70.6",
-        "scandit-react-native-datacapture-barcode": "6.17.2",
-        "scandit-react-native-datacapture-core": "6.17.2"
+        "scandit-react-native-datacapture-barcode": "6.18.0",
+        "scandit-react-native-datacapture-core": "6.18.0"
     },
     "devDependencies": {
         "@babel/core": "7.20.5",
         "@babel/runtime": "7.20.5",
+        "@tsconfig/react-native": "^3.0.0",
+        "@types/react": "^18.0.37",
+        "@types/react-native": "0.70.6",
         "metro-react-native-babel-preset": "0.72.3",
-        "react-native-codegen": "0.71.3"
+        "react-native-codegen": "0.71.3",
+        "typescript": "^5.0.4"
     }
 }

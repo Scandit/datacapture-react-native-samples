@@ -5,12 +5,12 @@ buildscript {
         minSdkVersion = 23
         compileSdkVersion = 32
         targetSdkVersion = 32
-        kotlin_version = "1.6.21"
+        kotlin_version = "1.7.21"
         agp_version = "7.2.1"
     }
     repositories {
-        mavenCentral()
         google()
+        mavenCentral()
     }
     dependencies {
         classpath "com.android.tools.build:gradle:$agp_version"
@@ -18,11 +18,15 @@ buildscript {
     }
 }
 
-def parentFile = project.projectDir.parentFile
 allprojects {
+    def frameworksGradle = "$rootDir/frameworks.gradle"
+    if (file(frameworksGradle).exists()) {
+        apply from: frameworksGradle
+    } else {
+        apply from: "${rootDir}/../../../../common/frameworks.gradle"
+    }
+    repositories repos
     repositories {
-        maven { url "file://${parentFile}/../../.m2/repository" }
-        mavenLocal()
         maven {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
             url("$rootDir/../node_modules/react-native/android")
@@ -38,6 +42,5 @@ allprojects {
                 excludeGroup "com.facebook.react"
             }
         }
-        google()
     }
 }

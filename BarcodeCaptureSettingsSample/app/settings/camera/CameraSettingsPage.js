@@ -1,5 +1,6 @@
 import React, {useContext} from 'react';
 import {
+    Platform,
     SafeAreaView,
     ScrollView,
 } from 'react-native';
@@ -98,7 +99,12 @@ export const CameraSettingsPage = () => {
                         title={'Preferred Resolution'}
                         onValueChange={onResolutionValueChange}
                         selectedValue={appContext.camera.settings.preferredResolution}
-                        options={Object.entries(VideoResolution).map(([key, value]) => ({label: key, value}))}
+                        options={Platform.OS == 'android'
+                            ? Object.entries(VideoResolution)
+                                .filter(([_, value]) => value !== VideoResolution.UHD4K)
+                                .map(([key, value]) => ({label: key, value}))
+                            : Object.entries(VideoResolution)
+                                .map(([key, value]) => ({label: key, value}))}
                     />
 
                     <EmptySpaceDivider height={20} bgColor={'#fff'}/>

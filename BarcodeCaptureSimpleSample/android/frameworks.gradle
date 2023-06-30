@@ -1,0 +1,59 @@
+ext {
+    repos = {
+        maven {
+            // Repository used to fetch native libs published by develop/release pipelines
+            name = "internal"
+            url = uri("https://gitlab.scandit.com/api/v4/projects/1306/packages/maven")
+
+            credentials(HttpHeaderCredentials) {
+                if (System.getenv("CI_JOB_TOKEN") != null) {
+                    name = "Job-Token"
+                    value = System.getenv("CI_JOB_TOKEN")
+                } else {
+                    name = "Private-Token"
+                    value = System.getenv("GITLAB_PRIVATE_TOKEN")
+                }
+            }
+            authentication {
+                header(HttpHeaderAuthentication)
+            }
+        }
+        maven {
+            // Repository used to fetch native libs published during the MR pipeline
+            name = "private"
+            url = uri("https://gitlab.scandit.com/api/v4/projects/131/packages/maven")
+
+            credentials(HttpHeaderCredentials) {
+                if (System.getenv("CI_JOB_TOKEN") != null) {
+                    name = "Job-Token"
+                    value = System.getenv("CI_JOB_TOKEN")
+                } else {
+                    name = "Private-Token"
+                    value = System.getenv("GITLAB_PRIVATE_TOKEN")
+                }
+            }
+            authentication {
+                header(HttpHeaderAuthentication)
+            }
+        }
+        google()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
+
+    global_sdk_version = "6.18.0"
+
+    if (System.getenv("SDC_FETCH_LIBS_SOURCE") != null) {
+        fetch = System.getenv("SDC_FETCH_LIBS_SOURCE")
+
+        if (fetch == "local" && System.getenv("CI_MERGE_REQUEST_ID") != null) {
+            if (global_sdk_version.contains("SNAPSHOT")) {
+                global_sdk_version = global_sdk_version.replace("SNAPSHOT", System.getenv("CI_MERGE_REQUEST_ID"))
+            } else if (System.getenv("CI_MERGE_REQUEST_ID") != null) {
+                 global_sdk_version = global_sdk_version + "-" +  System.getenv("CI_MERGE_REQUEST_ID")
+            }
+        }
+    }
+
+    println("Global version of the native sdk used in this build: $global_sdk_version")
+}

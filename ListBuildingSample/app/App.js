@@ -28,8 +28,10 @@ export class App extends React.Component {
   constructor() {
     super();
 
-    // Create data capture context using your license key.
-    this.dataCaptureContext = DataCaptureContext.forLicenseKey('-- ENTER YOUR SCANDIT LICENSE KEY HERE --');
+    // There is a Scandit sample license key set below here.
+    // This license key is enabled for sample evaluation only.
+    // If you want to build your own application, get your license key by signing up for a trial at https://ssl.scandit.com/dashboard/sign-up?p=test
+    this.dataCaptureContext = DataCaptureContext.forLicenseKey('AQIzpSC5AyYeKA6KZgjthjEmMbJBFJEpiUUjkCJu72AUVSWyGjN0xNt0OVgASxKO6FwLejYDRFGraFReiUwL8wp3a8mgX0elHhmx0JhY/QYrbQHJjGIhQAhjcW1cYr+ogWCDUmhM2KuWPlJXBkSGmbwinMAqKusC5zQHGoY6JDKJXbzv97CRhGdjlfgjhTZErgfs+P/fLp0cCCAmP+TTZ6jiyA/my9Ojy7ugt7DKay2ZAkezAO8OwAtnl0GUIflPz6KI68hRPaAV18wwS030+riqfDIcFQ+3BAfqRMpJxrYfKZOvvwyTAbC+5ZzgFmwd9YR0vbFToSmHDemEyRVufdMw0s+jqCHsCY5ox8jBfV1RkmDQxCckkJoS3rhPmLgEyiTm+gI0y30swn2orZ4aaml+aoA55vhN4jY+ZAkMkmhipAXK/TMzyHo4iUDA4/v3TgiJbodw27iI/+f6YxIpA+/nAEItRH7C3vuxAdo8lmk5q0QeCkc6QA0FhQa6S/cu8yrehTi+Lb8khFmt3gkwEubowGdg3cg8KoBsDgY59lAKWy55rmVznq7REv6ugw1KwgW724K4s5ILfgQ2NcV/jFgeTReaTSVYUWKZGXdJmDrteX7tgmdfkpjaCrijgSGwYRaATxVKitCYIPyfuipsSHdC0iLqCoJ8CIc2UclvimPXDzDLk83uIRFjgspykVm+eIsKiMuxrW6OlB7o7NWPcJtEcyO74Mq6scB8+bWP5eJFIPazUcZEtxG2u3UpWz7+EoBADwbUI9G63HcTwt2bi8JZo16pfGxsWti3DJ1HWooGSIVvyZ2jePvhBcuu+EbtOucgdPDvDTCTpm/V');
   }
 
   componentDidMount() {
@@ -119,49 +121,53 @@ export class App extends React.Component {
     this.sparkScan.addListener(sparkScanListener);
 
     // You can customize the SparkScanView using SparkScanViewSettings.
-    const viewSettings = new SparkScanViewSettings();
-
-    // Create the sparkScanView component to render
-    this.sparkScanComponent = <SparkScanView
-      style={styles.sparkScanView}
-      context={this.dataCaptureContext}
-      sparkScan={this.sparkScan}
-      sparkScanViewSettings={viewSettings}
-      ref={view => {
-        this.sparkScanView = view;
-      }} />;
+    this.viewSettings = new SparkScanViewSettings();
   }
 
   isValidBarcode = (barcode) => {
     return barcode.data != null && barcode.data !== '123456789';
   }
 
+  handleClearButtonClick = () => {
+    this.setState({ codes: [] });
+  }
+
   render() {
     return (
-      <SafeAreaView style={styles.container}>
-        <Text style={styles.scanCount}>{this.state.codes.length} {this.state.codes.length === 0 || this.state.codes.length > 1 ? 'items' : 'item'}</Text>
-        <ScrollView style={styles.splitViewResults}>
-          {
-            this.state.codes.map((result, index) =>
-              <View key={index} style={styles.splitViewResult}>
-                <View style={styles.splitViewImage} />
-                <View key={index} style={styles.splitViewResultBarcodeData}>
-                  <Text style={styles.splitViewResultData}>{result.data}</Text>
-                  <Text style={styles.splitViewResultSymbology}>{result.symbology}</Text>
-                </View>
+      this.state.cameraPermissions && <SparkScanView
+        style={styles.sparkScanView}
+        context={this.dataCaptureContext}
+        sparkScan={this.sparkScan}
+        sparkScanViewSettings={this.viewSettings}
+        ref={view => {
+          this.sparkScanView = view;
+        }} >
 
-              </View>)
-          }
-        </ScrollView>
-        {/* Need to be placed with absolute position to overlay on top of other views */}
-        {this.state.cameraPermissions && this.sparkScanComponent}
-        <Pressable style={styles.clearButton} onPressOut={() => {
-          this.setState({ codes: [] });
-        }
-        }>
-          <Text style={styles.clearButtonText}>CLEAR LIST</Text>
-        </Pressable>
-      </SafeAreaView>
+        <SafeAreaView style={styles.container}>
+
+          <Text style={styles.scanCount}>{this.state.codes.length} {this.state.codes.length === 0 || this.state.codes.length > 1 ? 'items' : 'item'}</Text>
+          <ScrollView style={styles.splitViewResults} >
+            {
+              this.state.codes.map((result, index) =>
+                <View key={index} style={styles.splitViewResult}>
+                  <View style={styles.splitViewImage} />
+                  <View key={index} style={styles.splitViewResultBarcodeData}>
+                    <Text style={styles.splitViewResultData}>{result.data}</Text>
+                    <Text style={styles.splitViewResultSymbology}>{result.symbology}</Text>
+                  </View>
+
+                </View>)
+            }
+          </ScrollView>
+
+          <Pressable style={styles.clearButton} onPress={this.handleClearButtonClick}>
+            <Text style={styles.clearButtonText}>CLEAR LIST</Text>
+          </Pressable>
+
+        </SafeAreaView>
+      </SparkScanView>
+
+
     );
   }
 }

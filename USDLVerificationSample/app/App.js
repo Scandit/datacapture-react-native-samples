@@ -15,7 +15,6 @@ import {
     SupportedSides,
 } from 'scandit-react-native-datacapture-id';
 
-import {Notification} from './Notification';
 import {styles} from './styles';
 
 import {requestCameraPermissionsIfNeeded} from './camera-permission-handler';
@@ -24,6 +23,7 @@ export const App = () => {
     const viewRef = useRef(null);
     const isScanningBackside = useRef(false);
 
+    // Create data capture context using your license key.
     const [dataCaptureContext, setDataCaptureContext] = useState(DataCaptureContext.forLicenseKey(
         '-- ENTER YOUR SCANDIT LICENSE KEY HERE --',
     ))
@@ -32,8 +32,6 @@ export const App = () => {
     const [camera, setCamera] = useState(null);
     const [isIdCaptureEnabled, setIsIdCaptureEnabled] = useState(false);
     const [cameraState, setCameraState] = useState(FrameSourceState.Off);
-
-    const [notification, setNotification] = useState('Align front of document');
 
     useEffect(() => {
         handleAppStateChangeSubscription = AppState.addEventListener('change', handleAppStateChange);
@@ -58,7 +56,9 @@ export const App = () => {
     }, [cameraState]);
 
     const handleAppStateChange = async (nextAppState) => {
-        if (nextAppState.match(/inactive|background/)) {
+        if (!nextAppState.match(/inactive|background/)) {
+            startCapture();
+        } else {
             stopCapture();
         }
     };
@@ -128,7 +128,6 @@ export const App = () => {
                     if (!isScanningBackside.current === true) {
                         // Scan the back side of the document.
                         isScanningBackside.current = !isScanningBackside.current;
-                        setNotification('Align back of document');
                         setIsIdCaptureEnabled(true);
                     } else {
                         // Front and back were scanned; perform a verification of the captured ID.
@@ -142,7 +141,6 @@ export const App = () => {
                                     [{
                                         text: 'OK',
                                         onPress: () => {
-                                            setNotification('Align front of document');
                                             idCaptureRef.current.reset();
                                             isScanningBackside.current = false;
                                             setIsIdCaptureEnabled(true);
@@ -174,23 +172,32 @@ export const App = () => {
 
         // Add a Id capture overlay to the data capture view to render the location of captured ids on top of
         // the video preview. This is optional, but recommended for better visual feedback.
-        const overlay = IdCaptureOverlay.withIdCaptureForView(idCapture, viewRef.current);
+        const overlay = IdCaptureOverlay.withIdCaptureForView(idCapture, null);
         overlay.idLayoutStyle = IdLayoutStyle.Square;
 
+        viewRef.current.addOverlay(overlay);
         setIdCaptureMode(idCapture);
         idCaptureRef.current = idCapture;
+    }
+
+    const getDateAsString = (dateObject) => {
+        return `${(dateObject && new Date(Date.UTC(
+            dateObject.year,
+            dateObject.month - 1,
+            dateObject.day
+        )).toLocaleDateString("en-GB", {timeZone: "UTC"})) || "empty"}`
     }
 
     const descriptionForCapturedId = (capturedId, verificationResult) => {
         return `
         ${verificationResult.datesOfExpiryMatch.checkResult === ComparisonCheckResult.Passed ? "Document is not expired." : "Document is expired."}
         ${verificationResult.checksPassed ? "Information on front and back match." : "Information on front and back do not match."}
-        
+
         Name: ${capturedId.firstName || "empty"}
         Last Name: ${capturedId.lastName || "empty"}
         Full Name: ${capturedId.fullName}
         Sex: ${capturedId.sex || "empty"}
-        Date of Birth: ${JSON.stringify(capturedId.dateOfBirth && capturedId.dateOfBirth.date) || "empty"}
+        Date of Birth: ${getDateAsString(capturedId.dateOfBirth)}
         Nationality: ${capturedId.nationality || "empty"}
         Address: ${capturedId.address || "empty"}
         Document Type: ${capturedId.documentType}
@@ -198,8 +205,8 @@ export const App = () => {
         Issuing Country: ${capturedId.issuingCountry || "empty"}
         Issuing Country ISO: ${capturedId.issuingCountryISO || "empty"}
         Document Number: ${capturedId.documentNumber || "empty"}
-        Date of Expiry: ${(capturedId.dateOfExpiry && new Date(capturedId.dateOfExpiry.year, capturedId.dateOfExpiry.month, capturedId.dateOfExpiry.day).toLocaleDateString()) || "empty"}
-        Date of Issue: ${(capturedId.dateOfIssue && new Date(capturedId.dateOfIssue.year, capturedId.dateOfIssue.month, capturedId.dateOfIssue.day).toLocaleDateString()) || "empty"}`
+        Date of Expiry: ${getDateAsString(capturedId.dateOfExpiry)}
+        Date of Issue: ${getDateAsString(capturedId.dateOfIssue)}`
     }
 
     return (
@@ -210,7 +217,6 @@ export const App = () => {
                     context={dataCaptureContext}
                     ref={viewRef}
                 />
-                <Notification notificationText={notification}/>
             </View>
         </>
     );

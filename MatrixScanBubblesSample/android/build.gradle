@@ -5,7 +5,7 @@ buildscript {
         minSdkVersion = 23
         compileSdkVersion = 32
         targetSdkVersion = 32
-        kotlin_version = "1.6.21"
+        kotlin_version = "1.7.21"
         agp_version = "7.2.1"
     }
     repositories {
@@ -18,11 +18,15 @@ buildscript {
     }
 }
 
-def parentFile = project.projectDir.parentFile
 allprojects {
+    def frameworksGradle = "$rootDir/frameworks.gradle"
+    if (file(frameworksGradle).exists()) {
+        apply from: frameworksGradle
+    } else {
+        apply from: "${rootDir}/../../../../common/frameworks.gradle"
+    }
     repositories {
-        maven { url "file://${parentFile}/../../.m2/repository" }
-        mavenLocal()
+        maven { url "file://${rootDir}/../../.m2/repository" }
         maven {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
             url("$rootDir/../node_modules/react-native/android")
@@ -31,7 +35,6 @@ allprojects {
             // Android JSC is installed from npm
             url("$rootDir/../node_modules/jsc-android/dist")
         }
-
         mavenCentral {
             // We don't want to fetch react-native from Maven Central as there are
             // older versions over there.
@@ -39,7 +42,6 @@ allprojects {
                 excludeGroup "com.facebook.react"
             }
         }
-        google()
-        maven { url 'https://www.jitpack.io' }
     }
+    repositories repos
 }

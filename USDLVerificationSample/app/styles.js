@@ -17,27 +17,4 @@ export const styles = StyleSheet.create({
     cameraView: {
         flex: 1,
     },
-
-    // Notifications.
-    notificationContainer: {
-        position: 'absolute',
-        top: 100,
-        left: '50%',
-        transform: [
-            {
-                translateX: -100
-            }
-        ],
-        backgroundColor: '#FFF',
-        height: 40,
-        width: 200,
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-evenly',
-        alignItems: 'center',
-    },
-    notificationText: {
-        color: '#000',
-        fontSize: 14,
-    },
 });
