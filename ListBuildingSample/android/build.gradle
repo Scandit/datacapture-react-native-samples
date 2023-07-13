@@ -18,15 +18,14 @@ buildscript {
     }
 }
 
+def custom_config_scripts = [
+        "$rootDir/frameworks.gradle",
+        "${rootDir}/../../../../common/frameworks.gradle"
+]
+
 allprojects {
-    def frameworksGradle = "$rootDir/frameworks.gradle"
-    if (file(frameworksGradle).exists()) {
-        apply from: frameworksGradle
-    } else {
-        apply from: "${rootDir}/../../../../common/frameworks.gradle"
-    }
-    repositories repos
     repositories {
+        maven { url "file://${rootDir}/../../.m2/repository" }
         maven {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
             url("$rootDir/../node_modules/react-native/android")
@@ -41,6 +40,16 @@ allprojects {
             content {
                 excludeGroup "com.facebook.react"
             }
+        }
+        google()
+        maven { url 'https://jitpack.io' }
+    }
+    custom_config_scripts.each { location ->
+        def file = file(location)
+        if (file.exists()) {
+            apply from: file
+            repositories repos
+            return
         }
     }
 }
