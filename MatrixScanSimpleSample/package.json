@@ -14,8 +14,8 @@
         "@react-navigation/stack": "6.3.17",
         "react-native-safe-area-context": "4.7.2",
         "react-native-gesture-handler": "2.12.1",
-        "scandit-react-native-datacapture-barcode": "6.19.0",
-        "scandit-react-native-datacapture-core": "6.19.0"
+        "scandit-react-native-datacapture-barcode": "6.19.1",
+        "scandit-react-native-datacapture-core": "6.19.1"
     },
     "devDependencies": {
         "@babel/core": "^7.20.0",
@@ -28,5 +28,8 @@
         "metro-react-native-babel-preset": "0.76.8",
         "react-native-codegen": "0.71.5",
         "typescript": "^5.0.4"
+    },
+    "resolutions": {
+        "@react-native/normalize-colors": "0.72.0"
     }
 }
