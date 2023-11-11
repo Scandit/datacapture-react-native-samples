@@ -1,7 +1,6 @@
 import React, {
     useEffect,
     useLayoutEffect,
-    useMemo,
     useRef,
     useState,
 } from 'react';
@@ -57,14 +56,7 @@ type ScannedBarcodeData = {
 export const SplitScreenView = ({ navigation }: Props) => {
     const viewRef = useRef<DataCaptureView | null>(null);
 
-    const dataCaptureContext = useMemo(() => {
-        // There is a Scandit sample license key set below here.
-        // This license key is enabled for sample evaluation only.
-        // If you want to build your own application, get your license key
-        // by signing up for a trial at https://ssl.scandit.com/dashboard/sign-up?p=test
-        return DataCaptureContext.forLicenseKey(licenseKey);
-    }, []);
-
+    const [dataCaptureContext, setDataCaptureContext] = useState(DataCaptureContext.forLicenseKey(licenseKey));
     const [results, setResults] = useState<Results>([]);
     const [camera, setCamera] = useState<Camera | null>(null);
     const [barcodeCaptureMode, setBarcodeCaptureMode] = useState<BarcodeCapture | null>(null);
