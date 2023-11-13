@@ -1,7 +1,12 @@
-const {getDefaultConfig, mergeConfig} = require('@react-native/metro-config');
+/**
+ * Metro configuration for React Native
+ * https://github.com/facebook/react-native
+ *
+ * @format
+ */
 
-const config = {
-  ransformer: {
+module.exports = {
+  transformer: {
     getTransformOptions: async () => ({
       transform: {
         experimentalImportSupport: false,
@@ -10,4 +15,3 @@ const config = {
     }),
   },
 };
-module.exports = mergeConfig(getDefaultConfig(__dirname), config);

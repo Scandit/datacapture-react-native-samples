@@ -29,7 +29,6 @@ export class App extends Component {
   componentDidMount() {
     this.handleAppStateChangeSubscription = AppState.addEventListener('change', this.handleAppStateChange);
     this.setupCapture();
-    this.startCapture();
   }
 
   componentWillUnmount() {

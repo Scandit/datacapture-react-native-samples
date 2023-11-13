@@ -40,7 +40,6 @@ export class ScanPage extends Component {
   componentDidMount() {
     this.handleAppStateChangeSubscription = AppState.addEventListener('change', this.handleAppStateChange);
     this.setupScanning();
-    this.startCamera();
 
     this.unsubscribeFocus = this.props.navigation.addListener('focus', () => {
       this.results = {};

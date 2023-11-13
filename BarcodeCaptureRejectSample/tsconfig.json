@@ -1,5 +1,4 @@
 {
-  "extends": "@tsconfig/react-native/tsconfig.json",
   "$schema": "https://json.schemastore.org/tsconfig",
   "display": "React Native",
   "_version": "3.0.0",

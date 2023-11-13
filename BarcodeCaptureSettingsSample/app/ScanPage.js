@@ -55,7 +55,6 @@ class ScanPage extends Component {
         this.handleAppStateChangeSubscription = AppState.addEventListener('change', this.handleAppStateChange);
         this.setupScanningWithSettings = this.setupScanningWithSettings.bind(this);
         this._unsubscribe = this.props.navigation.addListener('focus', this.setupScanningWithSettings);
-        this.startCapture();
     }
 
     componentWillUnmount() {
@@ -79,9 +78,7 @@ class ScanPage extends Component {
 
     startCapture() {
         this.startCamera();
-        if ( this.context.barcodeCaptureMode){
-            this.context.barcodeCaptureMode.isEnabled = true;
-        }
+        this.context.barcodeCaptureMode.isEnabled = true;
     }
 
     stopCapture() {

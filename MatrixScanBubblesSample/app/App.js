@@ -161,7 +161,7 @@ export class App extends Component {
 
     this.advancedOverlay.listener = {
       // The offset of our overlay will be calculated from the center anchoring point.
-      anchorForTrackedBarcode: () => Anchor.TopCenter,
+      anchorForTrackedBarcode: () => Anchor.Center,
       // We set the offset's height to be equal of the 100 percent of our overlay.
       // The minus sign means that the overlay will be above the barcode.
       offsetForTrackedBarcode: () => new PointWithUnit(
