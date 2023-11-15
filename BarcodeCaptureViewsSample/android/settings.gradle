@@ -1,18 +1,23 @@
-include 'scandit-react-native-datacapture-core:android'
-project(':scandit-react-native-datacapture-core:android').projectDir = new File("../node_modules/scandit-react-native-datacapture-core/android")
-
 rootProject.name = 'BarcodeCaptureViewsSample'
 apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
 include ':app'
+includeBuild('../node_modules/@react-native/gradle-plugin')
 
-if (file("../../../../common/libs.versions.toml").exists()) {
-    enableFeaturePreview("VERSION_CATALOGS")
+boolean useRemoteCache = System.getenv().containsKey('GRADLE_REMOTE_CACHE_URL')
+if (useRemoteCache) {
+    buildCache {
+        remote(HttpBuildCache) {
+            url = System.getenv('GRADLE_REMOTE_CACHE_URL')
+            allowInsecureProtocol = true
+            push = true
+        }
+    }
+}
 
-    dependencyResolutionManagement {
-        versionCatalogs {
-            libs {
-                from(files("../../../../common/libs.versions.toml"))
-            }
+if (System.getenv().containsKey('CI_SERVER')) {
+    buildCache {
+        local {
+            removeUnusedEntriesAfterDays = 14
         }
     }
 }

@@ -3,21 +3,21 @@
 buildscript {
     ext {
         minSdkVersion = 23
-        compileSdkVersion = 32
-        targetSdkVersion = 32
-        kotlin_version = "1.7.21"
-        agp_version = "7.2.1"
+        compileSdkVersion = 33
+        targetSdkVersion = 33
+        kotlin_version = "1.8.20"
+        ndkVersion = "23.1.7779620"
     }
     repositories {
-        mavenCentral()
         google()
+        mavenCentral()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:$agp_version"
+        classpath "com.android.tools.build:gradle"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath("com.facebook.react:react-native-gradle-plugin")
     }
 }
-
 
 def custom_config_scripts = [
         "$rootDir/frameworks.gradle",
@@ -27,23 +27,6 @@ def custom_config_scripts = [
 allprojects {
     repositories {
         maven { url "file://${rootDir}/../../.m2/repository" }
-        maven {
-            // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
-            url("$rootDir/../node_modules/react-native/android")
-        }
-        maven {
-            // Android JSC is installed from npm
-            url("$rootDir/../node_modules/jsc-android/dist")
-        }
-        mavenCentral {
-            // We don't want to fetch react-native from Maven Central as there are
-            // older versions over there.
-            content {
-                excludeGroup "com.facebook.react"
-            }
-        }
-        google()
-        maven { url 'https://jitpack.io' }
     }
     custom_config_scripts.each { location ->
         def file = file(location)
