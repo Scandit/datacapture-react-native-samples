@@ -15,8 +15,8 @@
         "@react-navigation/stack": "6.3.17",
         "react-native-gesture-handler": "2.12.1",
         "react-native-safe-area-context": "4.7.2",
-        "scandit-react-native-datacapture-barcode": "6.19.8",
-        "scandit-react-native-datacapture-core": "6.19.8"
+        "scandit-react-native-datacapture-barcode": "6.20.1",
+        "scandit-react-native-datacapture-core": "6.20.1"
     },
     "devDependencies": {
         "@babel/core": "^7.20.0",

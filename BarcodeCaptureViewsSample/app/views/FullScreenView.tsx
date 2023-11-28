@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import {
     Alert,
     AppState,
@@ -39,7 +39,14 @@ type Props = StackScreenProps<RootStackParamList, 'fs'>;
 export const FullScreenView = ({ navigation }: Props) => {
     const viewRef = useRef<DataCaptureView | null>(null);
 
-    const [dataCaptureContext, setDataCaptureContext] = useState(DataCaptureContext.forLicenseKey(licenseKey));
+    const dataCaptureContext = useMemo(() => {
+        // There is a Scandit sample license key set below here.
+        // This license key is enabled for sample evaluation only.
+        // If you want to build your own application, get your license key
+        // by signing up for a trial at https://ssl.scandit.com/dashboard/sign-up?p=test
+        return DataCaptureContext.forLicenseKey(licenseKey);
+    }, []);
+
     const [camera, setCamera] = useState<Camera | null>(null);
     const [barcodeCaptureMode, setBarcodeCaptureMode] = useState<BarcodeCapture | null>(null);
     const [isBarcodeCaptureEnabled, setIsBarcodeCaptureEnabled] = useState(false);

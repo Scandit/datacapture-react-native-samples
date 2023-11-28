@@ -1,14 +1,21 @@
-import React, {useRef, useState, useEffect} from 'react';
-import {Alert, AppState, BackHandler, View} from 'react-native';
+import React, {useMemo, useRef, useState, useEffect} from 'react';
+import {Alert, AppState, AppStateStatus, BackHandler, View} from 'react-native';
 import {
     Camera, CameraSettings, DataCaptureContext, DataCaptureView, FrameSourceState, VideoResolution,
 } from 'scandit-react-native-datacapture-core';
 import {
+    AamvaBarcodeVerificationResult,
+    AamvaBarcodeVerifier,
+    AamvaVizBarcodeComparisonResult,
     AamvaVizBarcodeComparisonVerifier,
+    CapturedId,
     ComparisonCheckResult,
+    DateResult,
     DocumentType,
     IdCapture,
+    IdCaptureError,
     IdCaptureOverlay,
+    IdCaptureSession,
     IdCaptureSettings,
     IdDocumentType,
     IdLayoutStyle,
@@ -20,16 +27,23 @@ import {styles} from './styles';
 import {requestCameraPermissionsIfNeeded} from './camera-permission-handler';
 
 export const App = () => {
-    const viewRef = useRef(null);
+    const viewRef = useRef<DataCaptureView | null>(null);
     const isScanningBackside = useRef(false);
 
     // Create data capture context using your license key.
-    const [dataCaptureContext, setDataCaptureContext] = useState(DataCaptureContext.forLicenseKey(
-        '-- ENTER YOUR SCANDIT LICENSE KEY HERE --',
-    ))
-    const [idCaptureMode, setIdCaptureMode] = useState(null);
-    const idCaptureRef = useRef(null);
-    const [camera, setCamera] = useState(null);
+    const dataCaptureContext = useMemo(() => {
+        // There is a Scandit sample license key set below here.
+        // This license key is enabled for sample evaluation only.
+        // If you want to build your own application, get your license key
+        // by signing up for a trial at https://ssl.scandit.com/dashboard/sign-up?p=test
+        return DataCaptureContext.forLicenseKey(
+            '-- ENTER YOUR SCANDIT LICENSE KEY HERE --'
+        );
+    }, []);
+
+    const [idCaptureMode, setIdCaptureMode] = useState<IdCapture | null>(null);
+    const idCaptureRef = useRef<IdCapture | null>(null);
+    const [camera, setCamera] = useState<Camera | null>(null);
     const [isIdCaptureEnabled, setIsIdCaptureEnabled] = useState(false);
     const [cameraState, setCameraState] = useState(FrameSourceState.Off);
 
@@ -41,7 +55,7 @@ export const App = () => {
     const lastCommand = useRef<string | null>(null);
 
     useEffect(() => {
-        handleAppStateChangeSubscription = AppState.addEventListener('change', handleAppStateChange);
+        const handleAppStateChangeSubscription = AppState.addEventListener('change', handleAppStateChange);
         startCapture();
         setupCapture();
         return () => {
@@ -97,7 +111,7 @@ export const App = () => {
 
             const cameraSettings = new CameraSettings();
             cameraSettings.preferredResolution = VideoResolution.UHD4K;
-            camera.applySettings(cameraSettings);
+            camera?.applySettings(cameraSettings);
             setCamera(camera);
         }
 
@@ -114,15 +128,18 @@ export const App = () => {
         const settings = new IdCaptureSettings();
 
         // We are interested in both front and back sides of US DL.
-        settings.supportedDocuments = [IdDocumentType.DLVIZ];
+        settings.supportedDocuments = [IdDocumentType.DLVIZ, IdDocumentType.IdCardVIZ];
         settings.supportedSides = SupportedSides.FrontAndBack;
 
         // Create new Id capture mode with the settings from above.
         const idCapture = IdCapture.forContext(dataCaptureContext, settings);
 
+        // Create Aamva viz barcode comparison verifier
+        const vizBarcodeComparisonVerifier = AamvaVizBarcodeComparisonVerifier.create();
+
         // Register a listener to get informed whenever a new id got recognized.
         const idCaptureListener = {
-            didCaptureId: (_, session) => {
+            didCaptureId: (_: IdCapture, session: IdCaptureSession) => {
                 if (session.newlyCapturedId == null) {
                     return
                 }
@@ -137,7 +154,7 @@ export const App = () => {
                     (
                         session.newlyCapturedId.documentType === DocumentType.DrivingLicense
                         && session.newlyCapturedId.issuingCountryIso === 'USA'
-                        && session.newlyCapturedId.vizResult.isBackSideCaptureSupported
+                        && session.newlyCapturedId.vizResult?.isBackSideCaptureSupported
                     ) || isScanningBackside.current === true) {
 
                     if (!isScanningBackside.current === true) {
@@ -146,23 +163,47 @@ export const App = () => {
                         setNotification('Align back of document');
                         setIsIdCaptureEnabled(true);
                     } else {
+                        const capturedId = session.newlyCapturedId;
+
+                        if (capturedId == null)  {
+                            return;
+                        }
+                        
                         // Front and back were scanned; perform a verification of the captured ID.
-                        AamvaVizBarcodeComparisonVerifier
-                            .create()
-                            .verify(session.newlyCapturedId)
+                        vizBarcodeComparisonVerifier.verify(session.newlyCapturedId)
                             .then(result => {
-                                Alert.alert(
-                                    'Result',
-                                    descriptionForCapturedId(session.newlyCapturedId, result),
-                                    [{
-                                        text: 'OK',
-                                        onPress: () => {
-                                            setNotification('Align front of document');
-                                            idCaptureRef.current.reset();
-                                            isScanningBackside.current = false;
-                                            setIsIdCaptureEnabled(true);
-                                        }
-                                    }], {cancelable: false});
+                                if (result.checksPassed) {
+                                    AamvaBarcodeVerifier.create(dataCaptureContext).then(verifier => {
+                                        verifier.verify(capturedId).then(verificationResult => {
+                                            Alert.alert(
+                                                'Result',
+                                                descriptionForCapturedId(session.newlyCapturedId, result, verificationResult),
+                                                [{
+                                                    text: 'OK',
+                                                    onPress: () => {
+                                                        setNotification('Align front of document');
+                                                        idCaptureRef.current?.reset();
+                                                        isScanningBackside.current = false;
+                                                        setIsIdCaptureEnabled(true);
+                                                    }
+                                                }], {cancelable: false});
+                                        })
+                                    });
+                                } else {
+                                    Alert.alert(
+                                        'Result',
+                                        descriptionForCapturedId(session.newlyCapturedId, result, null),
+                                        [{
+                                            text: 'OK',
+                                            onPress: () => {
+                                                setNotification('Align front of document');
+                                                idCaptureRef.current?.reset();
+                                                isScanningBackside.current = false;
+                                                setIsIdCaptureEnabled(true);
+                                            }
+                                        }], {cancelable: false});
+                                }
+                                
                             })
                     }
 
@@ -174,14 +215,14 @@ export const App = () => {
                         [{
                             text: 'OK',
                             onPress: () => {
-                                idCaptureRef.current.reset();
+                                idCaptureRef.current?.reset();
                                 setIsIdCaptureEnabled(true);
                             }
                         }], {cancelable: false});
 
                 }
-            }, didFailWithError: (_, error, session) => {
-                Alert.alert('Error', error.message, {cancelable: false});
+            }, didFailWithError: (_: IdCapture, error: IdCaptureError, session: IdCaptureSession) => {
+                Alert.alert('Error', error.message, undefined, {cancelable: false});
             }
         };
 
@@ -197,7 +238,7 @@ export const App = () => {
         idCaptureRef.current = idCapture;
     }
 
-    const getDateAsString = (dateObject) => {
+    const getDateAsString = (dateObject: DateResult | null) => {
         return `${(dateObject && new Date(Date.UTC(
             dateObject.year,
             dateObject.month - 1,
@@ -205,10 +246,15 @@ export const App = () => {
         )).toLocaleDateString("en-GB", {timeZone: "UTC"})) || "empty"}`
     }
 
-    const descriptionForCapturedId = (capturedId, verificationResult) => {
+    const descriptionForCapturedId = (capturedId: CapturedId | null, verificationResult: AamvaVizBarcodeComparisonResult, barcodeVerificationResult: AamvaBarcodeVerificationResult | null) => {
+        if (!capturedId) {
+            return
+        }
+
         return `
         ${verificationResult.datesOfExpiryMatch.checkResult === ComparisonCheckResult.Passed ? "Document is not expired." : "Document is expired."}
         ${verificationResult.checksPassed ? "Information on front and back match." : "Information on front and back do not match."}
+        ${barcodeVerificationResult?.allChecksPassed == true ? "Verification checks passed." : "Verification checks failed"}
 
         Name: ${capturedId.firstName || "empty"}
         Last Name: ${capturedId.lastName || "empty"}
@@ -220,7 +266,7 @@ export const App = () => {
         Document Type: ${capturedId.documentType}
         Captured Result Type: ${capturedId.capturedResultType}
         Issuing Country: ${capturedId.issuingCountry || "empty"}
-        Issuing Country ISO: ${capturedId.issuingCountryISO || "empty"}
+        Issuing Country ISO: ${capturedId.issuingCountryIso || "empty"}
         Document Number: ${capturedId.documentNumber || "empty"}
         Date of Expiry: ${getDateAsString(capturedId.dateOfExpiry)}
         Date of Issue: ${getDateAsString(capturedId.dateOfIssue)}`
