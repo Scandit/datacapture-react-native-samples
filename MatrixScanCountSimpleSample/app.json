@@ -1,0 +1,7 @@
+{
+  "name": "MatrixScanCountSimpleSample",
+  "displayName": "MatrixScanCountSimpleSample",
+    "android": {
+    "package": "com.scandit.matrixscancountsimplesample"
+  }
+}

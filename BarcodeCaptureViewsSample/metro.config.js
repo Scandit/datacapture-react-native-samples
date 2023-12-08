@@ -1,7 +1,7 @@
 const {getDefaultConfig, mergeConfig} = require('@react-native/metro-config');
 
 const config = {
-  ransformer: {
+  transformer: {
     getTransformOptions: async () => ({
       transform: {
         experimentalImportSupport: false,
