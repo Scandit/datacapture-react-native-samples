@@ -28,7 +28,7 @@ export class ResultsPage extends Component {
   render() {
     const results = Object
       .values(this.props?.route?.params?.results)
-      .map(({ data, symbology }) => ({ data, symbology: new SymbologyDescription(symbology)?.readableName }));
+      .map(({ data, symbology }) => ({ data, symbology: SymbologyDescription(symbology)?.readableName }));
 
     return (
       <SafeAreaView style={styles.container}>
