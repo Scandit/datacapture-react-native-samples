@@ -6,6 +6,14 @@ This repository contains both simple and advanced samples that show you how use 
 
 Scandit offers building blocks that can be integrated in just a few lines of code. The pre-built camera UI has been designed and user-tested to achieve superior process efficiency, ergonomics and usability.
 
+### Counting and Receiving in Batches (MatrixScan Count)
+
+MatrixScan Count is an out-of-the-box scan and count solution for counting and receiving multiple items at once, in which user interface (UI) elements and interactions are built into a workflow.
+
+![MSCount.png](https://github.com/Scandit/.github/blob/main/images/MSCount%20-%20iOS.png)
+
+**MatrixScan Count Simple Sample** ([Flutter](https://github.com/Scandit/datacapture-flutter-samples/tree/master/MatrixScanCountSimpleSample))
+
 ### High-Speed Single Scanning (**SparkScan)**
 
 SparkScan is a camera-based solution for high-speed single scanning and scan-intensive workflows. It includes an out-of-the-box UI optimized for an efficient and frictionless user experience.
@@ -69,6 +77,10 @@ Samples on other frameworks are located at [https://github.com/scandit](https://
 ## Documentation
 
 The Scandit Data Capture SDK documentation can be found here: [React Native](https://docs.scandit.com/data-capture-sdk/react-native/index.html).
+
+## Sample Barcodes
+
+Once you get the sample up and running, go find some barcodes to scan. Don’t feel like getting up from your desk? Here’s a [handy pdf of barcodes](https://github.com/Scandit/.github/blob/main/images/PrintTheseBarcodes.pdf) you can print out.
 
 ## Trial Signup
 

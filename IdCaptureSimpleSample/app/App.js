@@ -185,7 +185,7 @@ export class App extends Component {
   descriptionForUsDriverLicenseBarcodeResult(result) {
     return `${this.descriptionForCapturedId(result)}
     AAMVA Version: ${result.aamvaBarcodeResult.aamvaVersion}
-    Is Real Id Compliant: ${result.aamvaBarcodeResult.isRealId ? "Yes":"No"}
+    Is Real Id Compliant: ${result.aamvaBarcodeResult.isRealId ? "Yes" : "No"}
     Jurisdiction Version: ${result.aamvaBarcodeResult.jurisdictionVersion}
     IIN: ${result.aamvaBarcodeResult.iIN}
     Issuing Jurisdiction: ${result.aamvaBarcodeResult.issuingJurisdiction}
@@ -264,7 +264,7 @@ export class App extends Component {
   descriptionForChinaOneWayPermitBackMrzResult(result) {
     return `${this.descriptionForCapturedId(result)}
     Document Code: ${result.chinaOneWayPermitBackMrzResult.documentCode}
-    Names Are Truncated: ${result.chinaOneWayPermitBackMrzResult.namesAreTruncated ? "Yes":"No"}
+    Names Are Truncated: ${result.chinaOneWayPermitBackMrzResult.namesAreTruncated ? "Yes" : "No"}
     Captured MRZ: ${result.chinaOneWayPermitBackMrzResult.capturedMrz}`
   }
 
@@ -293,15 +293,12 @@ export class App extends Component {
     Date of Expiry: ${this.getDateAsString(result.dateOfExpiry)}
     Date of Issue: ${this.getDateAsString(result.dateOfIssue)}
     Age: ${result.age || "empty"}
-    Is Expired: ${result.isExpired ? "Yes":"No"}`
+    Is Expired: ${result.isExpired ? "Yes" : "No"}`
   }
 
   getDateAsString(dateObject) {
-    return `${(dateObject && new Date(Date.UTC(
-      dateObject.year,
-      dateObject.month - 1,
-      dateObject.day
-    )).toLocaleDateString("en-GB", {timeZone: "UTC"})) || "empty"}`
+    return dateObject && dateObject.localDate ? dateObject.localDate
+      .toLocaleDateString("en-GB") : "empty";
   }
 
   render() {

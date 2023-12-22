@@ -1,0 +1,23 @@
+rootProject.name = 'MatrixScanCountSimpleSample'
+apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
+include ':app'
+includeBuild('../node_modules/@react-native/gradle-plugin')
+
+boolean useRemoteCache = System.getenv().containsKey('GRADLE_REMOTE_CACHE_URL')
+if (useRemoteCache) {
+    buildCache {
+        remote(HttpBuildCache) {
+            url = System.getenv('GRADLE_REMOTE_CACHE_URL')
+            allowInsecureProtocol = true
+            push = true
+        }
+    }
+}
+
+if (System.getenv().containsKey('CI_SERVER')) {
+    buildCache {
+        local {
+            removeUnusedEntriesAfterDays = 14
+        }
+    }
+}
