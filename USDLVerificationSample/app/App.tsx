@@ -171,10 +171,9 @@ export const App = () => {
                         
                         // Front and back were scanned; perform a verification of the captured ID.
                         vizBarcodeComparisonVerifier.verify(session.newlyCapturedId)
-                            .then((result: AamvaVizBarcodeComparisonResult) => {
-                                // If front and back match AND ID is not expired, run verification
-                                if (!session.newlyCapturedId?.isExpired && result.checksPassed) {
-                                    AamvaBarcodeVerifier.create(dataCaptureContext).then((verifier) => {
+                            .then(result => {
+                                if (result.checksPassed) {
+                                    AamvaBarcodeVerifier.create(dataCaptureContext).then(verifier => {
                                         verifier.verify(capturedId).then(verificationResult => {
                                             Alert.alert(
                                                 'Result',
