@@ -6,6 +6,7 @@ export const styles = StyleSheet.create({
   },
   sparkScanView: {
     flex: 1,
+    backgroundColor: '#FFF',
   },
   splitViewResults: {
     flex: 1,
