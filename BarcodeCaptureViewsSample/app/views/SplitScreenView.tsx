@@ -56,6 +56,8 @@ type ScannedBarcodeData = {
 
 export const SplitScreenView = ({ navigation }: Props) => {
     const viewRef = useRef<DataCaptureView | null>(null);
+    const barcodeCaptureRef = useRef<BarcodeCapture | null>(null);
+
 
     const dataCaptureContext = useMemo(() => {
         // There is a Scandit sample license key set below here.
@@ -67,7 +69,6 @@ export const SplitScreenView = ({ navigation }: Props) => {
 
     const [results, setResults] = useState<Results>([]);
     const [camera, setCamera] = useState<Camera | null>(null);
-    const [barcodeCaptureMode, setBarcodeCaptureMode] = useState<BarcodeCapture | null>(null);
     const [isBarcodeCaptureEnabled, setIsBarcodeCaptureEnabled] = useState(false);
     const [scannedBarcodeData, setScannedBarcodeData] = useState<ScannedBarcodeData | null>(null);
 
@@ -108,14 +109,14 @@ export const SplitScreenView = ({ navigation }: Props) => {
     }, [cameraState]);
 
     useEffect(() => {
-        if (barcodeCaptureMode) {
-            barcodeCaptureMode.isEnabled = isBarcodeCaptureEnabled;
+        if (barcodeCaptureRef.current) {
+            barcodeCaptureRef.current.isEnabled = isBarcodeCaptureEnabled;
         }
         return () => {
             // Disable barcodeCaptureMode only when the component is unmounting, which means
             // the current view is no longer available.
-            if (barcodeCaptureMode && !viewRef.current) {
-                barcodeCaptureMode.isEnabled = false;
+            if (barcodeCaptureRef.current && !viewRef.current) {
+                barcodeCaptureRef.current.isEnabled = false;
             }
         }
     }, [isBarcodeCaptureEnabled]);
@@ -199,7 +200,7 @@ export const SplitScreenView = ({ navigation }: Props) => {
         barcodeCaptureOverlay.viewfinder = new LaserlineViewfinder(LaserlineViewfinderStyle.Animated);
 
         viewRef.current?.addOverlay(barcodeCaptureOverlay);
-        setBarcodeCaptureMode(barcodeCapture);
+        barcodeCaptureRef.current = barcodeCapture;
     }
 
     const startCapture = () => {

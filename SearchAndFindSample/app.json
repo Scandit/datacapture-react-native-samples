@@ -1,0 +1,7 @@
+{
+  "name": "SearchAndFindSample",
+  "displayName": "SearchAndFindSample",
+  "android": {
+    "package": "com.scandit.searchandfindsample"
+  }
+}

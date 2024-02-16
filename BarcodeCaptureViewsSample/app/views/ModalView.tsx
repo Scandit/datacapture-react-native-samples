@@ -39,6 +39,7 @@ type Props = {
 
 export const ModalView = ({ modalVisible, setModalVisible }: Props) => {
     const viewRef = useRef<DataCaptureView | null>(null);
+    const barcodeCaptureRef = useRef<BarcodeCapture | null>(null);
 
     const dataCaptureContext = useMemo(() => {
         // There is a Scandit sample license key set below here.
@@ -49,7 +50,6 @@ export const ModalView = ({ modalVisible, setModalVisible }: Props) => {
     }, []);
 
     const [camera, setCamera] = useState<Camera | null>(null);
-    const [barcodeCaptureMode, setBarcodeCaptureMode] = useState<BarcodeCapture | null>(null);
     const [isBarcodeCaptureEnabled, setIsBarcodeCaptureEnabled] = useState(false);
 
     const [cameraState, setCameraState] = useState(FrameSourceState.Off);
@@ -82,17 +82,17 @@ export const ModalView = ({ modalVisible, setModalVisible }: Props) => {
     }, [cameraState, modalVisible]);
 
     useEffect(() => {
-        if (barcodeCaptureMode) {
+        if (barcodeCaptureRef.current) {
             // Disable barcodeCaptureMode only when the component is unmounting, which means
             // the current view is no longer available.
-            barcodeCaptureMode.isEnabled = isBarcodeCaptureEnabled;
+            barcodeCaptureRef.current.isEnabled = isBarcodeCaptureEnabled;
         }
         return () => {
             // For modals it makes sense to also dispose of the context when turning off barcode capture,
             // once the component is unmounted. Note that this is handled differently than in the use-cases
             // where the DataCaptureView is rendered in a separate screen, and not a modal.
-            if (barcodeCaptureMode && !viewRef.current) {
-                barcodeCaptureMode.isEnabled = false;
+            if (barcodeCaptureRef.current && !viewRef.current) {
+                barcodeCaptureRef.current.isEnabled = false;
                 dataCaptureContext.dispose();
             }
         }
@@ -171,7 +171,7 @@ export const ModalView = ({ modalVisible, setModalVisible }: Props) => {
         // Add an overlay for the scanned barcodes.
         const barcodeCaptureOverlay = BarcodeCaptureOverlay.withBarcodeCaptureForView(barcodeCapture, null);
         viewRef.current?.addOverlay(barcodeCaptureOverlay);
-        setBarcodeCaptureMode(barcodeCapture);
+        barcodeCaptureRef.current = barcodeCapture;
     }
 
     const startCapture = () => {

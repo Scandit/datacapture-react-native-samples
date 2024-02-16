@@ -9,7 +9,6 @@ import {
     AamvaVizBarcodeComparisonResult,
     AamvaVizBarcodeComparisonVerifier,
     CapturedId,
-    ComparisonCheckResult,
     DateResult,
     DocumentType,
     IdCapture,
@@ -168,7 +167,7 @@ export const App = () => {
                         if (capturedId == null)  {
                             return;
                         }
-                        
+
                         // Front and back were scanned; perform a verification of the captured ID.
                         vizBarcodeComparisonVerifier.verify(session.newlyCapturedId)
                             .then((result: AamvaVizBarcodeComparisonResult) => {
@@ -204,7 +203,7 @@ export const App = () => {
                                             }
                                         }], {cancelable: false});
                                 }
-                                
+
                             })
                     }
 
@@ -244,7 +243,7 @@ export const App = () => {
             dateObject.year,
             dateObject.month - 1,
             dateObject.day
-        )).toLocaleDateString("en-GB", {timeZone: "UTC"})) || "empty"}`
+        )).toLocaleDateString("en-GB", {timeZone: "UTC"})) || "empty"}`;
     }
 
     const descriptionForCapturedId = (capturedId: CapturedId | null, verificationResult: AamvaVizBarcodeComparisonResult, barcodeVerificationResult: AamvaBarcodeVerificationResult | null) => {
@@ -253,7 +252,7 @@ export const App = () => {
         }
 
         return `
-        ${verificationResult.datesOfExpiryMatch.checkResult === ComparisonCheckResult.Passed ? "Document is not expired." : "Document is expired."}
+        ${capturedId.isExpired === true ? "Document is expired." : "Document is not expired."}
         ${verificationResult.checksPassed ? "Information on front and back match." : "Information on front and back do not match."}
         ${barcodeVerificationResult?.allChecksPassed == true ? "Verification checks passed." : "Verification checks failed"}
 
