@@ -183,12 +183,11 @@ export const ModalView = ({ modalVisible, setModalVisible }: Props) => {
         if (!camera) {
             // Use the world-facing (back) camera and set it as the frame source of the context. The camera is off by
             // default and must be turned on to start streaming frames to the data capture context for recognition.
-            const defaultCamera = Camera.default;
-            dataCaptureContext.setFrameSource(defaultCamera);
-
             const cameraSettings = new CameraSettings();
             cameraSettings.preferredResolution = VideoResolution.UHD4K;
-            defaultCamera?.applySettings(cameraSettings);
+
+            const defaultCamera = Camera.withSettings(cameraSettings);
+            dataCaptureContext.setFrameSource(defaultCamera);
             setCamera(defaultCamera);
         }
 

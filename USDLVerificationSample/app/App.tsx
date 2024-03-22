@@ -105,12 +105,11 @@ export const App = () => {
         if (!camera) {
             // Use the world-facing (back) camera and set it as the frame source of the context. The camera is off by
             // default and must be turned on to start streaming frames to the data capture context for recognition.
-            const camera = Camera.default;
-            dataCaptureContext.setFrameSource(camera);
-
             const cameraSettings = new CameraSettings();
             cameraSettings.preferredResolution = VideoResolution.UHD4K;
-            camera?.applySettings(cameraSettings);
+
+            const camera = Camera.withSettings(cameraSettings);
+            dataCaptureContext.setFrameSource(camera);
             setCamera(camera);
         }
 

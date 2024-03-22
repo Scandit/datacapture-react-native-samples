@@ -173,13 +173,9 @@ export const ScanPage = () => {
 
   const startCamera = () => {
     if (!camera) {
-      // Use the world-facing (back) camera and set it as the frame source of the context. The camera is off by
-      // default and must be turned on to start streaming frames to the data capture context for recognition.
-      const defaultCamera = Camera.default;
+      // Use the recommended camera settings for the BarcodeCount mode.
+      const defaultCamera = Camera.withSettings(BarcodeCount.recommendedCameraSettings);
       dataCaptureContext.setFrameSource(defaultCamera);
-
-      const cameraSettings = BarcodeCount.recommendedCameraSettings;
-      defaultCamera?.applySettings(cameraSettings);
       setCamera(defaultCamera);
     }
 

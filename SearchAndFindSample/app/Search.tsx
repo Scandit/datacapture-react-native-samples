@@ -49,7 +49,7 @@ export const Search = ({ navigation }: Props) => {
   // Get data capture context from Provider.
   const dataCaptureContext = useContext(DCC)!;
 
-  const [camera, setCamera] = useState<Camera | null>(Camera.default);
+  const [camera, setCamera] = useState<Camera | null>(null);
   const [code, setCode] = useState<Barcode | null>(null);
   const [barcodeCaptureMode, setBarcodeCaptureMode] = useState<BarcodeCapture | null>(null);
   const [isBarcodeCaptureEnabled, setIsBarcodeCaptureEnabled] = useState(false);
@@ -122,8 +122,8 @@ export const Search = ({ navigation }: Props) => {
     // default and must be turned on to start streaming frames to the data capture context for recognition.
     const cameraSettings = BarcodeCapture.recommendedCameraSettings;
     cameraSettings.preferredResolution = VideoResolution.FullHD;
-    camera?.applySettings(cameraSettings);
-
+    
+    const camera = Camera.withSettings(cameraSettings);
     dataCaptureContext.setFrameSource(camera);
     setCamera(camera);
 

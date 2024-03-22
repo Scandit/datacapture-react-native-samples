@@ -89,12 +89,11 @@ export class ScanPage extends Component {
     if (!this.camera) {
       // Use the world-facing (back) camera and set it as the frame source of the context. The camera is off by
       // default and must be turned on to start streaming frames to the data capture context for recognition.
-      this.camera = Camera.default;
-      this.dataCaptureContext.setFrameSource(this.camera);
-
       const cameraSettings = BarcodeTracking.recommendedCameraSettings;
       cameraSettings.preferredResolution = VideoResolution.FullHD;
-      this.camera.applySettings(cameraSettings);
+
+      this.camera = Camera.withSettings(cameraSettings);
+      this.dataCaptureContext.setFrameSource(this.camera);
     }
 
     // Switch camera on to start streaming frames and enable the barcode tracking mode.
