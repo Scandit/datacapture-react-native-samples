@@ -9,6 +9,7 @@ import {
     ToggleItem,
 } from '../../../common';
 import BCContext from '../../../data/BCContext';
+import { styles } from '../../style';
 
 export const SymbologyDetailPage = (props) => {
     const appContext = useContext(BCContext);
@@ -53,7 +54,7 @@ export const SymbologyDetailPage = (props) => {
     }
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={styles.container}>
             <ScrollView>
                 <EmptySpaceDivider height={25}/>
 

@@ -70,7 +70,7 @@ export const FeedbackPage = ({navigation}) => {
 
 
     return (
-        <SafeAreaView>
+        <SafeAreaView styles={{ flex: 1 }} >
             <EmptySpaceDivider height={25}/>
 
             <ScrollView>

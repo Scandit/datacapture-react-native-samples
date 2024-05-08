@@ -44,7 +44,7 @@ export const Overlay = () => {
     }
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={styles.container}>
             <EmptySpaceDivider height={25}/>
 
             <SettingsSection>

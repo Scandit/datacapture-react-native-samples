@@ -17,7 +17,7 @@ const SettingsItem = ({ label, onPress, style }) => (
 export const BarcodeCapturePage = ({ navigation }) => {
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={styles.container}>
             <EmptySpaceDivider height={25}/>
 
             <SettingsSection>

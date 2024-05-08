@@ -26,16 +26,11 @@
 	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
+		 <!-- Do not change NSAllowsArbitraryLoads to true, or you will risk app rejection! -->
 		<key>NSAllowsArbitraryLoads</key>
+		<false/>
+		<key>NSAllowsLocalNetworking</key>
 		<true/>
-		<key>NSExceptionDomains</key>
-		<dict>
-			<key>localhost</key>
-			<dict>
-				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<false/>
-			</dict>
-		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Access to the camera is required for scanning.</string>

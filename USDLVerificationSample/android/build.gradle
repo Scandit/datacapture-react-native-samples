@@ -6,7 +6,7 @@ buildscript {
         minSdkVersion = 23
         compileSdkVersion = 33
         targetSdkVersion = 33
-        kotlin_version = "1.8.20"
+        kotlin_kotlinVersionversion = "1.8.20"
         ndkVersion = "26.1.10909125"
     }
     repositories {
@@ -15,7 +15,7 @@ buildscript {
     }
     dependencies {
         classpath "com.android.tools.build:gradle"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_kotlinVersionversion"
         classpath("com.facebook.react:react-native-gradle-plugin")
     }
 }

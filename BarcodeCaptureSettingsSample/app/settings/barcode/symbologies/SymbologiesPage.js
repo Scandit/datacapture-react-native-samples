@@ -63,7 +63,7 @@ export const SymbologiesPage = ({navigation}) => {
     }
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={{ flex: 1 }}>
             <EmptySpaceDivider height={25}/>
 
             <MasterButtons toggleAll={onToggleAll}/>

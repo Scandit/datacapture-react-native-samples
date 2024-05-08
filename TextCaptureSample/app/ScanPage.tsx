@@ -33,17 +33,19 @@ export const ScanPage = ({ navigation }: NavigationProps) => {
 	  // If you want to build your own application, get your license key
     // by signing up for a trial at https://ssl.scandit.com/dashboard/sign-up?p=test
     return DataCaptureContext.forLicenseKey(
-      'Aa2k0xbKMtvDJWNgLU02Cr8aLxUjNtOuqXCjHUxVAUf/d66Y5Tm74sJ+8L0rGQUZ20e52VlMY9I7YW4W13kWbvp36R8jbqQy6yZUGS50G5n4fRItJD6525RcbTYZQjoIGHQqle9jj08ra19ZUy9RliVlOn3hHz4WrGO8vORyATmFXJpULzk0I5RpiT84ckXhG2Ri8jtIzoISX3zsoiLtXVRGjjrkbuGZzGbKA180JKEpdfSQwVyupLti5yNYHAeKihS6IOklCTz8CM1BfRC4zBdIDjbVEJPFgAsLvMU0rTyJhHkB5Ds4wfHbKNFhW0T2XkYLKkvZ7X/HnEVD5oz9Kl4T4rtRkepJfsXUWHUgVugjLO5vqwhMcHNV5XpK2Pk/SLrzGF1PDRu8f4ZhBLrWKknWq+5TSK8GWi4wmGpVvbxqHhLljzOzplYs8I5TtphZ3otJNLs10lhk1YN9cmdaxpdUuF4k0WDU1Qfco75p5G+MBlsAVVFrs0xMF9fSMJkQ+4UU+G+py5781HPkpw4kaGwmJhGrzA/Lbhf4tL+XfynseLw42oygpfVabYEYRHSQx+1j5RpFSR6V9t4jlKsJu2xgYz0A96I82gIHItRRxZkT2oEsZCgYlgCiQsFcsFdo9N9bzDL9mVR5Nj0RPIVvKc01AVtKvXLx86g2rNPv45eBaJFrdsWmv97V8+Pv6M9d+Wr1qcTeT1BY8fvWUEDmU1HF6eCJ1A6cDAM+Nq4sAP9D2lH7D6rHwK+x07F56bMZibLeDoGKanE8PhhamhxBVemE/ByCoMoItBtSbpeBubHVsSHlGF3/AAKi6flY6j0htptgPOM8eOwGXx6YvVxu3KOMF+2RBIQai8LP0YEuhVJ0ST7WX5seeVSu5RMKUx/euHoQB6qID+ydzkXGzYZLTPPskmJSWqrboJQPIjZ/ruCtJepZ/+Lr7g5nCyb01w=='
+      'AZ707AsCLmJWHbYO4RjqcVAEgAxmNGYcF3Ytg4RiKa/lWTQ3IXkfVZhSSi0yOzuabn9STRdnzTLybIiJVkVZU2QK5jeqbn1HGCGXQ+9lqsN8VUaTw1IeuHJo+9mYVdv3I1DhedtSy89aKA4QugKI5d9ykKaXGohXjlI+PB5ju8Tyc80FPAC3WP9D8oKBcWyemTLQjoUu0Nl3T7mVyFIXMPshQeYddkjMQ1sVV9Jcuf1CbI9riUJWzbNUb4NcB4MoV0BHuyALUPtuM2+cBkX3bPN0AxjD9WC7KflL2UrsZeenvl/aDx2yU4t5vsa2BImNTyEqdVs+rmrGUzRdbYvSUFzKBeiBncLAASqnexTuSzh9KfEm/cKrVlWekP+zOkrilICkn3KVNY6g9RQd8FrsHTBI9OBbMpC79BTwuzHcnlFUG5S3ru/viJ2+f9JEEejxDbdJ7u4JohfBuUYBSEBQ/XzEPMdpqWcmxHGWF4j7jQy83B9Wlgrhd8xNWKjgAViI0bcebjnB7o6yuKacXICH/lo787RhnXSjqjQhJBCbEvwxHQZiEfWPdVKtY7EM+x8HFr6j3orKllKOMJ9asZ5bJYz9aIHlOWeRGm90guQn0KWiPwuKbUOQIMxFAOem2zcSTt4OfqS6Ci0Y6lk7FIrgpbaz8L1PW64kkjrZB6FtQ8OppmsyZ/QTvrHYFQFTH7MpamDviRjEKMyiD2ID6ypl+Meeme6cZYRJVujr6b4tweQCsfNEYhuDiMJaWQ57R0n2XdF0zkepLVc0yA2Q3wWhxSIASLnv6GTCYYVnDJnkrr6VaTv8RVUOp8h8U34wGDanamQ+39+rESMD59E288OKgFvZZWN9Ltu/VQCcjYCYT1RTDcA9co3Y18aGpDxvtLVEGJ8QDPv1E//IYAYEhXqu8r9xbsx/hTwZmLpNKyXGPRr9+hpufTAcAj908f2kuQ=='
     );
   }, []);
 
   const [camera, setCamera] = useState<Camera | null>(null);
-  const [parser, setParser] = useState<Parser | null>(null);
-  const [textCaptureMode, setTextCaptureMode] = useState<TextCapture | null>(null);
+  const parserRef = useRef<Parser | null>(null);
   const textCaptureRef = useRef<TextCapture | null>(null);
-  const [isTextCaptureEnabled, setIsTextCaptureEnabled] = useState(false);
   const [cameraState, setCameraState] = useState(FrameSourceState.Off);
   const overlayRef = useRef<TextCaptureOverlay | null>(null);
+
+  const setIsTextCaptureEnabled = (value: boolean) => {
+    textCaptureRef.current.isEnabled = value;
+  }
 
   // Settings for GS1 mode.
   const gs1Viewfinder = (() => {
@@ -62,11 +64,11 @@ export const ScanPage = ({ navigation }: NavigationProps) => {
 
     return viewfinder;
   })()
-  const gs1Settings = (() => {
+  const gs1Settings: TextCaptureSettings = (() => {
     const settings = TextCaptureSettings.fromJSON({ regex: "((\\\(\\\d+\\\)[\\\dA-Z]+)+)" })
     settings!.locationSelection = RectangularLocationSelection
       .withWidthAndAspectRatio(new NumberWithUnit(0.9, MeasureUnit.Fraction), 0.2);
-    return settings;
+    return settings!!;
   })()
 
   // Settings for LOT mode.
@@ -110,13 +112,6 @@ export const ScanPage = ({ navigation }: NavigationProps) => {
     updateSettings();
   }, [settingsContext]);
 
-
-  useEffect(() => {
-    if (textCaptureMode) {
-        textCaptureMode.isEnabled = isTextCaptureEnabled;
-    }
-  }, [isTextCaptureEnabled]);
-
   useEffect(() => {
     if (camera) {
         camera.switchToDesiredState(cameraState);
@@ -124,7 +119,6 @@ export const ScanPage = ({ navigation }: NavigationProps) => {
   }, [cameraState]);
 
   const handleAppStateChange = async (nextAppState: AppStateStatus) => {
-    console.log('state change')
     if (nextAppState.match(/inactive|background/)) {
       stopCapture();
     } else {
@@ -168,7 +162,7 @@ export const ScanPage = ({ navigation }: NavigationProps) => {
 
   const setupScanning = () => {
     // Create a new text capture instance that manages text recognition.
-    const textCapture = TextCapture.forContext(dataCaptureContext);
+    const textCapture = TextCapture.forContext(dataCaptureContext, gs1Settings);
 
     // Add a barcode tracking overlay to the data capture view to render the location of captured barcodes on top of
     // the video preview. This is optional, but recommended for better visual feedback.
@@ -180,7 +174,7 @@ export const ScanPage = ({ navigation }: NavigationProps) => {
       .then(parser => {
         const defaultParser = parser;
         defaultParser.setOptions({ allowHumanReadableCodes: true });
-        setParser(defaultParser);
+        parserRef.current = defaultParser;
       });
 
     // Register a listener to get informed whenever new text got recognized.
@@ -188,12 +182,14 @@ export const ScanPage = ({ navigation }: NavigationProps) => {
       didCaptureText: (_: TextCapture, session: TextCaptureSession) => {
         const text = session.newlyCapturedTexts[0];
 
-        if (settingsContext.mode == Mode.GS1 && parser) {
+        if (settingsContext.mode == Mode.GS1 && parserRef.current) {
           // Parse GS1 results with the parser instance previously created.
-          parser.parseString(text.value)
+          parserRef.current.parseString(text.value)
             .then(parsedData => showResult(parsedData.fields
               .map(field => `${field.name}: ${JSON.stringify(field.parsed)}`).join('\n')))
-            .catch(_ => setIsTextCaptureEnabled(true));
+            .catch(err => {
+              showResult(err.message)
+            });
         } else {
           showResult(text.value);
         }
@@ -202,7 +198,6 @@ export const ScanPage = ({ navigation }: NavigationProps) => {
       }
     });
 
-    setTextCaptureMode(textCapture);
     overlayRef.current = overlay;
     textCaptureRef.current = textCapture;
   };

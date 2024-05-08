@@ -24,7 +24,7 @@ export const CompositeTypesPage = ({navigation}) => {
     }
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={styles.container}>
             <EmptySpaceDivider height={25}/>
 
             <ScrollView>

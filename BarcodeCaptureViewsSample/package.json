@@ -9,26 +9,25 @@
     },
     "dependencies": {
         "react": "18.2.0",
-        "react-native": "0.72.4",
+        "react-native": "0.73.6",
         "@react-navigation/native": "6.1.7",
-        "@react-navigation/stack": "6.3.17",
-        "react-native-gesture-handler": "2.12.1",
-        "react-native-safe-area-context": "4.7.2",
-        "react-native-screens": "3.25.0",
-        "scandit-react-native-datacapture-barcode": "6.23.2",
-        "scandit-react-native-datacapture-core": "6.23.2"
+        "@react-navigation/stack": "6.3.28",
+        "react-native-gesture-handler": "2.15.0",
+        "react-native-safe-area-context": "4.9.0",
+        "react-native-screens": "3.29.0",
+        "scandit-react-native-datacapture-barcode": "6.24.0",
+        "scandit-react-native-datacapture-core": "6.24.0"
     },
     "devDependencies": {
         "@babel/core": "^7.20.0",
         "@babel/preset-env": "^7.20.0",
         "@babel/runtime": "^7.20.0",
-        "@react-native/metro-config": "^0.72.11",
+        "@react-native/metro-config": "0.73.5",
         "@tsconfig/react-native": "^3.0.0",
-        "@types/react": "^18.0.24",
-        "@types/react-native": "0.72.2",
-        "metro-react-native-babel-preset": "0.76.8",
-        "react-native-codegen": "0.71.5",
-        "typescript": "^5.0.4"
+        "@types/react": "^18.2.6",
+        "@react-native/babel-preset": "0.73.21",
+        "react-native-codegen": "0.71.6",
+        "typescript": "5.0.4"
     },
     "resolutions": {
         "@react-native/normalize-colors": "0.72.0"

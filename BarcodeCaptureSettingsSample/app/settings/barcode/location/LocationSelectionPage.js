@@ -195,7 +195,7 @@ export const LocationSelectionPage = ({navigation}) => {
     )
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={styles.container}>
             <ScrollView>
                 <EmptySpaceDivider height={25}/>
 

@@ -1,7 +1,11 @@
 package com.scandit.listbuildingsample;
 
-import android.os.Bundle;
 import com.facebook.react.ReactActivity;
+import com.facebook.react.ReactActivityDelegate;
+import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
+import com.facebook.react.defaults.DefaultReactActivityDelegate;
+
+import javax.annotation.Nonnull;
 
 public class MainActivity extends ReactActivity {
 
@@ -10,12 +14,13 @@ public class MainActivity extends ReactActivity {
    * rendering of the component.
    */
   @Override
+  @Nonnull
   protected String getMainComponentName() {
     return "ListBuildingSample";
   }
 
   @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(null);
+  protected ReactActivityDelegate createReactActivityDelegate() {
+      return new DefaultReactActivityDelegate(this, getMainComponentName(), DefaultNewArchitectureEntryPoint.getFabricEnabled());
   }
 }

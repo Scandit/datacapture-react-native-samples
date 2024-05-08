@@ -56,7 +56,7 @@ export const Viewfinder = () => {
     const renderViewfinderSettings = () => VIEWFINDERS.filter(viewfinder => viewfinder.value === viewfinderTypePickerValue)[0].component
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={styles.container}>
             <ScrollView>
                 <EmptySpaceDivider height={25}/>
 

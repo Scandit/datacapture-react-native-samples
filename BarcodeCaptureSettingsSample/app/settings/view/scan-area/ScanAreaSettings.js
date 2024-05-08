@@ -34,7 +34,7 @@ export const ScanArea = () => {
     }
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={styles.container}>
             <EmptySpaceDivider height={25}/>
 
             <SettingsSection title={'Margins'}>

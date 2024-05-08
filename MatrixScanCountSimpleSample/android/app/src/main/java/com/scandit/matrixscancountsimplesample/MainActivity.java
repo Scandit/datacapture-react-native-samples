@@ -1,6 +1,11 @@
 package com.scandit.matrixscancountsimplesample;
 
 import com.facebook.react.ReactActivity;
+import com.facebook.react.ReactActivityDelegate;
+import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
+import com.facebook.react.defaults.DefaultReactActivityDelegate;
+
+import javax.annotation.Nonnull;
 
 public class MainActivity extends ReactActivity {
 
@@ -9,7 +14,13 @@ public class MainActivity extends ReactActivity {
    * rendering of the component.
    */
   @Override
+  @Nonnull
   protected String getMainComponentName() {
     return "MatrixScanCountSimpleSample";
+  }
+
+  @Override
+  protected ReactActivityDelegate createReactActivityDelegate() {
+      return new DefaultReactActivityDelegate(this, getMainComponentName(), DefaultNewArchitectureEntryPoint.getFabricEnabled());
   }
 }

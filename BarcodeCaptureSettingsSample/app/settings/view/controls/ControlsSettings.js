@@ -31,7 +31,7 @@ export const Controls = () => {
     }
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={styles.container}>
             <EmptySpaceDivider height={25}/>
 
             <SettingsSection>

@@ -22,7 +22,7 @@ export const CodeDuplicateFilterPage = () => {
     }
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={styles.container}>
             <EmptySpaceDivider height={25}/>
 
             <ScrollView>
