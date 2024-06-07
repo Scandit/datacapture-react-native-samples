@@ -38,6 +38,8 @@ allprojects {
     }
 
     configurations.all {
-        resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+        if (project.hasProperty("snapshotCacheDuration")) {
+            resolutionStrategy.cacheChangingModulesFor project.property("snapshotCacheDuration"), 'seconds'
+        }
     }
 }
