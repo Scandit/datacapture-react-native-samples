@@ -179,7 +179,11 @@ export class App extends Component {
     Personal Id Number: ${result.vizResult.personalIdNumber || "empty"}
     Document Additional Number: ${result.vizResult.documentAdditionalNumber || "empty"}
     Issuing Jurisdiction: ${result.vizResult.issuingJurisdiction || "empty"}
-    Issuing Authority: ${result.vizResult.issuingAuthority || "empty"}`
+    Issuing Authority: ${result.vizResult.issuingAuthority || "empty"}
+    Blood Type: ${result.vizResult.bloodType || "empty"}
+    Sponsor: ${result.vizResult.sponsor || "empty"}
+    Mother\'s Name: ${result.vizResult.mothersName || "empty"}
+    Father\'s Name: ${result.vizResult.fathersName || "empty"}`;
   }
 
   descriptionForUsDriverLicenseBarcodeResult(result) {
