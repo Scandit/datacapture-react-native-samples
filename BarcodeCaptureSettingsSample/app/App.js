@@ -42,12 +42,18 @@ import Icon from 'react-native-vector-icons/Ionicons';
 const Stack = createStackNavigator();
 
 const HeaderRightButton = ({navigation}) => {
+    const [isNavigating, setIsNavigating] = useState(false);
+
     if (Platform.OS === 'ios') {
         return (
             <Button
-                onPress={() => navigation.push('settings', {})}
+                onPress={async () => {
+                    setIsNavigating(true)
+                    navigation.push('settings', {setIsNavigating});
+                }}
                 title='Settings'
                 color={PlatformColor('systemBlue')}
+                disabled={isNavigating}
             />
         )
     } else {

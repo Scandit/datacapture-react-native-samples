@@ -10,6 +10,7 @@ import {
 } from '../../../common';
 import BCContext from '../../../data/BCContext';
 import {MarginsWithUnit, NumberWithUnit} from 'scandit-react-native-datacapture-core';
+import { styles } from '../../style';
 
 export const ScanArea = () => {
     const appContext = useContext(BCContext);

@@ -15,6 +15,8 @@ import {
     RadioList,
     SettingsSection, ValueInput,
 } from '../../../common';
+
+import { styles } from '../../style';
 import BCContext from '../../../data/BCContext';
 
 const locations = ['None', 'Radius', 'Rectangular'];

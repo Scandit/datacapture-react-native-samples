@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { SafeAreaView, TouchableOpacity, Text, FlatList } from 'react-native';
 
 import data from './settings-page.json';
 import { styles } from './style';
+import { useFocusEffect } from '@react-navigation/native';
 
 const SettingsItem = ({ item, onPress, style }) => (
     <TouchableOpacity onPress={onPress} style={[styles.item, style]}>
@@ -10,7 +11,14 @@ const SettingsItem = ({ item, onPress, style }) => (
     </TouchableOpacity>
 );
 
-export const SettingsPage = ({ navigation }) => {
+export const SettingsPage = ({ route, navigation }) => {
+    const { setIsNavigating } = route.params;
+
+    // setIsNavigating(false);
+    useEffect(() => {
+        return () => setIsNavigating(false);
+    }, []);
+
     const renderItem = ({ item }) => (
         <SettingsItem
             item={item}

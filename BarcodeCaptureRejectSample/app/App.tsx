@@ -143,7 +143,8 @@ export const App = () => {
     // Register a listener to get informed whenever a new barcode got recognized.
     const barcodeCaptureListener = {
       didScan: (_: BarcodeCapture, session: BarcodeCaptureSession) => {
-        const barcode = session.newlyRecognizedBarcodes[0];
+        const barcode = session.newlyRecognizedBarcode;
+        if (barcode == null) return;
         const symbology = new SymbologyDescription(barcode.symbology);
 
         // If the code scanned doesn't start with '09:', we will just ignore it and continue scanning.

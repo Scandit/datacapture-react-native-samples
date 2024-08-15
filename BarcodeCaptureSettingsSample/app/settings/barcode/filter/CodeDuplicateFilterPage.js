@@ -7,7 +7,7 @@ import {
     ValueInput,
 } from '../../../common';
 import BCContext from '../../../data/BCContext';
-
+import { styles } from '../../style';
 
 export const CodeDuplicateFilterPage = () => {
     const appContext = useContext(BCContext);

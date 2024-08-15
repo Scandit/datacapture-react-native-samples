@@ -15,6 +15,7 @@ import {
     EmptySpaceDivider,
 } from '../../../common';
 import BCContext from '../../../data/BCContext';
+import { styles } from '../../style';
 
 export const Logo = () => {
     const appContext = useContext(BCContext);

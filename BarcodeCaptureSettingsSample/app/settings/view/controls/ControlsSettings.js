@@ -5,6 +5,7 @@ import {EmptySpaceDivider, SettingsSection, ToggleItem,} from '../../../common';
 
 import BCContext from '../../../data/BCContext';
 import {TorchSwitchControl, ZoomSwitchControl} from 'scandit-react-native-datacapture-core';
+import { styles } from '../../style';
 
 const torchSwitchControl = new TorchSwitchControl();
 const zoomSwitchControl = new ZoomSwitchControl();

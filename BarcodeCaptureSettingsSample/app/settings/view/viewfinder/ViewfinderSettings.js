@@ -8,6 +8,7 @@ import {LaserlineViewfinderSettings} from './components/laserline-viewfinder/Las
 import {AimerViewfinderSettings} from './components/aimer-viewfinder/AimerViewfinderSettings';
 import ViewfinderFactory from './ViewfinderFactory';
 import BCContext from '../../../data/BCContext';
+import { styles } from '../../style';
 
 const VIEWFINDERS = [
     {

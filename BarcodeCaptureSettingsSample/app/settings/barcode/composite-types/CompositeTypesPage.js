@@ -9,6 +9,7 @@ import {
     MultiSelectList,
 } from '../../../common';
 import BCContext from '../../../data/BCContext';
+import { styles } from '../../style';
 
 export const CompositeTypesPage = ({navigation}) => {
     const appContext = useContext(BCContext);

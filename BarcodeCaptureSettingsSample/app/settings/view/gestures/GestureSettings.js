@@ -8,6 +8,7 @@ import {
     TapToFocus,
     SwipeToZoom,
 } from 'scandit-react-native-datacapture-core';
+import { styles } from '../../style';
 
 export const Gestures = () => {
     const appContext = useContext(BCContext);

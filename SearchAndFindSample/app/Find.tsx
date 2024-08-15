@@ -19,6 +19,7 @@ import { StackScreenProps } from '@react-navigation/stack';
 
 import { DCC } from './Context';
 import { RootStackParamList } from './App';
+import { BackHandler } from 'react-native';
 
 type Props = StackScreenProps<RootStackParamList, 'Find'>;
 
@@ -30,10 +31,18 @@ export const Find = ({ route, navigation }: Props) => {
 
   const [barcodeFindMode, setBarcodeFindMode] = useState<BarcodeFind | null>(null);
   const { itemToFind } = route.params;
+  const [isViewVisible, setIsViewVisible] = useState<boolean>(true); 
 
   useEffect(() => {
     dataCaptureContext.removeAllModes();
     setupScanning();
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      navigateBack,
+    );
+
+    return () => backHandler.remove();
   }, []);
 
   const setupScanning = () => {
@@ -56,7 +65,7 @@ export const Find = ({ route, navigation }: Props) => {
     // The foundItems parameter contains the list of items found in the entire session.
     barcodeFindViewUiListenerRef.current = {
       didTapFinishButton: (_: BarcodeFindItem[]) => {
-        navigation.goBack();
+        navigateBack();
       },
     }
 
@@ -70,8 +79,17 @@ export const Find = ({ route, navigation }: Props) => {
     setBarcodeFindMode(barcodeFind);
   };
 
+  const navigateBack = () => {
+    setIsViewVisible(false);
+    // Workaround to give some time to the navigator to properly pop up the native view from the stack
+    setTimeout(()=> {
+      navigation.goBack();
+    }, 500);
+    return true;
+  };
+
   return (
-    barcodeFindMode && (
+    barcodeFindMode && isViewVisible && (
       <BarcodeFindView
         style={{ flex: 1 }}
         context={dataCaptureContext}

@@ -23,8 +23,7 @@ import {
     DataCaptureView,
     Feedback,
     FrameSourceState,
-    LaserlineViewfinder,
-    LaserlineViewfinderStyle,
+    AimerViewfinder,
     MeasureUnit,
     NumberWithUnit,
     RadiusLocationSelection,
@@ -177,7 +176,9 @@ export const SplitScreenView = ({ navigation }: Props) => {
         // Register a listener to get informed whenever a new barcode is tracked.
         const barcodeCaptureListener = {
             didScan: (_: BarcodeCapture, session: BarcodeCaptureSession) => {
-                const barcode = session.newlyRecognizedBarcodes[0];
+                const barcode = session.newlyRecognizedBarcode;
+                if (barcode == null) return;
+                
                 const symbology = new SymbologyDescription(barcode.symbology);
 
                 setScannedBarcodeData({
@@ -197,7 +198,7 @@ export const SplitScreenView = ({ navigation }: Props) => {
 
         // Add a laserline viewfinder to the scanner.
         const barcodeCaptureOverlay = BarcodeCaptureOverlay.withBarcodeCaptureForView(barcodeCapture, null);
-        barcodeCaptureOverlay.viewfinder = new LaserlineViewfinder(LaserlineViewfinderStyle.Animated);
+        barcodeCaptureOverlay.viewfinder = new AimerViewfinder();
 
         viewRef.current?.addOverlay(barcodeCaptureOverlay);
         barcodeCaptureRef.current = barcodeCapture;

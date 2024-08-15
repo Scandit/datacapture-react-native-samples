@@ -25,6 +25,8 @@ import {
     SliderItem,
 } from '../../common';
 
+import { styles } from '../style';
+
 export const CameraSettingsPage = () => {
     const appContext = useContext(BCContext);
 

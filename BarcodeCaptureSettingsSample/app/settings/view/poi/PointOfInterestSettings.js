@@ -9,6 +9,7 @@ import {
 } from '../../../common';
 import BCContext from '../../../data/BCContext';
 import {NumberWithUnit, PointWithUnit} from 'scandit-react-native-datacapture-core';
+import { styles } from '../../style';
 
 export const PointOfInterest = () => {
     const appContext = useContext(BCContext);

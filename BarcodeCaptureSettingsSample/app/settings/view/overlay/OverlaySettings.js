@@ -11,6 +11,7 @@ import {
 import BCContext from '../../../data/BCContext';
 import {Brush, Color} from 'scandit-react-native-datacapture-core';
 import {BarcodeCaptureOverlay, BarcodeCaptureOverlayStyle} from 'scandit-react-native-datacapture-barcode';
+import { styles } from '../../style';
 
 const availableBrushes = {
     'default': new Brush(),

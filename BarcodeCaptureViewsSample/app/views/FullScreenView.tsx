@@ -131,7 +131,9 @@ export const FullScreenView = ({ navigation }: Props) => {
         // Register a listener to get informed whenever a new barcode is tracked.
         const barcodeCaptureListener = {
             didScan: (_: BarcodeCapture, session: BarcodeCaptureSession) => {
-                const barcode = session.newlyRecognizedBarcodes[0];
+                const barcode = session.newlyRecognizedBarcode;
+                if (barcode == null) return;
+                
                 const symbology = new SymbologyDescription(barcode.symbology);
 
                 // The `alert` call blocks execution until it's dismissed by the user. As no further frames would be

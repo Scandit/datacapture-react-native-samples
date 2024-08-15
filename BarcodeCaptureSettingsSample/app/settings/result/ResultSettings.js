@@ -8,6 +8,8 @@ import {
 } from '../../common';
 import BCContext from '../../data/BCContext';
 
+import { styles } from '../style';
+
 export const Result = () => {
     const appContext = useContext(BCContext);
 
