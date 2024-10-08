@@ -35,6 +35,8 @@ export const App = () => {
     );
   }, []);
 
+  const [appStateVisible, setAppStateVisible] = useState(AppState.currentState);
+
   const [camera, setCamera] = useState<Camera | null>(null);
   const [barcodeCaptureMode, setBarcodeCaptureMode] = useState<BarcodeCapture | null>(null);
   const [isBarcodeCaptureEnabled, setIsBarcodeCaptureEnabled] = useState(false);
@@ -69,12 +71,16 @@ export const App = () => {
   }, [isBarcodeCaptureEnabled]);
 
   const handleAppStateChange = (nextAppState: AppStateStatus) => {
-    if (nextAppState.match(/inactive|background/)) {
+    setAppStateVisible(nextAppState);
+  };
+
+  useEffect(() => {
+    if (appStateVisible.match(/inactive|background/)) {
       stopCapture();
     } else {
       startCapture();
     }
-  };
+  }, [appStateVisible]);
 
   const setupScanning = () => {
     // Use the world-facing (back) camera and set it as the frame source of the context. The camera is off by

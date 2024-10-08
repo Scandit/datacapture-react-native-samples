@@ -28,7 +28,6 @@ import {
 import { requestCameraPermissionsIfNeeded } from './camera-permission-handler';
 
 export const App = () => {
-
   const viewRef = useRef<DataCaptureView>(null);
   // Create data capture context using your license key.
   const dataCaptureContext = useMemo(() => {
@@ -39,8 +38,11 @@ export const App = () => {
     );
   }, []);
 
+  const [appStateVisible, setAppStateVisible] = useState(AppState.currentState);
+
   const [camera, setCamera] = useState<Camera | null>(null);
-  const [barcodeCaptureMode, setBarcodeCaptureMode] = useState<BarcodeCapture | null>(null);
+  const [barcodeCaptureMode, setBarcodeCaptureMode] =
+    useState<BarcodeCapture | null>(null);
   const [isBarcodeCaptureEnabled, setIsBarcodeCaptureEnabled] = useState(false);
   const [cameraState, setCameraState] = useState(FrameSourceState.Off);
 
@@ -50,14 +52,17 @@ export const App = () => {
   const lastCommand = useRef<string | null>(null);
 
   useEffect(() => {
-    const handleAppStateChangeSubscription = AppState.addEventListener('change', handleAppStateChange);
+    const handleAppStateChangeSubscription = AppState.addEventListener(
+      'change',
+      handleAppStateChange
+    );
     setupScanning();
     startCapture();
     return () => {
       handleAppStateChangeSubscription.remove();
       stopCapture();
       dataCaptureContext.dispose();
-    }
+    };
   }, []);
 
   useEffect(() => {
@@ -67,18 +72,22 @@ export const App = () => {
   }, [cameraState]);
 
   useEffect(() => {
+    if (appStateVisible.match(/inactive|background/)) {
+      stopCapture();
+    } else {
+      startCapture();
+    }
+  }, [appStateVisible]);
+
+  useEffect(() => {
     if (barcodeCaptureMode) {
       barcodeCaptureMode.isEnabled = isBarcodeCaptureEnabled;
     }
   }, [isBarcodeCaptureEnabled]);
 
   const handleAppStateChange = async (nextAppState: AppStateStatus) => {
-    if (nextAppState.match(/inactive|background/)) {
-      stopCapture();
-    } else {
-      startCapture();
-    }
-  }
+    setAppStateVisible(nextAppState);
+  };
 
   const startCapture = () => {
     if (lastCommand.current === 'startCapture') {
@@ -87,7 +96,7 @@ export const App = () => {
     lastCommand.current = 'startCapture';
     startCamera();
     setIsBarcodeCaptureEnabled(true);
-  }
+  };
 
   const stopCapture = () => {
     if (lastCommand.current === 'stopCapture') {
@@ -96,11 +105,11 @@ export const App = () => {
     lastCommand.current = 'stopCapture';
     setIsBarcodeCaptureEnabled(false);
     stopCamera();
-  }
+  };
 
   const stopCamera = () => {
     setCameraState(FrameSourceState.Off);
-  }
+  };
 
   const startCamera = () => {
     if (!camera) {
@@ -119,7 +128,7 @@ export const App = () => {
     requestCameraPermissionsIfNeeded()
       .then(() => setCameraState(FrameSourceState.On))
       .catch(() => BackHandler.exitApp());
-  }
+  };
 
   const setupScanning = () => {
     // The barcode capturing process is configured through barcode capture settings
@@ -132,7 +141,10 @@ export const App = () => {
     settings.enableSymbologies([Symbology.QR]);
 
     // Create new barcode capture mode with the settings from above.
-    const barcodeCapture = BarcodeCapture.forContext(dataCaptureContext, settings);
+    const barcodeCapture = BarcodeCapture.forContext(
+      dataCaptureContext,
+      settings
+    );
 
     // By default, every time a barcode is scanned, a sound (if not in silent mode) and a vibration are played.
     // In the following we are setting a success feedback without sound and vibration.
@@ -158,9 +170,13 @@ export const App = () => {
         // does not stop the camera, the camera continues to stream frames until it is turned off.
         setIsBarcodeCaptureEnabled(false);
 
-        overlay.brush = new Brush(Color.fromHex('FFF0'), Color.fromHex('FFFF'), 3);
+        overlay.brush = new Brush(
+          Color.fromHex('FFF0'),
+          Color.fromHex('FFFF'),
+          3
+        );
 
-        Feedback.defaultFeedback.emit()
+        Feedback.defaultFeedback.emit();
 
         Alert.alert(
           '',
@@ -168,7 +184,7 @@ export const App = () => {
           [{ text: 'OK', onPress: () => setIsBarcodeCaptureEnabled(true) }],
           { cancelable: false }
         );
-      }
+      },
     };
 
     barcodeCapture.addListener(barcodeCaptureListener);
@@ -176,25 +192,29 @@ export const App = () => {
     // Add a barcode capture overlay to the data capture view to render the location of captured barcodes on top of
     // the video preview, using the Frame overlay style. This is optional, but recommended for better visual feedback.
     const overlay = BarcodeCaptureOverlay.withBarcodeCaptureForViewWithStyle(
-        barcodeCapture,
-        null,
-        BarcodeCaptureOverlayStyle.Frame
+      barcodeCapture,
+      null,
+      BarcodeCaptureOverlayStyle.Frame
     );
 
     overlay.brush = Brush.transparent;
 
     // Add a square viewfinder as we are only scanning square QR codes.
     overlay.viewfinder = new RectangularViewfinder(
-        RectangularViewfinderStyle.Square,
-        RectangularViewfinderLineStyle.Light,
+      RectangularViewfinderStyle.Square,
+      RectangularViewfinderLineStyle.Light
     );
 
     viewRef.current?.addOverlay(overlay);
 
     setBarcodeCaptureMode(barcodeCapture);
-  }
+  };
 
   return (
-    <DataCaptureView style={{ flex: 1 }} context={dataCaptureContext} ref={viewRef} />
+    <DataCaptureView
+      style={{ flex: 1 }}
+      context={dataCaptureContext}
+      ref={viewRef}
+    />
   );
-}
+};

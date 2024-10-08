@@ -47,13 +47,7 @@ export function App() {
                 name='Find'
                 component={Find}
                 options={{
-                  title: 'SEARCH & FIND',
-                  headerTitleAlign: 'center',
-                  headerStyle: {
-                    backgroundColor: 'black',
-                  },
-                  headerTintColor: 'white',
-                  headerShadowVisible: false,
+                  headerShown: false,
                 }}
               />
             </Stack.Navigator>

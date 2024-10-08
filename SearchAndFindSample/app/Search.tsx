@@ -49,6 +49,8 @@ export const Search = ({ navigation }: Props) => {
   // Get data capture context from Provider.
   const dataCaptureContext = useContext(DCC)!;
 
+  const [appStateVisible, setAppStateVisible] = useState(AppState.currentState);
+
   const [camera, setCamera] = useState<Camera | null>(null);
   const [code, setCode] = useState<Barcode | null>(null);
   const [barcodeCaptureMode, setBarcodeCaptureMode] = useState<BarcodeCapture | null>(null);
@@ -67,6 +69,8 @@ export const Search = ({ navigation }: Props) => {
   useFocusEffect(
     useCallback(() => {
       // Screen is focused.
+      const handleAppStateChangeSubscription = AppState.addEventListener('change', handleAppStateChange);
+
       if (!setupFlagRef.current) {
         dataCaptureContext.removeAllModes();
         setupScanning();
@@ -75,6 +79,7 @@ export const Search = ({ navigation }: Props) => {
 
       return () => {
         // Screen is unfocused.
+        handleAppStateChangeSubscription.remove();
         setupFlagRef.current = false;
         stopCapture();
         dataCaptureContext.setFrameSource(null);
@@ -83,12 +88,10 @@ export const Search = ({ navigation }: Props) => {
   );
 
   useEffect(() => {
-    const handleAppStateChangeSubscription = AppState.addEventListener('change', handleAppStateChange);
     setupScanning();
     startCapture();
 
     return () => {
-      handleAppStateChangeSubscription.remove();
       stopCapture();
       dataCaptureContext.dispose()
     }
@@ -107,12 +110,16 @@ export const Search = ({ navigation }: Props) => {
   }, [isBarcodeCaptureEnabled]);
 
   const handleAppStateChange = (nextAppState: AppStateStatus) => {
-    if (nextAppState.match(/inactive|background/)) {
+    setAppStateVisible(nextAppState);
+  };
+
+  useEffect(() => {
+    if (appStateVisible.match(/inactive|background/)) {
       stopCapture();
     } else {
       startCapture();
     }
-  };
+  }, [appStateVisible])
 
   const setupScanning = () => {
     if (setupFlagRef.current) {
@@ -122,7 +129,7 @@ export const Search = ({ navigation }: Props) => {
     // default and must be turned on to start streaming frames to the data capture context for recognition.
     const cameraSettings = BarcodeCapture.recommendedCameraSettings;
     cameraSettings.preferredResolution = VideoResolution.FullHD;
-    
+
     const camera = Camera.withSettings(cameraSettings);
     dataCaptureContext.setFrameSource(camera);
     setCamera(camera);

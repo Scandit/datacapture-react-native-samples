@@ -45,6 +45,8 @@ export const App = () => {
     );
   }, []);
 
+  const [appStateVisible, setAppStateVisible] = useState(AppState.currentState);
+
   const [sparkScanMode, setSparkScanMode] = useState<SparkScan | null>(null);
   const sparkScanViewRef = useRef<SparkScanView | null>(null);
 
@@ -63,14 +65,18 @@ export const App = () => {
   }, []);
 
   const handleAppStateChange = async (nextAppState: AppStateStatus) => {
-    if (!nextAppState.match(/inactive|background/)) {
+    setAppStateVisible(nextAppState);
+  };
+
+  useEffect(() => {
+    if (!appStateVisible.match(/inactive|background/)) {
       if (sparkScanViewRef.current) {
         sparkScanViewRef.current.stopScanning();
       }
     } else {
       checkCameraPermissions();
     }
-  };
+  }, [appStateVisible]);
 
   const checkCameraPermissions = () => {
     requestCameraPermissionsIfNeeded()
@@ -155,7 +161,7 @@ export const App = () => {
       } else {
         // customize and return an error feedback
         return new SparkScanBarcodeErrorFeedback(
-          'This code should not have been scanned',
+          'Wrong barcode',
           60,
           Color.fromHex('#FF0000'),
           new Brush(Color.fromHex('#FF0000'), Color.fromHex('#FF0000'), 1),
