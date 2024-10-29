@@ -10,8 +10,8 @@
     "dependencies": {
         "react": "18.2.0",
         "react-native": "0.73.6",
-        "scandit-react-native-datacapture-barcode": "6.28.0",
-        "scandit-react-native-datacapture-core": "6.28.0"
+        "scandit-react-native-datacapture-barcode": "6.28.1",
+        "scandit-react-native-datacapture-core": "6.28.1"
     },
     "devDependencies": {
         "@babel/core": "^7.20.0",
