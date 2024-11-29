@@ -22,6 +22,14 @@ SparkScan is a camera-based solution for high-speed single scanning and scan-int
 
 **List Building Sample** ([React Native](https://github.com/Scandit/datacapture-react-native-samples/tree/master/ListBuildingSample))
 
+### Search for Barcodes (**MatrixScan Find)**
+
+MatrixScan Find is a pre-built component that uses AR overlays to highlight items that match predefined criteria.
+
+![MSFind.png](https://github.com/Scandit/.github/blob/main/images/MSFind.png)
+
+**Seach  & Find Sample** ([React Native](https://github.com/Scandit/datacapture-react-native-samples/tree/master/SearchAndFindSample))
+
 ### Scan One of Many Barcodes (Barcode Selection)
 
 Barcode Selection is a pre-built component that provides a UI for selecting the right code when codes are crowded (and cannot be selected programmatically).
@@ -59,8 +67,6 @@ ID Scanning Samples demonstrate the features of the ID Capture API and demonstra
 **Barcode Capture Reject Sample** ([React Native](https://github.com/Scandit/datacapture-react-native-samples/tree/master/BarcodeCaptureRejectSample))
 
 **Barcode Capture Settings Sample** ([React Native](https://github.com/Scandit/datacapture-react-native-samples/tree/master/BarcodeCaptureSettingsSample))
-
-**Barcode Capture Views Sample** ([React Native](https://github.com/Scandit/datacapture-react-native-samples/tree/master/BarcodeCaptureViewsSample))
 
 ### MatrixScan AR Sam**ples**
 

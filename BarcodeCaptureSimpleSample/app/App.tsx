@@ -123,7 +123,7 @@ export const App = () => {
 
     // Register a listener to get informed whenever a new barcode got recognized.
     const barcodeCaptureListener = {
-      didScan: (_: BarcodeCapture, session: BarcodeCaptureSession) => {
+      didScan: async (_: BarcodeCapture, session: BarcodeCaptureSession) => {
         const barcode = session.newlyRecognizedBarcode;
         if (barcode == null) return;
         

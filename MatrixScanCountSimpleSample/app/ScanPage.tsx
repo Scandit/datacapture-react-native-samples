@@ -117,11 +117,11 @@ export const ScanPage = () => {
 
     // Register a listener to get informed whenever a new barcode is tracked.
     const barcodeCountListener = {
-      didScan: (_: BarcodeCount, session: BarcodeCountSession) => {
+      didScan: async (_: BarcodeCount, session: BarcodeCountSession) => {
         setCodes(
-          Object.values(session.recognizedBarcodes).map(t => ({
-            data: t.barcode.data,
-            symbology: t.barcode.symbology,
+          Object.values(session.recognizedBarcodes).map(barcode => ({
+            data: barcode.data,
+            symbology: barcode.symbology,
           })),
         );
       },

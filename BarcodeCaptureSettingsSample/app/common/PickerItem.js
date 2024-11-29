@@ -31,11 +31,11 @@ export const PickerItem = ({ title, selectedValue, options, onValueChange }) => 
     }
 
     const openActionSheet = () => {
-        actionSheetRef.current.setModalVisible();
+        actionSheetRef.current.show();
     }
 
     const handleSelectedValue = (selection) => {
-        actionSheetRef.current.setModalVisible(false);
+        actionSheetRef.current.hide();
         onValueChange(selection);
         setActionSheetButtonTitle(getDisplayTitle(selection, options));
     }

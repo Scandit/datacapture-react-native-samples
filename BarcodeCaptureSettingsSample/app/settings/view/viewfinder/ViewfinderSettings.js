@@ -4,7 +4,6 @@ import {SafeAreaView, ScrollView} from 'react-native';
 import {EmptySpaceDivider, SettingsSection, PickerItem,} from '../../../common';
 
 import {RectangularViewfinderSettings} from './components/rectangular-viewfinder/RectangularViewfinderSettings';
-import {LaserlineViewfinderSettings} from './components/laserline-viewfinder/LaserlineViewfinderSettings';
 import {AimerViewfinderSettings} from './components/aimer-viewfinder/AimerViewfinderSettings';
 import ViewfinderFactory from './ViewfinderFactory';
 import BCContext from '../../../data/BCContext';
@@ -19,10 +18,6 @@ const VIEWFINDERS = [
         label: 'Rectangular',
         value: 'rectangular',
         component: <RectangularViewfinderSettings/>,
-    }, {
-        label: 'Laserline',
-        value: 'laserline',
-        component: <LaserlineViewfinderSettings/>,
     }, {
         label: 'Aimer',
         value: 'aimer',

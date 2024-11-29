@@ -2,10 +2,10 @@ import { createStackNavigator } from '@react-navigation/stack';
 import React, { Component } from 'react';
 import { AppState, SafeAreaView, BackHandler } from 'react-native';
 import {
-  BarcodeTracking,
-  BarcodeTrackingBasicOverlay,
-  BarcodeTrackingBasicOverlayStyle,
-  BarcodeTrackingSettings,
+  BarcodeBatch,
+  BarcodeBatchBasicOverlay,
+  BarcodeBatchBasicOverlayStyle,
+  BarcodeBatchSettings,
   Symbology,
 } from 'scandit-react-native-datacapture-barcode';
 import {
@@ -66,11 +66,11 @@ export class ScanPage extends Component {
 
   startCapture() {
     this.startCamera();
-    this.barcodeTracking.isEnabled = true;
+    this.barcodeBatch.isEnabled = true;
   }
 
   stopCapture() {
-    this.barcodeTracking.isEnabled = false;
+    this.barcodeBatch.isEnabled = false;
     this.stopCamera();
   }
 
@@ -88,14 +88,14 @@ export class ScanPage extends Component {
     if (!this.camera) {
       // Use the world-facing (back) camera and set it as the frame source of the context. The camera is off by
       // default and must be turned on to start streaming frames to the data capture context for recognition.
-      const cameraSettings = BarcodeTracking.recommendedCameraSettings;
+      const cameraSettings = BarcodeBatch.recommendedCameraSettings;
       cameraSettings.preferredResolution = VideoResolution.FullHD;
 
       this.camera = Camera.withSettings(cameraSettings);
       this.dataCaptureContext.setFrameSource(this.camera);
     }
 
-    // Switch camera on to start streaming frames and enable the barcode tracking mode.
+    // Switch camera on to start streaming frames and enable the barcode batch mode.
     // The camera is started asynchronously and will take some time to completely turn on.
     requestCameraPermissionsIfNeeded()
       .then(() => this.camera.switchToDesiredState(FrameSourceState.On))
@@ -103,9 +103,9 @@ export class ScanPage extends Component {
   }
 
   setupScanning() {
-    // The barcode tracking process is configured through barcode tracking settings
-    // which are then applied to the barcode tracking instance that manages barcode tracking.
-    const settings = new BarcodeTrackingSettings();
+    // The barcode batch process is configured through barcode batch settings
+    // which are then applied to the barcode batch instance that manages barcode batch.
+    const settings = new BarcodeBatchSettings();
 
     // The settings instance initially has all types of barcodes (symbologies) disabled. For the purpose of this
     // sample we enable a very generous set of symbologies. In your own app ensure that you only enable the
@@ -118,12 +118,12 @@ export class ScanPage extends Component {
       Symbology.Code128,
     ]);
 
-    // Create new barcode tracking mode with the settings from above.
-    this.barcodeTracking = BarcodeTracking.forContext(this.dataCaptureContext, settings);
+    // Create new barcode batch mode with the settings from above.
+    this.barcodeBatch = BarcodeBatch.forContext(this.dataCaptureContext, settings);
 
     // Register a listener to get informed whenever a new barcode is tracked.
-    this.barcodeTrackingListener = {
-      didUpdateSession: (_, session) => {
+    this.barcodeBatchListener = {
+      didUpdateSession: async (_, session) => {
         this.results = {};
 
         Object.values(session.trackedBarcodes).forEach(trackedBarcode => {
@@ -137,18 +137,18 @@ export class ScanPage extends Component {
       }
     };
 
-    this.barcodeTracking.addListener(this.barcodeTrackingListener);
+    this.barcodeBatch.addListener(this.barcodeBatchListener);
 
-    // Add a barcode tracking overlay to the data capture view to render the location of captured barcodes on top of
+    // Add a barcode batch overlay to the data capture view to render the location of captured barcodes on top of
     // the video preview. This is optional, but recommended for better visual feedback.
-    const overlay = BarcodeTrackingBasicOverlay.withBarcodeTrackingForViewWithStyle(
-      this.barcodeTracking,
+    const overlay = BarcodeBatchBasicOverlay.withBarcodeBatchForViewWithStyle(
+      this.barcodeBatch,
       this.viewRef.current,
-      BarcodeTrackingBasicOverlayStyle.Frame
+      BarcodeBatchBasicOverlayStyle.Frame
     );
 
-    // Implement the BarcodeTrackingBasicOverlayListener interface.
-    // The method BarcodeTrackingBasicOverlayListener.brushForTrackedBarcode() is invoked every time a new tracked
+    // Implement the BarcodeBatchBasicOverlayListener interface.
+    // The method BarcodeBatchBasicOverlayListener.brushForTrackedBarcode() is invoked every time a new tracked
     // barcode appears and it can be used to set a brush that will highlight that specific barcode in the overlay.
     overlay.listener = {
       brushForTrackedBarcode: (overlay, trackedBarcode) => {

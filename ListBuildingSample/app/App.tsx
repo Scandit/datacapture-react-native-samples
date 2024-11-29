@@ -124,7 +124,7 @@ export const App = () => {
 
     // Register a listener to get informed whenever a new barcode is scanned.
     const sparkScanListener = {
-      didScan: (_: any, session: SparkScanSession) => {
+      didScan: async (_: any, session: SparkScanSession) => {
         const barcode = session.newlyRecognizedBarcode;
         if (barcode == null) return;
 

@@ -1,8 +1,6 @@
 import {
     RectangularViewfinder,
     RectangularViewfinderAnimation,
-    LaserlineViewfinder,
-    SpotlightViewfinder,
     AimerViewfinder,
     Color,
     SizeWithUnit,
@@ -18,20 +16,6 @@ export default class ViewfinderFactory {
                     settings['rectangularsettings.color'],
                     settings['rectangularsettings.size'],
                     settings['rectangularsettings.style'],
-                );
-            case 'laserline':
-                return this.laserlineVF(
-                    settings['laserlinesettings.style'],
-                    settings['laserlinesettings.color.enabled'],
-                    settings['laserlinesettings.color.disabled'],
-                    settings['laserlinesettings.size.width']
-                );
-            case 'spotlight':
-                return this.spotlightVF(
-                    settings['spotlightsettings.color.background'],
-                    settings['spotlightsettings.color.enabled'],
-                    settings['spotlightsettings.color.disabled'],
-                    settings['spotlightsettings.size'],
                 );
             case 'aimer':
                 return this.aimerVF(
@@ -97,68 +81,6 @@ export default class ViewfinderFactory {
         }
 
         return rectangularViewfinder;
-    }
-
-    laserlineVF(style, enabledColor, disabledColor, size) {
-        let laserlineViewfinder = new LaserlineViewfinder();
-
-        if (!!style) {
-            laserlineViewfinder = new LaserlineViewfinder(style.styleName);
-        }
-
-        if (!!enabledColor) {
-            laserlineViewfinder.enabledColor = Color.fromHex(enabledColor);
-        }
-
-        if (!!disabledColor) {
-            laserlineViewfinder.disabledColor = Color.fromHex(disabledColor);
-        }
-
-        if (!!size) {
-            laserlineViewfinder.width = new NumberWithUnit(parseFloat(size.inputBoxValue), size.measurementUnitValue);
-        }
-
-        return laserlineViewfinder;
-    }
-
-    spotlightVF(bgColor, enabledColor, disabledColor, size) {
-        const spotlightViewfinder = new SpotlightViewfinder();
-
-        if (!!bgColor) {
-            spotlightViewfinder.backgroundColor = Color.fromHex(bgColor);
-        }
-
-        if (!!enabledColor) {
-            spotlightViewfinder.enabledBorderColor = Color.fromHex(enabledColor);
-        }
-
-        if (!!disabledColor) {
-            spotlightViewfinder.disabledBorderColor = Color.fromHex(disabledColor);
-        }
-
-        if (!!size) {
-            const width = size['Width'];
-            const height = size['Height'];
-
-            if (width && height) {
-                spotlightViewfinder.setSize(new SizeWithUnit(
-                    new NumberWithUnit(parseFloat(width), MeasureUnit.DIP),
-                    new NumberWithUnit(parseFloat(height), MeasureUnit.DIP)
-                ))
-            } else if (width && size['Width to height aspect ratio']) {
-                spotlightViewfinder.setHeightAndAspectRatio(
-                    new NumberWithUnit(parseFloat(height), MeasureUnit.DIP),
-                    size['Width to height aspect ratio']
-                )
-            } else if (height && size['Height to width aspect ratio']) {
-                spotlightViewfinder.setWidthAndAspectRatio(
-                    new NumberWithUnit(parseFloat(width), MeasureUnit.DIP),
-                    size['Height to width aspect ratio']
-                )
-            }
-        }
-
-        return spotlightViewfinder;
     }
 
     aimerVF(frameColor, dotColor) {

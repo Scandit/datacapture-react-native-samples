@@ -23,6 +23,7 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = USDLVerificationSample/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = USDLVerificationSample/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = USDLVerificationSample/main.m; sourceTree = "<group>"; };
+		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = USDLVerificationSample/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		52B5B34A90239EC0F17AE6F4 /* libPods-USDLVerificationSample-USDLVerificationSampleTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-USDLVerificationSample-USDLVerificationSampleTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6294204D4A098A4B5CE7D744 /* Pods-USDLVerificationSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-USDLVerificationSample.release.xcconfig"; path = "Target Support Files/Pods-USDLVerificationSample/Pods-USDLVerificationSample.release.xcconfig"; sourceTree = "<group>"; };
 		6C8C4268882DE1FC793C6EA3 /* Pods-USDLVerificationSample-USDLVerificationSampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-USDLVerificationSample-USDLVerificationSampleTests.debug.xcconfig"; path = "Target Support Files/Pods-USDLVerificationSample-USDLVerificationSampleTests/Pods-USDLVerificationSample-USDLVerificationSampleTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -71,6 +72,7 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */,
 			);
 			name = USDLVerificationSample;
 			sourceTree = "<group>";
@@ -206,7 +208,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
+			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"$REACT_NATIVE_PATH/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"$REACT_NATIVE_PATH/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
 		4ABEEF73CA86A3696B998AC2 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -292,7 +294,7 @@
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				INFOPLIST_FILE = USDLVerificationSample/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -336,7 +338,6 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/libevent\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/scandit-react-native-datacapture-core\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/scandit-react-native-datacapture-id\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/scandit-react-native-datacapture-text\"",
 					"\"$(SDKROOT)/usr/lib/swift\"",
 				);
 				OTHER_LDFLAGS = (
@@ -363,7 +364,7 @@
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				INFOPLIST_FILE = USDLVerificationSample/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -399,7 +400,6 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/libevent\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/scandit-react-native-datacapture-core\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/scandit-react-native-datacapture-id\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/scandit-react-native-datacapture-text\"",
 					"\"$(SDKROOT)/usr/lib/swift\"",
 				);
 				OTHER_LDFLAGS = (

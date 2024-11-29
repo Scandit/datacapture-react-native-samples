@@ -61,7 +61,7 @@ export default class App extends Component {
 
     // Register a listener to get informed whenever a new barcode got recognized.
     this.barcodeSelection.addListener({
-      didUpdateSelection: (barcodeSelection, session, _) => {
+      didUpdateSelection: async (barcodeSelection, session, _) => {
         const barcode = session.newlySelectedBarcodes[0];
 
         if (!barcode) { return }

@@ -6,8 +6,8 @@ buildscript {
         minSdkVersion = 23
         compileSdkVersion = 33
         targetSdkVersion = 33
-        kotlinVersion = "1.8.22"
         ndkVersion = "27.0.12077973"
+        kotlinVersion = "1.8.22"
     }
     repositories {
         google()
@@ -27,7 +27,7 @@ def custom_config_scripts = [
 
 allprojects {
     repositories {
-        maven { url "file://${rootDir}/../../.m2/repository" }
+        maven { url "file://${rootDir}/../../../.m2/repository" }
     }
     custom_config_scripts.each { location ->
         def file = file(location)

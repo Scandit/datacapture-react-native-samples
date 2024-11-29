@@ -115,7 +115,7 @@ class ScanPage extends Component {
 
     setupScanning() {
         const barcodeCaptureListener = {
-            didScan: (_, session) => {
+            didScan: async (_, session) => {
                 const barcode = session.newlyRecognizedBarcode;
                 if (barcode == null) return;
                 

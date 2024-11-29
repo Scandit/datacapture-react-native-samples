@@ -173,8 +173,8 @@ export const Search = ({ navigation }: Props) => {
 
     // Register a listener to get informed whenever a new barcode got recognized.
     const barcodeCaptureListener = {
-      didScan: (_: BarcodeCapture, session: BarcodeCaptureSession) => {
-        const barcode = session.newlyRecognizedBarcodes[0];
+      didScan: async (_: BarcodeCapture, session: BarcodeCaptureSession) => {
+        const barcode = session.newlyRecognizedBarcode;
         setCode(barcode);
         setModalVisible(true);
       }
