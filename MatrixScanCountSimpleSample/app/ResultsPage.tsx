@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
-import { Pressable, SafeAreaView, ScrollView, Text, View } from 'react-native';
+import { Pressable, SafeAreaView, ScrollView, Text, View, BackHandler } from 'react-native';
 import { styles } from './styles';
 import { RootStackParamList } from './App';
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute, useFocusEffect } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import AppContext from './AppContext';
+import { HeaderBackButton } from '@react-navigation/elements';
 
 type ResultsPageProps = RouteProp<RootStackParamList, 'Results'>;
 type ResultsPageNavigationProp = StackNavigationProp<RootStackParamList>;
@@ -14,6 +15,37 @@ export const ResultsPage = () => {
   const navigation = useNavigation<ResultsPageNavigationProp>();
 
   const { codes, flags, setFlags } = useContext(AppContext);
+
+  const handleBackNavigation = React.useCallback(() => {
+    if (route.params.source === 'finishButton') {
+      setFlags({ ...flags, shouldResetBarcodeCount: true });
+    }
+    navigation.goBack();
+  }, [flags, route.params.source, navigation, setFlags]);
+
+  React.useEffect(() => {
+    navigation.setOptions({
+      headerLeft: (props) => (
+        <HeaderBackButton
+          {...props}
+          onPress={handleBackNavigation}
+        />
+      ),
+    });
+  }, [navigation, handleBackNavigation]);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const subscription = BackHandler.addEventListener(
+        'hardwareBackPress',
+        () => {
+          handleBackNavigation();
+          return true;
+        }
+      );
+      return () => subscription.remove();
+    }, [handleBackNavigation])
+  );
 
   const handleClearButtonClick = () => {
     route.params.source === 'listButton'

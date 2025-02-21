@@ -34,14 +34,4 @@ export const styles = StyleSheet.create({
   arBubbleInfo: {
     fontSize: 12,
   },
-  arBubbleImageContainer: {
-    width: 50,
-    height: 50,
-    backgroundColor: '#52C2B6',
-    borderRadius: 25,
-  },
-  arBubbleImage: {
-    width: 50,
-    height: 50,
-  },
 });

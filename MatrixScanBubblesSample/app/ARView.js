@@ -31,9 +31,6 @@ export class ARView extends BarcodeBatchAdvancedOverlayView {
     return (
       <TouchableWithoutFeedback onPress={() => this.setState({ showBarcodeData: !showBarcodeData })}>
         <View style={styles.arBubbleContainer}>
-          <View style={styles.arBubbleImageContainer}>
-            <Image source={require('./StockCountIcon.png')} style={styles.arBubbleImage} />
-          </View>
           <View style={styles.arBubbleContent}>
             {showBarcodeData ? <Text style={styles.arBubbleHeader}>{this.props.barcodeData}</Text> : stockInfo}
           </View>

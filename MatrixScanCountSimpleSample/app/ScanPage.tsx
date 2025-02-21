@@ -149,11 +149,6 @@ export const ScanPage = () => {
           `Tapped recognized barcode with data ${trackedBarcode.barcode.data}`,
         );
       },
-      didTapUnrecognizedBarcode: (_, trackedBarcode: TrackedBarcode) => {
-        console.log(
-          `Tapped unrecognized barcode with data ${trackedBarcode.barcode.data}`,
-        );
-      },
       didTapFilteredBarcode: (_, filteredBarcode: TrackedBarcode) => {
         console.log(
           `Tapped on filtered barcode with data ${filteredBarcode.barcode.data}`,

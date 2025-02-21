@@ -1,0 +1,7 @@
+{
+  "name": "PriceWeightLabelCaptureSample",
+  "displayName": "PriceWeightLabelCaptureSample",
+    "android": {
+    "package": "com.scandit.priceweightlabelcapturesample"
+  }
+}

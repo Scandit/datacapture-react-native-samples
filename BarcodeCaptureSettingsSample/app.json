@@ -1,7 +1,0 @@
-{
-  "name": "BarcodeCaptureSettingsSample",
-  "displayName": "BC Settings",
-  "android": {
-    "package": "com.scandit.barcodecapturesettingssample"
-  }
-}
