@@ -16,10 +16,10 @@
         "react-native-gesture-handler": "2.19.0",
         "react-native-safe-area-context": "4.11.0",
         "react-native-screens": "3.34.0",
-        "scandit-react-native-datacapture-barcode": "7.1.1",
-        "scandit-react-native-datacapture-core": "7.1.1",
-        "scandit-react-native-datacapture-label": "7.1.1",
-        "scandit-react-native-datacapture-label-text": "7.1.1"
+        "scandit-react-native-datacapture-barcode": "7.1.2",
+        "scandit-react-native-datacapture-core": "7.1.2",
+        "scandit-react-native-datacapture-label": "7.1.2",
+        "scandit-react-native-datacapture-label-text": "7.1.2"
     },
     "devDependencies": {
         "@babel/core": "^7.20.0",
