@@ -1,0 +1,25 @@
+pluginManagement { includeBuild("../node_modules/@react-native/gradle-plugin") }
+plugins { id("com.facebook.react.settings") }
+extensions.configure(com.facebook.react.ReactSettingsExtension){ ex -> ex.autolinkLibrariesFromCommand() }
+rootProject.name = 'SearchAndFindSample'
+include ':app'
+includeBuild('../node_modules/@react-native/gradle-plugin')
+
+boolean useRemoteCache = System.getenv().containsKey('GRADLE_REMOTE_CACHE_URL')
+if (useRemoteCache) {
+    buildCache {
+        remote(HttpBuildCache) {
+            url = System.getenv('GRADLE_REMOTE_CACHE_URL')
+            allowInsecureProtocol = true
+            push = true
+        }
+    }
+}
+
+if (System.getenv().containsKey('CI_SERVER')) {
+    buildCache {
+        local {
+            removeUnusedEntriesAfterDays = 14
+        }
+    }
+}

@@ -12,7 +12,7 @@ MatrixScan Count is an out-of-the-box scan and count solution for counting and r
 
 ![MSCount.png](https://github.com/Scandit/.github/blob/main/images/MSCount%20-%20iOS.png)
 
-**MatrixScan Count Simple Sample** ([Flutter](https://github.com/Scandit/datacapture-flutter-samples/tree/master/MatrixScanCountSimpleSample))
+**MatrixScan Count Simple Sample** ([Flutter](https://github.com/Scandit/datacapture-flutter-samples/tree/master/03_Advanced_Batch_Scanning_Samples/03_Counting_and_Receiving/MatrixScanCountSimpleSample))
 
 ### High-Speed Single Scanning (**SparkScan)**
 
@@ -20,7 +20,7 @@ SparkScan is a camera-based solution for high-speed single scanning and scan-int
 
 ![SparkScan.png](https://github.com/Scandit/.github/blob/main/images/SparkScan.png)
 
-**List Building Sample** ([React Native](https://github.com/Scandit/datacapture-react-native-samples/tree/master/ListBuildingSample))
+**List Building Sample** ([React Native](<https://github.com/Scandit/datacapture-react-native-samples/tree/master/01_Single_Scanning_Samples/01_Barcode_Scanning_with_Pre_Built_UI/ListBuildingSample>))
 
 ### Search for Barcodes (**MatrixScan Find)**
 
@@ -28,7 +28,7 @@ MatrixScan Find is a pre-built component that uses AR overlays to highlight item
 
 ![MSFind.png](https://github.com/Scandit/.github/blob/main/images/MSFind.png)
 
-**Seach  & Find Sample** ([React Native](https://github.com/Scandit/datacapture-react-native-samples/tree/master/SearchAndFindSample))
+**Seach & Find Sample** ([React Native](https://github.com/Scandit/datacapture-react-native-samples/tree/master/03_Advanced_Batch_Scanning_Samples/03_Search_and_Find/SearchAndFindSample))
 
 ### Scan One of Many Barcodes (Barcode Selection)
 
@@ -40,13 +40,11 @@ Consider Barcode Selection when **accuracy** is more important than **speed**.
 
   ![AimToSelect.png](https://github.com/Scandit/.github/blob/main/images/AimToSelect.png)
 
-
 - **Tap to select** is quicker when you need to select several barcodes, as demonstrated by the **Catalog Reordering Sample** (yep, those are teeth).
 
   ![TapToSelect.png](https://github.com/Scandit/.github/blob/main/images/TapToSelect.png)
 
-
-**Barcode Selection Simple Sample (**[React Native](https://github.com/Scandit/datacapture-react-native-samples/tree/master/BarcodeSelectionSimpleSample))
+**Barcode Selection Simple Sample (**[React Native](https://github.com/Scandit/datacapture-react-native-samples/tree/master/01_Single_Scanning_Samples/02_Barcode_Scanning_with_Low_Level_API/BarcodeSelectionSimpleSample))
 
 ## Fully-flexible API
 
@@ -58,23 +56,23 @@ ID Scanning Samples demonstrate the features of the ID Capture API and demonstra
 
 ![IDScanning.png](https://github.com/Scandit/.github/blob/main/images/IDScanning.png)
 
-**US Drivers’ License Verification Sample** ([React Native](https://github.com/Scandit/datacapture-react-native-samples/tree/master/USDLVerificationSample))
+**US Drivers’ License Verification Sample** ([React Native](https://github.com/Scandit/datacapture-react-native-samples/tree/master/02_ID_Scanning_Samples/USDLVerificationSample))
 
 ### Barcode Capture Samples
 
-**Barcode Capture Simple Sample** ([React Native](https://github.com/Scandit/datacapture-react-native-samples/tree/master/BarcodeCaptureSimpleSample))
+**Barcode Capture Simple Sample** ([React Native](https://github.com/Scandit/datacapture-react-native-samples/tree/master/01_Single_Scanning_Samples/02_Barcode_Scanning_with_Low_Level_API/BarcodeCaptureSimpleSample))
 
-**Barcode Capture Reject Sample** ([React Native](https://github.com/Scandit/datacapture-react-native-samples/tree/master/BarcodeCaptureRejectSample))
+**Barcode Capture Reject Sample** ([React Native](https://github.com/Scandit/datacapture-react-native-samples/tree/master/01_Single_Scanning_Samples/02_Barcode_Scanning_with_Low_Level_API/BarcodeCaptureRejectSample))
 
-**Barcode Capture Settings Sample** ([React Native](https://github.com/Scandit/datacapture-react-native-samples/tree/master/BarcodeCaptureSettingsSample))
+**Barcode Capture Settings Sample** ([React Native](https://github.com/Scandit/datacapture-react-native-samples/tree/master/01_Single_Scanning_Samples/02_Barcode_Scanning_with_Low_Level_API/BarcodeCaptureSettingsSample))
 
 ### MatrixScan AR Sam**ples**
 
-**MatrixScan Simple Sample** ([React Native](https://github.com/Scandit/datacapture-react-native-samples/tree/master/MatrixScanSimpleSample))
+**MatrixScan Simple Sample** ([React Native](https://github.com/Scandit/datacapture-react-native-samples/tree/master/03_Advanced_Batch_Scanning_Samples/01_Batch_Scanning_and_AR_Info_Lookup/MatrixScanSimpleSample))
 
-**MatrixScan Bubbles Sample** ([React Native](https://github.com/Scandit/datacapture-react-native-samples/tree/master/MatrixScanBubblesSample))
+**MatrixScan Bubbles Sample** ([React Native](https://github.com/Scandit/datacapture-react-native-samples/tree/master/03_Advanced_Batch_Scanning_Samples/01_Batch_Scanning_and_AR_Info_Lookup/MatrixScanBubblesSample))
 
-**MatrixScan Reject Sample** ([React Native](https://github.com/Scandit/datacapture-react-native-samples/tree/master/MatrixScanRejectSample))
+**MatrixScan Reject Sample** ([React Native](https://github.com/Scandit/datacapture-react-native-samples/tree/master/03_Advanced_Batch_Scanning_Samples/01_Batch_Scanning_and_AR_Info_Lookup/MatrixScanRejectSample))
 
 ## Samples on Other Frameworks
 
@@ -90,7 +88,7 @@ Once you get the sample up and running, go find some barcodes to scan. Don’t f
 
 ## Trial Signup
 
-To add the Scandit Data Capture SDK to your app, sign up for your Scandit Developer Account  and get instant access to your license key: [https://ssl.scandit.com/dashboard/sign-up?p=test](https://ssl.scandit.com/dashboard/sign-up?p=test)
+To add the Scandit Data Capture SDK to your app, sign up for your Scandit Developer Account and get instant access to your license key: [https://ssl.scandit.com/dashboard/sign-up?p=test](https://ssl.scandit.com/dashboard/sign-up?p=test)
 
 ## Support
 

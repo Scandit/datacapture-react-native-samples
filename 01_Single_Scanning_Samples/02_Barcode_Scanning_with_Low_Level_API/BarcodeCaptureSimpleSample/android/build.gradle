@@ -1,0 +1,60 @@
+buildscript {
+    ext {
+        buildToolsVersion = "35.0.0"
+        minSdkVersion = 24
+        compileSdkVersion = 35
+        targetSdkVersion = 34
+        ndkVersion = "26.1.10909125"
+        kotlinVersion = "1.9.24"
+    }
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath("com.android.tools.build:gradle")
+        classpath("com.facebook.react:react-native-gradle-plugin")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin")
+    }
+}
+
+apply plugin: "com.facebook.react.rootproject"
+
+def custom_config_scripts = [
+        "$rootDir/frameworks.gradle",
+        "${rootDir}/../../../../../../common/frameworks.gradle"
+]
+
+static def findM2Directory(String startPath) {
+    File currentPath = new File(startPath).absoluteFile
+
+    while (currentPath.parentFile != null) {  // Check if we are at the root
+        File m2Path = new File(currentPath, '.m2')
+        if (m2Path.isDirectory()) {
+            return m2Path.absolutePath
+        }
+        currentPath = currentPath.parentFile  // Move up one directory
+    }
+
+    return null  // Return null if .m2 is not found
+}
+
+allprojects {
+    repositories {
+        maven { url "file://${findM2Directory(rootDir.path)}/repository" }
+    }
+    custom_config_scripts.each { location ->
+        def file = file(location)
+        if (file.exists()) {
+            apply from: file
+            repositories repos
+            return
+        }
+    }
+
+    configurations.all {
+        if (project.hasProperty("snapshotCacheDuration")) {
+            resolutionStrategy.cacheChangingModulesFor project.property("snapshotCacheDuration"), 'seconds'
+        }
+    }
+}

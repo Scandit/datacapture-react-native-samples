@@ -1,7 +1,0 @@
-{
-  "name": "BarcodeCaptureRejectSample",
-  "displayName": "BarcodeCaptureRejectSample",
-  "android": {
-    "package": "com.scandit.barcodecapturerejectsample"
-  }
-}
