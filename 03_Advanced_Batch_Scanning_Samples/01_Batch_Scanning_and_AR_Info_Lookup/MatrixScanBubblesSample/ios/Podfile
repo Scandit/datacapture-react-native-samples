@@ -12,9 +12,7 @@ end
 
 scandit_core_path = find_core_plugin(__dir__)
 
-if scandit_core_path
-  require_relative File.join(scandit_core_path, 'scripts/detect_frameworks')
-end
+require_relative File.join(scandit_core_path, 'scripts/detect_frameworks')
 
 # Resolve react_native_pods.rb with node to allow for hoisting
 require Pod::Executable.execute_command('node', ['-p',
@@ -23,25 +21,31 @@ require Pod::Executable.execute_command('node', ['-p',
     {paths: [process.argv[1]]},
   )', __dir__]).strip
 
+linkage = ENV['USE_FRAMEWORKS']
+if linkage != nil
+  Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
+  use_frameworks! :linkage => linkage.to_sym
+end
 
-platform :ios, '14.0'
+
+# TODO: SDC-25949 - there is a problem when trying to create
+# the AR view when the new architecture is enabled. Disabling for now in the sample. Created a bug
+# for RN: https://github.com/facebook/react-native/issues/50243
+ENV['RCT_NEW_ARCH_ENABLED'] = '0'
+
+platform :ios, '15.1'
 prepare_react_native_project!
 inhibit_all_warnings!
 
 target 'MatrixScanBubblesSample' do
   config = use_native_modules!
 
-  # Flags change depending on the env values.
-  flags = get_default_flags()
-
   use_react_native!(
     :path => config[:reactNativePath],
-    # Hermes is now enabled by default. Disable by setting this flag to false.
-    # Upcoming versions of React Native may rely on get_default_flags(), but
-    # we make it explicit here to aid in the React Native upgrade process.
-    :hermes_enabled => false,
-    :fabric_enabled => flags[:fabric_enabled],
-    # An absolute path to your application root.
+    # TODO: SDC-25949 - there is a problem when trying to create
+    # the AR view when the new architecture is enabled. Disabling for now in the sample. Created a bug
+    # for RN: https://github.com/facebook/react-native/issues/50243
+    :fabric_enabled => false,
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
@@ -52,8 +56,6 @@ target 'MatrixScanBubblesSample' do
      react_native_post_install(
       installer,
       config[:reactNativePath],
-      # Set `mac_catalyst_enabled` to `true` in order to apply patches
-      # necessary for Mac Catalyst builds
       :mac_catalyst_enabled => false,
       # :ccache_enabled => true
     )
@@ -63,7 +65,7 @@ target 'MatrixScanBubblesSample' do
         config.build_settings['EXPANDED_CODE_SIGN_IDENTITY'] = ""
         config.build_settings['CODE_SIGNING_REQUIRED'] = "NO"
         config.build_settings['CODE_SIGNING_ALLOWED'] = "NO"
-        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '14.0'
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.1'
       end
     end
   end

@@ -66,6 +66,11 @@ export const App = () => {
     if (camera) {
       camera.switchToDesiredState(cameraState);
     }
+    return () => {
+      if (camera) {
+        camera.switchToDesiredState(FrameSourceState.Off);
+      }
+    }
   }, [cameraState]);
 
   useEffect(() => {
@@ -91,7 +96,7 @@ export const App = () => {
     // default and must be turned on to start streaming frames to the data capture context for recognition.
     const cameraSettings = new CameraSettings();
     cameraSettings.preferredResolution = VideoResolution.FullHD;
-    
+
     const camera = Camera.withSettings(cameraSettings);
     dataCaptureContext.setFrameSource(camera);
     setCamera(camera);
@@ -138,7 +143,7 @@ export const App = () => {
       didScan: async (_: BarcodeCapture, session: BarcodeCaptureSession) => {
         const barcode = session.newlyRecognizedBarcode;
         if (barcode == null) return;
-        
+
         const symbology = new SymbologyDescription(barcode.symbology);
 
         // The `alert` call blocks execution until it's dismissed by the user. As no further frames would be processed

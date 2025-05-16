@@ -84,6 +84,11 @@ export const App = () => {
     if (camera) {
       camera.switchToDesiredState(cameraState);
     }
+    return () => {
+      if (camera) {
+        camera.switchToDesiredState(FrameSourceState.Off);
+      }
+    }
   }, [cameraState]);
 
   const handleAppStateChange = async (nextAppState: AppStateStatus) => {

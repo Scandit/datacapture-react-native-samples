@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { ScrollView, Text, View, SafeAreaView } from 'react-native';
 import { SymbologyDescription } from 'scandit-react-native-datacapture-barcode';
 
 import { Button } from './Button';

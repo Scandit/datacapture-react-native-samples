@@ -1,7 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React, { Component } from 'react';
-import { AppState, BackHandler } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { AppState, BackHandler, SafeAreaView } from 'react-native';
 import {
   BarcodeBatch,
   BarcodeBatchBasicOverlay,

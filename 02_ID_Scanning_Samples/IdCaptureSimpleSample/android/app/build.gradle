@@ -1,7 +1,8 @@
 apply plugin: "com.android.application"
 apply plugin: "com.facebook.react"
+apply plugin: "org.jetbrains.kotlin.android"
 
-def jscFlavor = 'org.webkit:android-jsc:+'
+def jscFlavor = 'io.github.react-native-community:jsc-android:2026004.+'
 
 android {
     compileSdk rootProject.ext.compileSdkVersion
@@ -15,10 +16,6 @@ android {
         targetSdk rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
-
-        ndk {
-            abiFilters 'arm64-v8a'
-        }
     }
 
     signingConfigs {

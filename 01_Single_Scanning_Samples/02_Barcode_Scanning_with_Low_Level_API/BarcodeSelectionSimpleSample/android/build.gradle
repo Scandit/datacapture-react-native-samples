@@ -2,11 +2,11 @@
 
 buildscript {
     ext {
-        minSdkVersion = 23
-        compileSdkVersion = 33
-        targetSdkVersion = 33
-        kotlinVersion = "1.8.22"
-        ndkVersion = "27.0.12077973"
+        minSdkVersion = 24
+        compileSdkVersion = 35
+        targetSdkVersion = 35
+       
+        ndkVersion = "27.1.12297006"
     }
     repositories {
         google()
@@ -14,10 +14,12 @@ buildscript {
     }
     dependencies {
         classpath "com.android.tools.build:gradle"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin"
         classpath("com.facebook.react:react-native-gradle-plugin")
     }
 }
+
+apply plugin: "com.facebook.react.rootproject"
 
 def custom_config_scripts = [
         "$rootDir/frameworks.gradle",

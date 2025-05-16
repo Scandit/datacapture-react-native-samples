@@ -1,12 +1,11 @@
-import { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import {
   AppState,
   AppStateStatus,
   BackHandler,
-  Button,
   Image,
   Text,
-  TouchableHighlight,
+  Pressable,
   View,
 } from 'react-native';
 import {
@@ -29,15 +28,14 @@ import {
   RadiusLocationSelection,
   Brush,
   Color,
+  DataCaptureContext,
 } from 'scandit-react-native-datacapture-core';
 import { useFocusEffect } from '@react-navigation/native';
 import { StackScreenProps } from '@react-navigation/stack';
 
-import { DCC } from './Context';
 import { RootStackParamList } from './App';
 import { styles } from './styles'
 import { requestCameraPermissionsIfNeeded } from './camera-permission-handler'
-import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 type Props = StackScreenProps<RootStackParamList, 'Search'>;
 
@@ -45,9 +43,6 @@ const scannedBrush = Color.fromRGBA(40, 211, 128, 0.5);
 
 export const Search = ({ navigation }: Props) => {
   const viewRef = useRef<DataCaptureView | null>(null);
-
-  // Get data capture context from Provider.
-  const dataCaptureContext = useContext(DCC)!;
 
   const [appStateVisible, setAppStateVisible] = useState(AppState.currentState);
 
@@ -72,7 +67,7 @@ export const Search = ({ navigation }: Props) => {
       const handleAppStateChangeSubscription = AppState.addEventListener('change', handleAppStateChange);
 
       if (!setupFlagRef.current) {
-        dataCaptureContext.removeAllModes();
+        DataCaptureContext.sharedInstance.removeAllModes();
         setupScanning();
         startCapture();
       }
@@ -82,7 +77,7 @@ export const Search = ({ navigation }: Props) => {
         handleAppStateChangeSubscription.remove();
         setupFlagRef.current = false;
         stopCapture();
-        dataCaptureContext.setFrameSource(null);
+        DataCaptureContext.sharedInstance.setFrameSource(null);
       };
     }, [])
   );
@@ -93,13 +88,18 @@ export const Search = ({ navigation }: Props) => {
 
     return () => {
       stopCapture();
-      dataCaptureContext.dispose()
+      DataCaptureContext.sharedInstance.dispose()
     }
   }, []);
 
   useEffect(() => {
     if (camera) {
       camera.switchToDesiredState(cameraState);
+    }
+    return () => {
+      if (camera) {
+        camera.switchToDesiredState(FrameSourceState.Off);
+      }
     }
   }, [cameraState]);
 
@@ -131,7 +131,7 @@ export const Search = ({ navigation }: Props) => {
     cameraSettings.preferredResolution = VideoResolution.FullHD;
 
     const camera = Camera.withSettings(cameraSettings);
-    dataCaptureContext.setFrameSource(camera);
+    DataCaptureContext.sharedInstance.setFrameSource(camera);
     setCamera(camera);
 
     // The barcode capturing process is configured through barcode capture settings
@@ -169,7 +169,7 @@ export const Search = ({ navigation }: Props) => {
     symbologySettings.activeSymbolCounts = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 
     // Create new barcode capture mode with the settings from above.
-    const barcodeCapture = BarcodeCapture.forContext(dataCaptureContext, barcodeCaptureSettings);
+    const barcodeCapture = BarcodeCapture.forContext(DataCaptureContext.sharedInstance, barcodeCaptureSettings);
 
     // Register a listener to get informed whenever a new barcode got recognized.
     const barcodeCaptureListener = {
@@ -239,10 +239,10 @@ export const Search = ({ navigation }: Props) => {
 
   return (
     <>
-      <DataCaptureView style={{ flex: 1 }} context={dataCaptureContext} ref={viewRef} />
+      <DataCaptureView style={{ flex: 1 }} context={DataCaptureContext.sharedInstance} ref={viewRef} />
       {isModalVisible &&
       <>
-        <TouchableHighlight style={styles.closeButton} onPress={() => {
+        <Pressable style={styles.closeButton} onPress={() => {
           setModalVisible(false);
           setCode(null);
         }}>
@@ -250,11 +250,11 @@ export const Search = ({ navigation }: Props) => {
             width: 24,
             height: 24
           }}></Image>
-        </TouchableHighlight>
+        </Pressable>
         <View style={styles.modal} >
           <View style={styles.textContainer} >
             <Text style={styles.textData}>{code ? code.data : 'No barcode scanned'}</Text>
-            <TouchableWithoutFeedback style={styles.imageButton} onPress={() => {
+            <Pressable style={styles.imageButton} onPress={() => {
               setModalVisible(false);
               navigation.navigate('Find', {
                 itemToFind: code!
@@ -264,7 +264,7 @@ export const Search = ({ navigation }: Props) => {
                 width: 50,
                 height: 50,
               }}></Image>
-            </TouchableWithoutFeedback>
+            </Pressable>
           </View>
         </View>
       </>

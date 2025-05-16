@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
-import { StyleSheet, View } from "react-native"
-import { SafeAreaView } from "react-native-safe-area-context"
+import { StyleSheet, View, SafeAreaView } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { Screens, StackParams } from "../Navigation/navigation"
 import { ScannerView } from "./Components/ScannerView/ScannerView"
