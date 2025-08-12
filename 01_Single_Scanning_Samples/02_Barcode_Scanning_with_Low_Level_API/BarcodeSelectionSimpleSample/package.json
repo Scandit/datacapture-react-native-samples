@@ -11,11 +11,11 @@
         "@react-native-masked-view/masked-view": "0.3.2",
         "react": "19.0.0",
         "react-native": "0.79.2",
-        "react-native-gesture-handler": "2.24.0",
-        "react-native-safe-area-context": "5.3.0",
-        "react-native-screens": "4.9.2",
-        "scandit-react-native-datacapture-barcode": "7.4.1",
-        "scandit-react-native-datacapture-core": "7.4.1"
+        "react-native-gesture-handler": "2.26.0",
+        "react-native-safe-area-context": "^5.4.1",
+        "react-native-screens": "4.11.1",
+        "scandit-react-native-datacapture-barcode": "7.5.0",
+        "scandit-react-native-datacapture-core": "7.5.0"
     },
     "devDependencies": {
         "@babel/core": "^7.26.10",

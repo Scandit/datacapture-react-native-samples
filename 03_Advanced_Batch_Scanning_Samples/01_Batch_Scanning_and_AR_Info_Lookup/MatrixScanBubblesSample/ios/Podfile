@@ -29,12 +29,6 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
-
-# TODO: SDC-25949 - there is a problem when trying to create
-# the AR view when the new architecture is enabled. Disabling for now in the sample. Created a bug
-# for RN: https://github.com/facebook/react-native/issues/50243
-ENV['RCT_NEW_ARCH_ENABLED'] = '0'
-
 platform :ios, '15.1'
 prepare_react_native_project!
 inhibit_all_warnings!
@@ -44,10 +38,6 @@ target 'MatrixScanBubblesSample' do
 
   use_react_native!(
     :path => config[:reactNativePath],
-    # TODO: SDC-25949 - there is a problem when trying to create
-    # the AR view when the new architecture is enabled. Disabling for now in the sample. Created a bug
-    # for RN: https://github.com/facebook/react-native/issues/50243
-    :fabric_enabled => false,
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 

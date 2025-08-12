@@ -2,9 +2,10 @@ import UIKit
 import React
 import React_RCTAppDelegate
 import ReactAppDependencyProvider
+import ScanditDataCaptureCore
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: RCTReactNativeFactory, UIApplicationDelegate, ScanditReactNativeFactoryContainer {
   var window: UIWindow?
 
   var reactNativeDelegate: ReactNativeDelegate?

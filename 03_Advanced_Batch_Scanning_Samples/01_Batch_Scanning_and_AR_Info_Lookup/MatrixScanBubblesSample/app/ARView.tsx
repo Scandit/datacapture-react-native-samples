@@ -1,22 +1,22 @@
 import React from 'react';
-import {
-  Text,
-  TouchableWithoutFeedback,
-  View,
-} from 'react-native';
-
+import { Text, TouchableWithoutFeedback, View } from 'react-native';
+import { styles } from './styles';
 import { BarcodeBatchAdvancedOverlayView } from 'scandit-react-native-datacapture-barcode';
 
-import { styles } from './styles';
+interface ARViewProps {
+  stock: {
+    shelf: string;
+    backRoom: string;
+  };
+  barcodeData: string;
+}
 
-// The component must be registered and must either have a static and instance property `moduleName` by
-// which it's registered, or must inherit from `BarcodeBatchAdvancedOverlayView`.
-// See: `AppRegistry.registerComponent(ARView.moduleName, () => ARView)` in index.js
+// The component must be registered and must have a static `moduleName` property.
+// See: `AppRegistry.registerComponent(ARView.moduleName, () => ARView);` in index.js
 export class ARView extends BarcodeBatchAdvancedOverlayView {
   state = { showBarcodeData: false };
-
   render() {
-    const { stock } = this.props;
+    const { stock = { shelf: '', backRoom: '' } } = this.props as ARViewProps;
     const { showBarcodeData } = this.state;
 
     // The text content of the bubble, switching between stock information and the barcode data.
@@ -31,7 +31,7 @@ export class ARView extends BarcodeBatchAdvancedOverlayView {
       <TouchableWithoutFeedback onPress={() => this.setState({ showBarcodeData: !showBarcodeData })}>
         <View style={styles.arBubbleContainer}>
           <View style={styles.arBubbleContent}>
-            {showBarcodeData ? <Text style={styles.arBubbleHeader}>{this.props.barcodeData}</Text> : stockInfo}
+            {showBarcodeData ? <Text style={styles.arBubbleHeader}>{(this.props as ARViewProps).barcodeData}</Text> : stockInfo}
           </View>
         </View>
       </TouchableWithoutFeedback>

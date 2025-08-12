@@ -1,9 +1,9 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Search } from './Search';
 import { Find } from './Find';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { DataCaptureContext } from 'scandit-react-native-datacapture-core';
 import { Barcode } from 'scandit-react-native-datacapture-barcode';
 
@@ -22,6 +22,7 @@ export function App() {
 
   return (
     <SafeAreaProvider>
+      <SafeAreaView style={{ flex: 1 }} edges={['bottom']}>
           <NavigationContainer>
             <Stack.Navigator initialRouteName='Search'>
               <Stack.Screen
@@ -46,6 +47,7 @@ export function App() {
               />
             </Stack.Navigator>
           </NavigationContainer>
+      </SafeAreaView>
     </SafeAreaProvider>
   );
 }

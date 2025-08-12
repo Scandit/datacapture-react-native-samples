@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { AppState, BackHandler, SafeAreaView, Text, TouchableWithoutFeedback } from 'react-native';
+import { AppState, BackHandler, Text, TouchableWithoutFeedback } from 'react-native';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import {
   BarcodeSelection,
   BarcodeSelectionAimerSelection,
@@ -32,6 +33,7 @@ export default class App extends Component {
 
     this.dataCaptureContext = DataCaptureContext.forLicenseKey(licenseKey);
     this.viewRef = React.createRef();
+    this.overlay = null; // Track overlay instance
   }
 
   async componentDidMount() {
@@ -77,10 +79,6 @@ export default class App extends Component {
         });
       }
     });
-
-    // Add a barcode selection overlay to the data capture view to render the location of captured barcodes on top of
-    // the video preview. This is optional, but recommended for better visual feedback.
-    const overlay = BarcodeSelectionBasicOverlay.withBarcodeSelectionForView(this.barcodeSelection, this.viewRef.current);
 
     this.setupSelectionType(this.state.selectionType);
   }
@@ -131,13 +129,27 @@ export default class App extends Component {
     }
   }
 
+  // Handle view layout completion
+  onViewLayout = () => {
+    if (this.viewRef.current && !this.overlay) {
+      // Add a barcode selection overlay to the data capture view to render the location of captured barcodes on top of
+      // the video preview. This is optional, but recommended for better visual feedback.
+      this.overlay = BarcodeSelectionBasicOverlay.withBarcodeSelectionForView(this.barcodeSelection, this.viewRef.current);
+    }
+  }
+
   render() {
     return (
-      <>
-        <DataCaptureView style={{ flex: 1 }} context={this.dataCaptureContext} ref={this.viewRef}>
+      <SafeAreaProvider>
+        <DataCaptureView 
+          style={{ flex: 1 }} 
+          context={this.dataCaptureContext} 
+          ref={this.viewRef}
+          onLayout={this.onViewLayout}
+        >
         </DataCaptureView>
 
-        <SafeAreaView style={{ width: '100%', backgroundColor: "black", flexDirection: "row", justifyContent: "space-around", alignItems: 'center' }}>
+        <SafeAreaView style={{ width: '100%', backgroundColor: "black", flexDirection: "row", justifyContent: "space-around", alignItems: 'center', edges: ['bottom', 'top'] }}>
           <TouchableWithoutFeedback onPress={() => this.setState({ selectionType: SelectionType.tap })}>
             <Text style={{ padding: 15, color: this.state.selectionType == SelectionType.tap ? 'white' : 'grey' }}>Tap to Select</Text>
           </TouchableWithoutFeedback>
@@ -150,7 +162,7 @@ export default class App extends Component {
           <Text style={{
             position: 'absolute', top: 100, width: '100%', textAlign: 'center', backgroundColor: '#FFFC', padding: 20,
           }}>{this.state.result}</Text>}
-      </>
+      </SafeAreaProvider>
     );
   };
 }

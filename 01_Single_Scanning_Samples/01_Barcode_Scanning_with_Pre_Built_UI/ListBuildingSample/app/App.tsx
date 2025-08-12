@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 import {
   View,
   ScrollView,
@@ -6,7 +7,6 @@ import {
   Pressable,
   AppState,
   BackHandler,
-  SafeAreaView,
   AppStateStatus,
 } from 'react-native';
 
@@ -62,6 +62,7 @@ export const App = () => {
       handleAppStateChangeSubscription.remove();
       dataCaptureContext.dispose();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleAppStateChange = async (nextAppState: AppStateStatus) => {
@@ -126,7 +127,9 @@ export const App = () => {
     const sparkScanListener = {
       didScan: async (_: any, session: SparkScanSession) => {
         const barcode = session.newlyRecognizedBarcode;
-        if (barcode == null) return;
+        if (barcode == null) {
+          return;
+        }
 
         if (isValidBarcode(barcode)) {
           const symbology = new SymbologyDescription(barcode.symbology);
@@ -176,47 +179,49 @@ export const App = () => {
   };
 
   return (
-    // @ts-ignore
-    cameraPermissions &&
-    sparkScanMode && (
-      <SparkScanView
-        style={styles.sparkScanView}
-        context={dataCaptureContext}
-        sparkScan={sparkScanMode!}
-        sparkScanViewSettings={new SparkScanViewSettings()}
-        ref={view => {
-          if (view) {
-            view.feedbackDelegate = sparkScanFeedbackDelegate;
-          }
-          sparkScanViewRef.current = view;
-          // @ts-ignore
-        }}>
-        <SafeAreaView style={styles.container}>
-          <Text style={styles.scanCount}>
-            {codes.length}{' '}
-            {codes.length === 0 || codes.length > 1 ? 'items' : 'item'}
-          </Text>
-          <ScrollView style={styles.splitViewResults}>
-            {codes.map((result, index) => (
-              <View key={index} style={styles.splitViewResult}>
-                <View style={styles.splitViewImage} />
-                <View key={index} style={styles.splitViewResultBarcodeData}>
-                  <Text style={styles.splitViewResultData}>{result.data}</Text>
-                  <Text style={styles.splitViewResultSymbology}>
-                    {result.symbology}
-                  </Text>
+    <SafeAreaProvider>
+      <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
+        {cameraPermissions && sparkScanMode && (
+          <SparkScanView
+            style={styles.sparkScanView}
+            context={dataCaptureContext}
+            sparkScan={sparkScanMode!}
+            sparkScanViewSettings={new SparkScanViewSettings()}
+            ref={view => {
+              if (view) {
+                view.feedbackDelegate = sparkScanFeedbackDelegate;
+              }
+              sparkScanViewRef.current = view;
+              // @ts-ignore
+            }}>
+            <Text style={styles.scanCount}>
+              {codes.length}{' '}
+              {codes.length === 0 || codes.length > 1 ? 'items' : 'item'}
+            </Text>
+            <ScrollView style={styles.splitViewResults}>
+              {codes.map((result, index) => (
+                <View key={index} style={styles.splitViewResult}>
+                  <View style={styles.splitViewImage} />
+                  <View key={index} style={styles.splitViewResultBarcodeData}>
+                    <Text style={styles.splitViewResultData}>
+                      {result.data}
+                    </Text>
+                    <Text style={styles.splitViewResultSymbology}>
+                      {result.symbology}
+                    </Text>
+                  </View>
                 </View>
-              </View>
-            ))}
-          </ScrollView>
+              ))}
+            </ScrollView>
 
-          <Pressable
-            style={styles.clearButton}
-            onPress={handleClearButtonClick}>
-            <Text style={styles.clearButtonText}>CLEAR LIST</Text>
-          </Pressable>
-        </SafeAreaView>
-      </SparkScanView>
-    )
+            <Pressable
+              style={styles.clearButton}
+              onPress={handleClearButtonClick}>
+              <Text style={styles.clearButtonText}>CLEAR LIST</Text>
+            </Pressable>
+          </SparkScanView>
+        )}
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 };
