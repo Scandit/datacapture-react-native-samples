@@ -15,8 +15,8 @@
         "react-native-gesture-handler": "2.26.0",
         "react-native-safe-area-context": "^5.4.1",
         "react-native-screens": "4.11.1",
-        "scandit-react-native-datacapture-barcode": "7.5.1",
-        "scandit-react-native-datacapture-core": "7.5.1"
+        "scandit-react-native-datacapture-barcode": "7.6.0",
+        "scandit-react-native-datacapture-core": "7.6.0"
     },
     "devDependencies": {
         "@babel/core": "^7.26.10",

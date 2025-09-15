@@ -1,25 +1,23 @@
 {
-    "name": "MatrixScanCountSimpleSample",
-    "version": "0.0.1",
+    "name": "labelcapturesimplesample",
+    "version": "1.0.0",
     "private": true,
     "scripts": {
         "android": "react-native run-android",
-        "ios": "react-native run-ios",
         "lint": "eslint .",
-        "start": "react-native start",
-        "test": "jest"
+        "ios": "react-native run-ios",
+        "start": "react-native start"
     },
     "dependencies": {
         "react": "19.0.0",
         "react-native": "0.79.2",
-        "scandit-react-native-datacapture-barcode": "7.6.0",
-        "scandit-react-native-datacapture-core": "7.6.0",
         "react-native-gesture-handler": "2.26.0",
         "react-native-safe-area-context": "^5.4.1",
         "react-native-screens": "4.11.1",
-        "@react-native-masked-view/masked-view": "0.3.2",
-        "@react-navigation/native": "7.1.11",
-        "@react-navigation/stack": "7.3.4"
+        "scandit-react-native-datacapture-barcode": "7.6.0",
+        "scandit-react-native-datacapture-core": "7.6.0",
+        "scandit-react-native-datacapture-label": "7.6.0",
+        "scandit-react-native-datacapture-label-text": "7.6.0"
     },
     "devDependencies": {
         "@babel/core": "^7.26.10",
@@ -29,14 +27,11 @@
         "@react-native-community/cli-platform-android": "18.0.0",
         "@react-native-community/cli-platform-ios": "18.0.0",
         "@react-native/babel-preset": "0.79.2",
-        "@react-native/eslint-config": "0.79.2",
         "@react-native/metro-config": "0.79.2",
         "@react-native/typescript-config": "0.79.2",
+        "@react-native/eslint-config": "^0.81.0",
         "@types/react": "^19.0.10",
-        "typescript": "5.0.4",
-        "@types/jest": "^29.5.13"
-    },
-    "engines": {
-        "node": ">=18"
+        "eslint": "8.57.0",
+        "typescript": "5.0.4"
     }
 }

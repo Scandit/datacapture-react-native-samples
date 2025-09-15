@@ -23,7 +23,9 @@ export class ARView extends BarcodeBatchAdvancedOverlayView {
     const stockInfo = (
       <>
         <Text style={styles.arBubbleHeader}>Report Stock Count</Text>
-        <Text style={styles.arBubbleInfo}>Shelf: {stock.shelf} Back Room: {stock.backRoom}</Text>
+        <Text style={styles.arBubbleInfo}>
+          Shelf: {stock.shelf} Back Room: {stock.backRoom}
+        </Text>
       </>
     );
 
@@ -31,7 +33,11 @@ export class ARView extends BarcodeBatchAdvancedOverlayView {
       <TouchableWithoutFeedback onPress={() => this.setState({ showBarcodeData: !showBarcodeData })}>
         <View style={styles.arBubbleContainer}>
           <View style={styles.arBubbleContent}>
-            {showBarcodeData ? <Text style={styles.arBubbleHeader}>{(this.props as ARViewProps).barcodeData}</Text> : stockInfo}
+            {showBarcodeData ? (
+              <Text style={styles.arBubbleHeader}>{(this.props as ARViewProps).barcodeData}</Text>
+            ) : (
+              stockInfo
+            )}
           </View>
         </View>
       </TouchableWithoutFeedback>

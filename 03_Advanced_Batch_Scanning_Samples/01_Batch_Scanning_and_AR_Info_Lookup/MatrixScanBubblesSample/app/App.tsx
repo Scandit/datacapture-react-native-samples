@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { AppState, AppStateStatus, BackHandler, Dimensions } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import {
   BarcodeBatch,
   BarcodeBatchAdvancedOverlay,
@@ -29,97 +29,26 @@ import Freeze from './Freeze.svg';
 import { styles } from './styles';
 import Unfreeze from './Unfreeze.svg';
 
+const dataCaptureContext = DataCaptureContext.initialize('-- ENTER YOUR SCANDIT LICENSE KEY HERE --');
 
 export const App = () => {
   const viewRef = useRef<DataCaptureView>(null);
-
-  const dataCaptureContext = useMemo(() => {
-    // Enter your Scandit License key here.
-    // Your Scandit License key is available via your Scandit SDK web account.
-    return DataCaptureContext.initialize('-- ENTER YOUR SCANDIT LICENSE KEY HERE --');
-  }, []);
-
-  const [appStateVisible, setAppStateVisible] = useState(AppState.currentState);
-
-  const [barcodeBatch, setBarcodeBatch] = useState<BarcodeBatch | null>(null);
-
-  const scanningRef = useRef(true);
+  const cameraRef = useRef<Camera>(null!);
+  if (!cameraRef.current) {
+    cameraRef.current = setupCamera();
+  }
+  const barcodeBatchRef = useRef<BarcodeBatch>(null!);
+  if (!barcodeBatchRef.current) {
+    barcodeBatchRef.current = setupBarcodeBatch();
+  }
   const trackedBarcodesRef = useRef<Record<string, any>>({});
-  const [camera, setCamera] = useState<Camera | null>(null);
-  const [cameraState, setCameraState] = useState(FrameSourceState.Off);
   const advancedOverlayRef = useRef<BarcodeBatchAdvancedOverlay | null>(null);
+  const barcodeBatchListenerRef = useRef<BarcodeBatchListener | null>(null);
+  const isScanningRef = useRef(true);
 
+  const [isScanning, setIsScanning] = useState(true);
 
-  useEffect(() => {
-    const handleAppStateChange = (nextAppState: AppStateStatus) => {
-      setAppStateVisible(nextAppState);
-    };
-
-    const handleAppStateChangeSubscription = AppState.addEventListener(
-      'change',
-      handleAppStateChange,
-    );
-    setupScanning();
-    startCapture();
-    return () => {
-      handleAppStateChangeSubscription.remove();
-      dataCaptureContext.dispose();
-    };
-  }, []);
-
-  useEffect(() => {
-    if (appStateVisible.match(/inactive|background/)) {
-      stopCapture();
-    } else if (scanningRef.current) {
-      startCapture();
-    }
-  }, [appStateVisible]);
-
-  useEffect(() => {
-    if (camera) {
-      camera.switchToDesiredState(cameraState);
-    }
-
-    return () => {
-      if (camera) {
-        camera.switchToDesiredState(FrameSourceState.Off);
-      }
-    };
-  }, [camera, cameraState]);
-
-  const startCapture = () => {
-    startCamera();
-    if (barcodeBatch) {
-      barcodeBatch.isEnabled = true;
-    }
-  };
-
-  const stopCapture = () => {
-    if (barcodeBatch) {
-      barcodeBatch.isEnabled = false;
-    }
-    stopCamera();
-  };
-
-  const stopCamera = () => {
-    if (camera) {
-        setCameraState(FrameSourceState.Off);
-      }
-  };
-
-  const startCamera = () => {
-    requestCameraPermissionsIfNeeded()
-    .then(() => setCameraState(FrameSourceState.On))
-    .catch(() => BackHandler.exitApp());
-  };
-
-  const setupScanning = () => {
-    // Use BarcodeBatch recommended camera seettings
-    const cameraSettings = BarcodeBatch.recommendedCameraSettings;
-    const newCamera = Camera.withSettings(cameraSettings);
-    dataCaptureContext.setFrameSource(newCamera);
-    setCamera(newCamera);
-
+  function setupBarcodeBatch() {
     // We create a barcode batch settings to enable the symbologies we want to track.
     const settings = new BarcodeBatchSettings();
     settings.enableSymbologies([
@@ -130,62 +59,87 @@ export const App = () => {
       Symbology.Code128,
     ]);
 
-    const batch = BarcodeBatch.forContext(
-      dataCaptureContext,
-      settings,
-    );
+    const batch = BarcodeBatch.forContext(dataCaptureContext, settings);
+    batch.addListener({
+      async didUpdateSession(...args) {
+        if (!barcodeBatchListenerRef.current || !barcodeBatchListenerRef.current.didUpdateSession) {
+          return;
+        }
+        // We have to call the listeners through the ref to ensure that the latest listener is used.
+        return barcodeBatchListenerRef.current.didUpdateSession(...args);
+      },
+    });
 
-    batch.addListener(barcodeBatchListener);
-    batch.isEnabled = scanningRef.current;
-    setBarcodeBatch(batch);
+    return batch;
+  }
 
-     // We create an overlay to highlight the barcodes.
+  function setupCamera() {
+    const cameraSettings = BarcodeBatch.recommendedCameraSettings;
+    const newCamera = Camera.withSettings(cameraSettings);
+    if (!newCamera) {
+      throw Error('No camera available');
+    }
+    dataCaptureContext.setFrameSource(newCamera);
+    return newCamera;
+  }
+
+  useEffect(() => {
+    const handleAppStateChange = (nextAppState: AppStateStatus) => {
+      // If the app is going to the background or inactive state, we stop the capture.
+      if (nextAppState.match(/inactive|background/)) {
+        stopCapture();
+      } else if (nextAppState === 'active') {
+        if (isScanningRef.current) {
+          startCapture();
+        }
+      }
+    };
+
+    const handleAppStateChangeSubscription = AppState.addEventListener('change', handleAppStateChange);
+    startCapture();
+    return () => {
+      handleAppStateChangeSubscription.remove();
+      stopCapture();
+    };
+  }, []);
+
+  const startCapture = () => {
+    barcodeBatchRef.current.isEnabled = true;
+    startCamera();
+  };
+
+  const stopCapture = () => {
+    barcodeBatchRef.current.isEnabled = false;
+    stopCamera();
+  };
+
+  const stopCamera = () => {
+    cameraRef.current?.switchToDesiredState(FrameSourceState.Off);
+  };
+
+  const startCamera = () => {
+    requestCameraPermissionsIfNeeded()
+      .then(() => cameraRef.current?.switchToDesiredState(FrameSourceState.On))
+      .catch(() => BackHandler.exitApp());
+  };
+
+  function setupOverlay() {
+    // We create an overlay to highlight the barcodes.
     BarcodeBatchBasicOverlay.withBarcodeBatchForViewWithStyle(
-      batch,
+      barcodeBatchRef.current,
       viewRef.current,
       BarcodeBatchBasicOverlayStyle.Dot,
     );
-
     // We create an overlay for the bubbles.
-    const overlay = BarcodeBatchAdvancedOverlay.withBarcodeBatchForView(
-      batch,
-      viewRef.current,
-    );
+    const overlay = BarcodeBatchAdvancedOverlay.withBarcodeBatchForView(barcodeBatchRef.current, viewRef.current);
 
     overlay.listener = {
       anchorForTrackedBarcode: () => Anchor.TopCenter,
       offsetForTrackedBarcode: () =>
-        new PointWithUnit(
-          new NumberWithUnit(0, MeasureUnit.Fraction),
-          new NumberWithUnit(-1, MeasureUnit.Fraction),
-        ),
+        new PointWithUnit(new NumberWithUnit(0, MeasureUnit.Fraction), new NumberWithUnit(-1, MeasureUnit.Fraction)),
     };
-
-    advancedOverlayRef.current = overlay;
-  };
-
-  const barcodeBatchListener: BarcodeBatchListener = {
-    didUpdateSession: async (_, session) => {
-      const updatedTrackedBarcodes = {...trackedBarcodesRef.current};
-      session.removedTrackedBarcodes.forEach(identifier => {
-        updatedTrackedBarcodes[identifier] = null;
-      });
-
-      Object.values(session.trackedBarcodes).forEach(trackedBarcode => {
-        viewRef
-          .current?.viewQuadrilateralForFrameQuadrilateral(
-            trackedBarcode.location,
-          )
-          .then(location => {
-            if (advancedOverlayRef.current) {
-              updateView(trackedBarcode, location, advancedOverlayRef.current);
-            }
-          });
-      });
-
-      trackedBarcodesRef.current = updatedTrackedBarcodes;
-    },
-  };
+    return overlay;
+  }
 
   const getQuadrilateralWidth = (quadrilateral: Quadrilateral): number => {
     return Math.max(
@@ -194,14 +148,8 @@ export const App = () => {
     );
   };
 
-  const updateView = (
-    trackedBarcode: TrackedBarcode,
-    viewLocation: Quadrilateral,
-    overlay: BarcodeBatchAdvancedOverlay,
-  ) => {
-    const shouldBeShown =
-      getQuadrilateralWidth(viewLocation) >
-      Dimensions.get('window').width * 0.1;
+  const updateView = (trackedBarcode: TrackedBarcode, viewLocation: Quadrilateral) => {
+    const shouldBeShown = getQuadrilateralWidth(viewLocation) > Dimensions.get('window').width * 0.1;
 
     if (!shouldBeShown) {
       trackedBarcodesRef.current = {
@@ -216,9 +164,9 @@ export const App = () => {
     if (!barcodeData) {
       return;
     }
-    
-    const didViewChange = JSON.stringify(trackedBarcodesRef.current[trackedBarcode.identifier]) !== JSON.stringify(barcodeData);
 
+    const didViewChange =
+      JSON.stringify(trackedBarcodesRef.current[trackedBarcode.identifier]) !== JSON.stringify(barcodeData);
     if (didViewChange) {
       trackedBarcodesRef.current = {
         ...trackedBarcodesRef.current,
@@ -227,54 +175,58 @@ export const App = () => {
 
       const props = {
         barcodeData,
-        stock: {shelf: 4, backRoom: 8},
+        stock: { shelf: 4, backRoom: 8 },
       };
 
-      overlay.setViewForTrackedBarcode(new ARView(props), trackedBarcode)
-        .catch(console.warn);
+      advancedOverlayRef.current?.setViewForTrackedBarcode(new ARView(props), trackedBarcode).catch(console.warn);
     }
   };
 
   const toggleScan = () => {
-    const isScanning = barcodeBatch?.isEnabled === true;
-    const newScanningState = !isScanning;
-    scanningRef.current = newScanningState;
-    
-    // Update barcodeBatch immediately
-    if (barcodeBatch) {
-      barcodeBatch.isEnabled = newScanningState;
-    }
-    
-    // Update camera state immediately
-    if (newScanningState) {
-      setCameraState(FrameSourceState.On);
+    const isScanning = barcodeBatchRef.current.isEnabled === true;
+    const newState = !isScanning;
+    setIsScanning(newState);
+    isScanningRef.current = newState;
+    barcodeBatchRef.current.isEnabled = newState;
+
+    if (newState === true) {
+      startCamera();
     } else {
-      setCameraState(FrameSourceState.Off);
+      stopCamera();
     }
   };
 
-  useEffect(() => {
-    return () => {
-      if (barcodeBatch) {
-        barcodeBatch.isEnabled = false;
-      }
-    };
-  }, [barcodeBatch]);
+  barcodeBatchListenerRef.current = {
+    async didUpdateSession(_barcodeBatch, session, _getFrameData) {
+      const updatedTrackedBarcodes = { ...trackedBarcodesRef.current };
+      session.removedTrackedBarcodes.forEach(identifier => {
+        updatedTrackedBarcodes[identifier] = null;
+      });
+
+      Object.values(session.trackedBarcodes).forEach(trackedBarcode => {
+        viewRef.current?.viewQuadrilateralForFrameQuadrilateral(trackedBarcode.location).then(location => {
+          updateView(trackedBarcode, location);
+        });
+      });
+      trackedBarcodesRef.current = updatedTrackedBarcodes;
+    },
+  };
 
   return (
-    <>
+    <SafeAreaProvider>
       <DataCaptureView
         style={styles.dataCaptureView}
         context={dataCaptureContext}
-        ref={viewRef}
+        ref={view => {
+          if (!viewRef.current && view) {
+            viewRef.current = view;
+            advancedOverlayRef.current = setupOverlay();
+          }
+        }}
       />
       <SafeAreaView style={styles.toggleContainer}>
-        {scanningRef.current ? (
-          <Freeze onPress={toggleScan} />
-        ) : (
-          <Unfreeze onPress={toggleScan} />
-        )}
+        {isScanning ? <Freeze onPress={toggleScan} /> : <Unfreeze onPress={toggleScan} />}
       </SafeAreaView>
-    </>
+    </SafeAreaProvider>
   );
 };

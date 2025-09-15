@@ -1,32 +1,33 @@
 import { PermissionsAndroid, Platform } from 'react-native';
 
+const isAndroidMarshmallowOrNewer = Platform.OS === 'android' && Platform.Version >= 23;
+
 export const checkCameraPermissions = async () => {
-  return await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.CAMERA);
+  if (isAndroidMarshmallowOrNewer) {
+    return await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.CAMERA);
+  } else {
+    return true;
+  }
 };
 
 export const requestCameraPermissions = async () => {
-  try {
+  if (isAndroidMarshmallowOrNewer) {
     const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA);
     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-      console.log('Android Camera Permission has been granted.');
-      return Promise.resolve();
+      return;
     } else {
-      console.log('Android Camera Permission has been denied.');
-      return Promise.reject();
+      throw new Error('Android Camera Permission has been denied.');
     }
-  } catch (err) {
-    return Promise.reject(err);
+  } else {
+    return;
   }
 };
 
 export const requestCameraPermissionsIfNeeded = async () => {
-  if (Platform.OS !== 'android') {
-    return Promise.resolve(); // No need to check permissions on non-Android platforms
-  }
   const hasPermissions = await checkCameraPermissions();
   if (!hasPermissions) {
     return requestCameraPermissions();
   } else {
-    return Promise.resolve();
+    return;
   }
 };

@@ -141,9 +141,8 @@ export class ScanPage extends Component {
 
     // Add a barcode batch overlay to the data capture view to render the location of captured barcodes on top of
     // the video preview. This is optional, but recommended for better visual feedback.
-    const overlay = BarcodeBatchBasicOverlay.withBarcodeBatchForViewWithStyle(
+    const overlay = new BarcodeBatchBasicOverlay(
       this.barcodeBatch,
-      this.viewRef.current,
       BarcodeBatchBasicOverlayStyle.Frame
     );
 
