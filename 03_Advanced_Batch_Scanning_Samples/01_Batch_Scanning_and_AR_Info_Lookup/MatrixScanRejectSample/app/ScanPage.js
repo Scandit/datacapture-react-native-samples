@@ -119,7 +119,7 @@ export class ScanPage extends Component {
     ]);
 
     // Create new barcode batch mode with the settings from above.
-    this.barcodeBatch = BarcodeBatch.forContext(this.dataCaptureContext, settings);
+    this.barcodeBatch = BarcodeBatch.forContext(null, settings);
 
     // Register a listener to get informed whenever a new barcode is tracked.
     this.barcodeBatchListener = {
@@ -139,6 +139,8 @@ export class ScanPage extends Component {
 
     this.barcodeBatch.addListener(this.barcodeBatchListener);
 
+    this.dataCaptureContext.addMode(this.barcodeBatch);
+
     // Add a barcode batch overlay to the data capture view to render the location of captured barcodes on top of
     // the video preview. This is optional, but recommended for better visual feedback.
     const overlay = new BarcodeBatchBasicOverlay(
@@ -157,10 +159,12 @@ export class ScanPage extends Component {
         if (this.is_rejected(barcode.data)) {
           return new Brush(Color.fromRGBA(255, 255, 255, 0), Color.fromHex('#FF3939FF'), 3);
         } else {
-          return overlay.brush;
+          return new Brush(Color.fromRGBA(255, 255, 255, 0), Color.fromHex('#39FF39FF'), 3);
         }
       },
     };
+
+    this.viewRef.current?.addOverlay(overlay);
   }
 
   render() {
