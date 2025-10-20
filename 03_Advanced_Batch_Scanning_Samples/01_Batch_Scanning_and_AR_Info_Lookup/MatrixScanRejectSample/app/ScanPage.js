@@ -159,7 +159,7 @@ export class ScanPage extends Component {
         if (this.is_rejected(barcode.data)) {
           return new Brush(Color.fromRGBA(255, 255, 255, 0), Color.fromHex('#FF3939FF'), 3);
         } else {
-          return new Brush(Color.fromRGBA(255, 255, 255, 0), Color.fromHex('#39FF39FF'), 3);
+          return new Brush(Color.fromRGBA(0, 255, 255, .45), Color.fromHex('#00FFFFFF'), 3);
         }
       },
     };

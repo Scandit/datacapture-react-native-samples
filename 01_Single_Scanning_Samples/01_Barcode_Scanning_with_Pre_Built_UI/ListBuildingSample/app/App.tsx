@@ -71,10 +71,6 @@ export const App = () => {
 
   useEffect(() => {
     if (!appStateVisible.match(/inactive|background/)) {
-      if (sparkScanViewRef.current) {
-        sparkScanViewRef.current.stopScanning();
-      }
-    } else {
       checkCameraPermissions();
     }
   }, [appStateVisible]);
