@@ -12,7 +12,7 @@ MatrixScan Count is an out-of-the-box scan and count solution for counting and r
 
 ![MSCount.png](https://github.com/Scandit/.github/blob/main/images/MSCount%20-%20iOS.png)
 
-**MatrixScan Count Simple Sample** ([Flutter](https://github.com/Scandit/datacapture-flutter-samples/tree/master/03_Advanced_Batch_Scanning_Samples/03_Counting_and_Receiving/MatrixScanCountSimpleSample))
+**MatrixScan Count Simple Sample** ([React Native](https://github.com/Scandit/datacapture-react-native-samples/tree/master/03_Advanced_Batch_Scanning_Samples/02_Counting_and_Receiving/MatrixScanCountSimpleSample))
 
 ### High-Speed Single Scanning (**SparkScan)**
 

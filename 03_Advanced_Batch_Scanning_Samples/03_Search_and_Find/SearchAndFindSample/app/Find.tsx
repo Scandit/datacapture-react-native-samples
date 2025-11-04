@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   BarcodeFind,
   BarcodeFindItem,
@@ -12,7 +12,8 @@ import { StackScreenProps } from '@react-navigation/stack';
 
 import { RootStackParamList } from './App';
 import { BackHandler } from 'react-native';
-import { DataCaptureContext } from 'scandit-react-native-datacapture-core';
+import dataCaptureContext from './CaptureContext';
+import { useFocusEffect } from '@react-navigation/native';
 
 type Props = StackScreenProps<RootStackParamList, 'Find'>;
 
@@ -22,15 +23,27 @@ export const Find = ({ route, navigation }: Props) => {
     null
   );
 
-  const [barcodeFindMode, setBarcodeFindMode] = useState<BarcodeFind | null>(
-    null
-  );
-  const { itemToFind } = route.params;
+  const barcodeFindMode = useRef<BarcodeFind>(null!);
+  if (!barcodeFindMode.current) {
+    barcodeFindMode.current = setupScanning();
+  }
+
   const [isViewVisible, setIsViewVisible] = useState<boolean>(true);
 
+  useFocusEffect(
+    useCallback(() => {
+      if (!barcodeFindMode.current) {
+        barcodeFindMode.current = setupScanning();
+      }
+      return () => {
+        dataCaptureContext.removeMode(barcodeFindMode.current);
+      }
+    }, [])
+  );
+
   useEffect(() => {
-    DataCaptureContext.sharedInstance.removeAllModes();
-    setupScanning();
+    dataCaptureContext.removeAllModes();
+    barcodeFindMode.current = setupScanning();
 
     const backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
@@ -40,16 +53,16 @@ export const Find = ({ route, navigation }: Props) => {
     return () => backHandler.remove();
   }, []);
 
-  const setupScanning = () => {
+  function setupScanning(): BarcodeFind {
     // The barcode find process is configured through barcode find settings
     // and are then applied to the barcode find instance that manages barcode find.
     let settings = new BarcodeFindSettings();
 
     // This time, we enable only the symbology of the item to find, limiting our search space.
-    settings.enableSymbology(itemToFind.symbology, true);
+    settings.enableSymbology(route.params.itemToFind.symbology, true);
 
     // Create new barcode capture mode with the settings from above.
-    const barcodeFind = BarcodeFind.forContext(DataCaptureContext.sharedInstance, settings);
+    const barcodeFind = new BarcodeFind(settings);
 
     // This method is called when the user presses the finish button.
     // The foundItems parameter contains the list of items found in the entire session.
@@ -62,14 +75,17 @@ export const Find = ({ route, navigation }: Props) => {
     // Set the list of items to find.
     const itemList = [
       new BarcodeFindItem(
-        new BarcodeFindItemSearchOptions(itemToFind.data!),
+        new BarcodeFindItemSearchOptions(route.params.itemToFind.data!),
         new BarcodeFindItemContent('Example item')
       ),
     ];
     barcodeFind.setItemList(itemList);
 
-    setBarcodeFindMode(barcodeFind);
-  };
+    // Set the barcode find mode to the data capture context.
+    dataCaptureContext.setMode(barcodeFind);
+
+    return barcodeFind;
+  }
 
   const navigateBack = () => {
     setIsViewVisible(false);
@@ -81,12 +97,12 @@ export const Find = ({ route, navigation }: Props) => {
   };
 
   return (
-    barcodeFindMode &&
+    barcodeFindMode.current &&
     isViewVisible && (
       <BarcodeFindView
         style={{ flex: 1 }}
-        context={DataCaptureContext.sharedInstance}
-        barcodeFind={barcodeFindMode}
+        context={dataCaptureContext}
+        barcodeFind={barcodeFindMode.current}
         ref={(view) => {
           if (view) {
             view.barcodeFindViewUiListener =

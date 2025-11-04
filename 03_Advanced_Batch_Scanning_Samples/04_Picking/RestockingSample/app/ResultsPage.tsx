@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Pressable, SafeAreaView, ScrollView, Text, View, BackHandler, Image } from 'react-native';
+import { Pressable, ScrollView, Text, View, BackHandler, Image } from 'react-native';
 import { styles } from './styles';
 import { RootStackParamList } from './App';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
@@ -70,7 +70,7 @@ export const ResultsPage = () => {
   });
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <ScrollView style={styles.splitViewResults}>
         {pickedCodes.map((result, index) => {
           const productIdentifier = PRODUCT_MAPPER[result];
@@ -110,7 +110,7 @@ export const ResultsPage = () => {
           <Text style={styles.clearButtonText}>FINISH</Text>
         </Pressable>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 

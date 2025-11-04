@@ -5,10 +5,12 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { ScanPage } from './ScanPage';
 import { ResultsPage } from './ResultsPage';
 import CodesContext, { Code, Flag } from './AppContext';
+import { HomePage } from './HomePage';
 
 const Stack = createStackNavigator();
 
 export type RootStackParamList = {
+  Home: undefined;
   Scanner: undefined;
   Results: {
     source: 'listButton' | 'finishButton';
@@ -31,23 +33,30 @@ export default function App() {
             headerShadowVisible: false,
             headerTintColor: '#fff',
           }}>
+            <Stack.Screen
+              name="Home"
+              component={HomePage}
+              options={{
+                headerShown: false,
+              }}
+            />
           <Stack.Screen
             name="Scanner"
             component={ScanPage}
             options={{
-              headerShown: false,
+              title: 'Scan',
             }}
           />
           <Stack.Screen
             name="Results"
             component={ResultsPage}
             options={{
-              title: 'Scanned Items',
+              title: 'Scan Results',
               headerTitleStyle: {
                 fontSize: 16,
                 fontWeight: 'bold',
               },
-              headerBackTitleVisible: false,
+              headerBackTitle: '',
               headerLeftContainerStyle: {
                 paddingLeft: 16,
               },

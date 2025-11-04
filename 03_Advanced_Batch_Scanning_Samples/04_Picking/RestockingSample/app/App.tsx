@@ -5,12 +5,14 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { ScanPage } from './ScanPage';
 import { ResultsPage } from './ResultsPage';
 import CodesContext from './AppContext';
+import { HomePage } from './HomePage';
 
 const Stack = createStackNavigator();
 
 export type RootStackParamList = {
   Scanner: { onGoBack?: (resetCodes: boolean) => void } | undefined;
   Results: undefined;
+  Home: undefined;
 };
 
 export default function App() {
@@ -21,6 +23,7 @@ export default function App() {
     <CodesContext.Provider value={{ pickedCodes, allCodes, setPickedCodes, setAllCodes }}>
       <NavigationContainer>
         <Stack.Navigator
+          initialRouteName="Home"
           screenOptions={{
             headerStyle: { backgroundColor: '#000' },
             headerShadowVisible: false,
@@ -30,15 +33,14 @@ export default function App() {
             name="Scanner"
             component={ScanPage}
             options={{
-              headerShown: true,
-              headerTitle: 'RestockingSample',
+              title: 'Scan',
             }}
           />
           <Stack.Screen
             name="Results"
             component={ResultsPage}
             options={{
-              title: 'Scanned Items',
+              title: 'Scan Results',
               headerTitleStyle: {
                 fontSize: 16,
                 fontWeight: 'bold',
@@ -46,6 +48,14 @@ export default function App() {
               headerLeftContainerStyle: {
                 paddingLeft: 16,
               },
+            }}
+          />
+          <Stack.Screen
+            name="Home"
+            component={HomePage}
+            options={{
+              headerShown: false,
+              headerTitle: 'RestockingSample',
             }}
           />
         </Stack.Navigator>

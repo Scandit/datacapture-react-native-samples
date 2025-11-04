@@ -4,10 +4,11 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { Search } from './Search';
 import { Find } from './Find';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { DataCaptureContext } from 'scandit-react-native-datacapture-core';
 import { Barcode } from 'scandit-react-native-datacapture-barcode';
+import { HomePage } from './HomePage';
 
 export type RootStackParamList = {
+  Home: undefined;
   Search: undefined;
   Find: { itemToFind: Barcode };
 };
@@ -15,21 +16,22 @@ export type RootStackParamList = {
 const Stack = createStackNavigator<RootStackParamList>();
 
 export function App() {
-  // Create data capture context using your license key.
-  // Enter your Scandit License key here.
-  // Your Scandit License key is available via your Scandit SDK web account.
-  DataCaptureContext.initialize('-- ENTER YOUR SCANDIT LICENSE KEY HERE --');
 
   return (
     <SafeAreaProvider>
-      <SafeAreaView style={{ flex: 1 }} edges={['bottom']}>
+      <SafeAreaView style={{ flex: 1 }} edges={['top', 'bottom']}>
           <NavigationContainer>
-            <Stack.Navigator initialRouteName='Search'>
+            <Stack.Navigator initialRouteName='Home'>
+              <Stack.Screen
+                name='Home'
+                component={HomePage}
+                options={{ headerShown: false }}
+              />
               <Stack.Screen
                 name='Search'
                 component={Search}
                 options={{
-                  title: 'SEARCH & FIND',
+                  title: 'Search',
                   headerTitleAlign: 'center',
                   headerStyle: {
                     backgroundColor: 'black',
@@ -42,7 +44,7 @@ export function App() {
                 name='Find'
                 component={Find}
                 options={{
-                  headerShown: false,
+                  title: 'Find',
                 }}
               />
             </Stack.Navigator>

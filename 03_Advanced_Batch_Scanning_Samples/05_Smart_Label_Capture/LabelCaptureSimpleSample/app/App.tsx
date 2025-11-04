@@ -29,16 +29,19 @@ import { requestCameraPermissionsIfNeeded } from './cameraPermissionHandler';
 import { Symbology } from 'scandit-react-native-datacapture-barcode';
 import { LabelCaptureValidationFlowOverlay } from 'scandit-react-native-datacapture-label';
 
+// Enter your Scandit License key here.
+// Your Scandit License key is available via your Scandit SDK web account.
 const dataCaptureContext = DataCaptureContext.forLicenseKey('-- ENTER YOUR SCANDIT LICENSE KEY HERE --');
 
 export default function App() {
   const dataCaptureViewRef = useRef<DataCaptureView | null>(null);
   const basicOverlayRef = useRef<LabelCaptureBasicOverlay | null>(null);
   const validationFlowRef = useRef<LabelCaptureValidationFlowOverlay | null>(null);
+  const wasCameraOnBeforeBackground = useRef<boolean>(false);
 
   const cameraRef = useRef<Camera>(null!);
   if (!cameraRef.current) {
-    const camera = Camera.withSettings(LabelCapture.recommendedCameraSettings);
+    const camera = Camera.withSettings(LabelCapture.createRecommendedCameraSettings());
 
     if (!camera) {
       throw new Error('No camera available');
@@ -62,11 +65,13 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    const subscription = AppState.addEventListener('change', nextAppState => {
+    const subscription = AppState.addEventListener('change', async nextAppState => {
       if (nextAppState === 'inactive' || nextAppState === 'background') {
-        stopScanning();
-      } else {
-        startScanning();
+        wasCameraOnBeforeBackground.current = (await cameraRef.current.getCurrentState()) === FrameSourceState.On;
+      } else if (nextAppState === 'active') {
+        if (wasCameraOnBeforeBackground.current) {
+          await startScanning();
+        }
       }
     });
     return () => {
@@ -90,11 +95,14 @@ export default function App() {
   const validationFlowListener = useMemo<LabelCaptureValidationFlowListener>(
     () => ({
       didCaptureLabelWithFields(labelFields) {
-        Alert.alert('Label Captured', formatLabelFields(labelFields), [
+        const formattedMessage = formatLabelFields(labelFields);
+
+        Alert.alert('Label Captured', formattedMessage || 'No data captured', [
           {
             text: 'Continue Scanning',
             onPress: () => {
-              startScanning();
+              cameraRef.current.switchToDesiredState(FrameSourceState.On);
+              labelCaptureRef.current.isEnabled = true;
             },
           },
         ]);
@@ -147,18 +155,17 @@ export default function App() {
 
               dataCaptureViewRef.current = newView;
 
-              const basicOverlay = LabelCaptureBasicOverlay.withLabelCapture(labelCaptureRef.current);
+              const basicOverlay = new LabelCaptureBasicOverlay(labelCaptureRef.current);
 
               basicOverlay.listener = basicOverlayListener;
               basicOverlayRef.current = basicOverlay;
               newView.addOverlay(basicOverlay);
 
-              const validationFlow = LabelCaptureValidationFlowOverlay.withLabelCaptureForView(
-                labelCaptureRef.current,
-                newView,
-              );
+              const validationFlow = new LabelCaptureValidationFlowOverlay(labelCaptureRef.current);
               validationFlow.listener = validationFlowListener;
               validationFlowRef.current = validationFlow;
+
+              newView.addOverlay(validationFlow);
 
               const torchControl = new TorchSwitchControl();
               newView.addControl(torchControl);
@@ -230,7 +237,11 @@ function setupLabelCapture() {
 
   const settings = LabelCaptureSettings.settingsFromLabelDefinitions([label], {});
 
-  return LabelCapture.forContext(dataCaptureContext, settings);
+  const labelCapture = new LabelCapture(settings);
+
+  dataCaptureContext.setMode(labelCapture);
+
+  return labelCapture;
 }
 
 function capitalize(string: string): string {
@@ -241,7 +252,8 @@ function formatLabelFields(labelFields: LabelField[]): string {
   return labelFields
     .map(field => {
       if (field.type === 'barcode') {
-        return `${capitalize(field.name)}: ${field.barcode!.data}`;
+        const barcodeData = field.barcode?.data || field.text || 'N/A';
+        return `${capitalize(field.name)}: ${barcodeData}`;
       }
       if (field.type === 'text') {
         const date = field.asDate();
@@ -256,14 +268,16 @@ function formatLabelFields(labelFields: LabelField[]): string {
         }
         return `${capitalize(fieldName)}: ${field.text}`;
       }
+      return `${field.name}: ${field.text || 'N/A'}`;
     })
+    .filter(item => item !== undefined)
     .join('\n');
 }
 
-const upcBrushColor        = Color.fromHex('#FF2EC1CE');
+const upcBrushColor = Color.fromHex('#FF2EC1CE');
 const expiryDateBrushColor = Color.fromHex('#FFFA4446');
-const weightBrushColor     = Color.fromHex('#FFFBC02C');
-const unitPriceBrushColor  = Color.fromHex('#FF0A3390');
+const weightBrushColor = Color.fromHex('#FFFBC02C');
+const unitPriceBrushColor = Color.fromHex('#FF0A3390');
 const upcBrush = new Brush(upcBrushColor.withAlpha(128), upcBrushColor, 1);
 const expiryDateBrush = new Brush(expiryDateBrushColor.withAlpha(128), expiryDateBrushColor, 1);
 const weightBrush = new Brush(weightBrushColor.withAlpha(128), weightBrushColor, 1);

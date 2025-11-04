@@ -3,10 +3,10 @@
 buildscript {
     ext {
         minSdkVersion = 24
-        compileSdkVersion = 35
-        targetSdkVersion = 35
-       
-        ndkVersion = "27.1.12297006"
+        compileSdkVersion = 36
+        targetSdkVersion = 36
+
+        ndkVersion = "27.0.12077973"
     }
     repositories {
         google()
@@ -53,9 +53,31 @@ allprojects {
         }
     }
 
-    configurations.all {
+    // Reorder repositories to put our priority ones first
+    def allRepos = repositories.collect()
+    repositories.clear()
+
+    // Add our priority repositories first
+    allRepos.each { repo ->
+        def url = repo.url?.toString()
+        if (url?.contains("/.m2/repository") ||
+            url?.contains("gitlab.scandit.com")) {
+            repositories.add(repo)
+        }
+    }
+
+    // Add remaining repositories after our priority ones
+    allRepos.each { repo ->
+        def url = repo.url?.toString()
+        if (!(url?.contains("/.m2/repository") ||
+              url?.contains("gitlab.scandit.com"))) {
+            repositories.add(repo)
+        }
+    }
+
+    configurations.configureEach {
         if (project.hasProperty("snapshotCacheDuration")) {
-            resolutionStrategy.cacheChangingModulesFor project.property("snapshotCacheDuration"), 'seconds'
+            resolutionStrategy.cacheChangingModulesFor project.property("snapshotCacheDuration") as int, 'seconds'
         }
     }
 }

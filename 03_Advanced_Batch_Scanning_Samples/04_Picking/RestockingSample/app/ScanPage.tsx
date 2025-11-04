@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useContext, useRef, useState } from 'react';
 import {
   BarcodePickSettings,
   BarcodePick,
@@ -11,13 +11,11 @@ import {
   BarcodePickProductProviderCallbackItem,
   BarcodePickActionListener,
 } from 'scandit-react-native-datacapture-barcode';
-import { DataCaptureContext } from 'scandit-react-native-datacapture-core';
-import { requestCameraPermissionsIfNeeded } from './camera-permission-handler';
 import { RootStackParamList } from './App';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Alert } from 'react-native';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import AppContext from './AppContext';
+import dataCaptureContext from './CaptureContext';
 
 type ScanPageNavigationProp = StackNavigationProp<RootStackParamList>;
 
@@ -50,52 +48,19 @@ export const ScanPage = () => {
   // We need to keep a reference to the old listeners so we can remove them
   // when the component re-renders and new functions are created.
   const listenerRef = useRef<BarcodePickActionListener | null>(null);
-
-  const [dataCaptureContext, setDataCaptureContext] = useState<DataCaptureContext | null>(null);
-  const [hasCameraPermissions, setHasCameraPermissions] = useState<boolean>(false);
   const [barcodePickView, setBarcodePickView] = useState<BarcodePickView | null>(null);
 
   const context = useContext(AppContext);
   const { pickedCodes, setPickedCodes, setAllCodes } = context;
 
-  // When removed from the navigation stack, dispose the data capture context.
-  useEffect(() => {
-    const unsubscribe = navigation.addListener('beforeRemove', () => {
-      setDataCaptureContext(null);
-    });
-    return unsubscribe;
-  }, [navigation, dataCaptureContext]);
-
-  useEffect(() => {
-    // Enter your Scandit License key here.
-    // Your Scandit License key is available via your Scandit SDK web account.
-    const ctx = DataCaptureContext.forLicenseKey('-- ENTER YOUR SCANDIT LICENSE KEY HERE --');
-    setDataCaptureContext(ctx);
-    () => {
-      ctx.dispose();
-      setDataCaptureContext(null);
-    };
-  }, [dataCaptureContext]);
-
-  useEffect(() => {
-    // Request camera permissions if not already granted.
-    requestCameraPermissionsIfNeeded()
-      .then(() => setHasCameraPermissions(true))
-      .catch(() =>
-        Alert.alert('Camera Permission Denied', 'Please enable camera permissions in your device settings.'),
-      );
-  }, [setHasCameraPermissions]);
-
   // Start and stop the barcode pick view when the component is focused or unfocused.
   useFocusEffect(
     useCallback(() => {
-      if (hasCameraPermissions) {
-        barcodePickView?.resume();
-      }
+      barcodePickView?.resume();
       return () => {
         barcodePickView?.pause();
       };
-    }, [barcodePickView, hasCameraPermissions]),
+    }, [barcodePickView]),
   );
 
   const handleFinishButtonClicked = (_view: BarcodePickView) => {
@@ -143,7 +108,7 @@ export const ScanPage = () => {
     },
   });
 
-  if (!dataCaptureContext || !hasCameraPermissions) {
+  if (!dataCaptureContext) {
     return null; // Ensure the context is ready and we have camera permissions before rendering the view
   }
 
@@ -164,7 +129,7 @@ export const ScanPage = () => {
 
   const barcodePick = new BarcodePick(dataCaptureContext, settings, provider);
   const viewSettings = new BarcodePickViewSettings();
-  const cameraSettings = BarcodePick.recommendedCameraSettings;
+  const cameraSettings = BarcodePick.createRecommendedCameraSettings();
 
   return (
     <BarcodePickView

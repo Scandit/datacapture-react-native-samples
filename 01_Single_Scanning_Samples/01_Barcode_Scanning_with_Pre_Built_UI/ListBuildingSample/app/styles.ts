@@ -8,8 +8,13 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FFF',
   },
-  splitViewResults: {
+  contentContainer: {
     flex: 1,
+    flexDirection: 'column',
+  },
+  splitViewResults: {
+    flexGrow: 1,
+    flexShrink: 1,
     flexDirection: 'column',
   },
   splitViewImage: {

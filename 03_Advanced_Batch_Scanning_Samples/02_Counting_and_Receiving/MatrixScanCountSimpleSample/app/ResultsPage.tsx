@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Pressable, SafeAreaView, ScrollView, Text, View, BackHandler } from 'react-native';
+import { Pressable, ScrollView, Text, View, BackHandler } from 'react-native';
 import { styles } from './styles';
 import { RootStackParamList } from './App';
 import { RouteProp, useNavigation, useRoute, useFocusEffect } from '@react-navigation/native';
@@ -64,7 +64,7 @@ export const ResultsPage = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.scanCountContainer}>
         <Text style={styles.scanCount}>
           {codes.length === 0 || codes.length > 1 ? 'Items ' : 'Item '}
@@ -108,6 +108,6 @@ export const ResultsPage = () => {
           <Text style={styles.clearButtonText}>CLEAR LIST</Text>
         </Pressable>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
