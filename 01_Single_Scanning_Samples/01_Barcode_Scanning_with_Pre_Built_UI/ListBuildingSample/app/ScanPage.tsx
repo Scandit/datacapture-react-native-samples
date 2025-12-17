@@ -30,7 +30,6 @@ export const ScanPage = () => {
   const sparkScanViewRef = useRef<SparkScanView | null>(null);
 
   useEffect(() => {
-
     return () => {
       dataCaptureContext.removeMode(sparkScanMode.current);
     };

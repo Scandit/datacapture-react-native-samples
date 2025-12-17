@@ -39,6 +39,10 @@ export const ScanPage = () => {
 
   const [results, setResults] = useState<Record<string, { data: string; symbology: Symbology }>>({});
 
+  const clearResults = () => {
+    setResults({});
+  };
+
   useEffect(() => {
     const initCamera = async () => {
       if (!cameraRef.current) {
@@ -73,7 +77,7 @@ export const ScanPage = () => {
   }
 
   const goToResults = () => {
-    navigation.navigate('results', { results: results });
+    navigation.navigate('results', { results: results, onClearResults: clearResults });
   }
 
   const stopCamera = () => {

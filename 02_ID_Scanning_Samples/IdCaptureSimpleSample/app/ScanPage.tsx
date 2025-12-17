@@ -9,7 +9,6 @@ import {
   IdCapture,
   IdCaptureOverlay,
   IdCaptureSettings,
-  IdLayoutStyle,
   IdCard,
   IdCaptureRegion,
   DriverLicense,
@@ -112,8 +111,6 @@ export const ScanPage = () => {
     // the video preview. This is optional, but recommended for better visual feedback.
     const overlay = new IdCaptureOverlay(idCapture.current);
 
-    overlay.idLayoutStyle = IdLayoutStyle.Square;
-
     return overlay;
   }
 
@@ -205,4 +202,3 @@ export const ScanPage = () => {
     }} />
   );
 }
-

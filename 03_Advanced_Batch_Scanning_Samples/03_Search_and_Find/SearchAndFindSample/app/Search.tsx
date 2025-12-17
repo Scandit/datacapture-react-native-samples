@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import {
   AppState,
   AppStateStatus,
@@ -33,12 +33,19 @@ import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList } from './App';
 import { styles } from './styles'
 import dataCaptureContext from './CaptureContext'
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 type Props = StackScreenProps<RootStackParamList, 'Search'>;
 
 const scannedBrush = Color.fromRGBA(40, 211, 128, 0.5);
 
 export const Search = ({ navigation }: Props) => {
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTransparent: true,
+    });
+  }, [navigation]);
+
   const viewRef = useRef<DataCaptureView | null>(null);
 
   const [appStateVisible, setAppStateVisible] = useState(AppState.currentState);
@@ -234,7 +241,7 @@ export const Search = ({ navigation }: Props) => {
   };
 
   return (
-    <>
+    <SafeAreaView style={{ flex: 1 }}>
       <DataCaptureView style={{ flex: 1 }} context={dataCaptureContext} ref={(view) => {
         if (view && !viewRef.current) {
           viewRef.current = view;
@@ -270,6 +277,6 @@ export const Search = ({ navigation }: Props) => {
         </View>
       </>
       }
-    </>
+    </SafeAreaView>
   );
 }

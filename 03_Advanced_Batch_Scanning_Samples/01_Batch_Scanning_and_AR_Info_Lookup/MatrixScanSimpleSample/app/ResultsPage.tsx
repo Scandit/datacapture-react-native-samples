@@ -34,6 +34,7 @@ type ResultsPageProps = {
 
 export const ResultsPage = ({ route, navigation }: ResultsPageProps) => {
   const goBack = () => {
+    route.params.onClearResults();
     navigation.goBack();
   };
 

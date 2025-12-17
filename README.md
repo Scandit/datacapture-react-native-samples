@@ -28,7 +28,7 @@ MatrixScan Find is a pre-built component that uses AR overlays to highlight item
 
 ![MSFind.png](https://github.com/Scandit/.github/blob/main/images/MSFind.png)
 
-**Seach & Find Sample** ([React Native](https://github.com/Scandit/datacapture-react-native-samples/tree/master/03_Advanced_Batch_Scanning_Samples/03_Search_and_Find/SearchAndFindSample))
+**Search & Find Sample** ([React Native](https://github.com/Scandit/datacapture-react-native-samples/tree/master/03_Advanced_Batch_Scanning_Samples/03_Search_and_Find/SearchAndFindSample))
 
 ### Scan One of Many Barcodes (Barcode Selection)
 
@@ -61,10 +61,6 @@ ID Scanning Samples demonstrate the features of the ID Capture API and demonstra
 ### Barcode Capture Samples
 
 **Barcode Capture Simple Sample** ([React Native](https://github.com/Scandit/datacapture-react-native-samples/tree/master/01_Single_Scanning_Samples/02_Barcode_Scanning_with_Low_Level_API/BarcodeCaptureSimpleSample))
-
-**Barcode Capture Reject Sample** ([React Native](https://github.com/Scandit/datacapture-react-native-samples/tree/master/01_Single_Scanning_Samples/02_Barcode_Scanning_with_Low_Level_API/BarcodeCaptureRejectSample))
-
-**Barcode Capture Settings Sample** ([React Native](https://github.com/Scandit/datacapture-react-native-samples/tree/master/01_Single_Scanning_Samples/02_Barcode_Scanning_with_Low_Level_API/BarcodeCaptureSettingsSample))
 
 ### MatrixScan AR Sam**ples**
 

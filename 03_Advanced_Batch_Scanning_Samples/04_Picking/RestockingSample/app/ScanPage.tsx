@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useRef, useState } from 'react';
+import React, { useCallback, useContext, useRef } from 'react';
 import {
   BarcodePickSettings,
   BarcodePick,
@@ -9,7 +9,6 @@ import {
   BarcodePickActionCallback,
   BarcodePickAsyncMapperProductProvider,
   BarcodePickProductProviderCallbackItem,
-  BarcodePickActionListener,
 } from 'scandit-react-native-datacapture-barcode';
 import { RootStackParamList } from './App';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -45,10 +44,11 @@ export const productsToPick = [
 export const ScanPage = () => {
   const navigation = useNavigation<ScanPageNavigationProp>();
 
-  // We need to keep a reference to the old listeners so we can remove them
-  // when the component re-renders and new functions are created.
-  const listenerRef = useRef<BarcodePickActionListener | null>(null);
-  const [barcodePickView, setBarcodePickView] = useState<BarcodePickView | null>(null);
+  const barcodePickViewRef = useRef<BarcodePickView | null>(null);
+  const handlersRef = useRef({
+    handlePicked: (data: string, callback: BarcodePickActionCallback) => {},
+    handleUnpicked: (data: string, callback: BarcodePickActionCallback) => {},
+  });
 
   const context = useContext(AppContext);
   const { pickedCodes, setPickedCodes, setAllCodes } = context;
@@ -56,43 +56,28 @@ export const ScanPage = () => {
   // Start and stop the barcode pick view when the component is focused or unfocused.
   useFocusEffect(
     useCallback(() => {
-      barcodePickView?.resume();
+      barcodePickViewRef.current?.resume();
       return () => {
-        barcodePickView?.pause();
+        barcodePickViewRef.current?.pause();
       };
-    }, [barcodePickView]),
+    }, []),
   );
 
   const handleFinishButtonClicked = (_view: BarcodePickView) => {
     navigation.navigate('Results');
   };
 
-  const handlePicked = (data: string, callback: BarcodePickActionCallback) => {
-    // Simulate a delay
+  handlersRef.current.handlePicked = (data: string, callback: BarcodePickActionCallback) => {
     setTimeout(() => {
-      setPickedCodes([...pickedCodes, data]);
+      setPickedCodes(prev => [...prev, data]);
       callback.onFinish(true);
     }, 500);
   };
 
-  const handleUnpicked = (data: string, callback: BarcodePickActionCallback) => {
-    setPickedCodes(pickedCodes.filter(c => c !== data));
+  handlersRef.current.handleUnpicked = (data: string, callback: BarcodePickActionCallback) => {
+    setPickedCodes(prev => prev.filter(c => c !== data));
     callback.onFinish(true);
   };
-
-  // Remove the old listeners from the view if they exist.
-  if (listenerRef.current && barcodePickView) {
-    barcodePickView.removeActionListener(listenerRef.current);
-    listenerRef.current = null;
-  }
-
-  // Create the new listeners and assign them to the ref.
-  if (!listenerRef.current) {
-    listenerRef.current = {
-      didPickItem: handlePicked,
-      didUnpickItem: handleUnpicked,
-    };
-  }
 
   const provider = new BarcodePickAsyncMapperProductProvider(productsToPick, {
     productIdentifierForItems: (itemData, callback) => {
@@ -139,16 +124,23 @@ export const ScanPage = () => {
       cameraSettings={cameraSettings}
       settings={viewSettings}
       ref={view => {
-        if (view) {
-          // Set the listeners on the barcode pick view.
-          if (!barcodePickView) {
-            setBarcodePickView(view);
-            view.start();
-          }
+        if (view && !barcodePickViewRef.current) {
+          barcodePickViewRef.current = view;
+
+          view.addActionListener({
+            didPickItem(data, callback) {
+              handlersRef.current.handlePicked(data, callback);
+            },
+            didUnpickItem(data, callback) {
+              handlersRef.current.handleUnpicked(data, callback);
+            },
+          });
+
           view.uiListener = {
             didTapFinishButton: handleFinishButtonClicked,
           };
-          view.addActionListener(listenerRef.current!);
+
+          view.start();
         }
       }}
     />

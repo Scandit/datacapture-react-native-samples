@@ -19,7 +19,7 @@ export function App() {
 
   return (
     <SafeAreaProvider>
-      <SafeAreaView style={{ flex: 1 }} edges={['top', 'bottom']}>
+
           <NavigationContainer>
             <Stack.Navigator initialRouteName='Home'>
               <Stack.Screen
@@ -45,11 +45,16 @@ export function App() {
                 component={Find}
                 options={{
                   title: 'Find',
+                  headerTitleAlign: 'center',
+                  headerStyle: {
+                    backgroundColor: 'black',
+                  },
+                  headerTintColor: 'white',
                 }}
               />
             </Stack.Navigator>
           </NavigationContainer>
-      </SafeAreaView>
+
     </SafeAreaProvider>
   );
 }

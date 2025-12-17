@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import {
   BarcodeFind,
   BarcodeFindItem,
@@ -18,6 +18,12 @@ import { useFocusEffect } from '@react-navigation/native';
 type Props = StackScreenProps<RootStackParamList, 'Find'>;
 
 export const Find = ({ route, navigation }: Props) => {
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTransparent: true,
+    });
+  }, [navigation]);
+
   const viewRef = useRef<BarcodeFindView | null>(null);
   const barcodeFindViewUiListenerRef = useRef<BarcodeFindViewUiListener | null>(
     null

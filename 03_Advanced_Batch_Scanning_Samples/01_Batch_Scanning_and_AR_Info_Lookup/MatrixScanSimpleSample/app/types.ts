@@ -6,5 +6,6 @@ export type RootStackParamList = {
   scan: undefined;
   results: {
     results: Record<string, { data: string; symbology: Symbology }>;
+    onClearResults: () => void;
   };
 };
