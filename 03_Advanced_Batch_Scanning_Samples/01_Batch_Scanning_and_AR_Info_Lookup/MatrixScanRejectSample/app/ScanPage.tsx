@@ -47,7 +47,7 @@ export const ScanPage = () => {
     barcodeBatchListenerRef.current = setupBarcodeBatchListener();
   }
 
-  const is_rejected = (value: string) => {
+  const isRejected = (value: string) => {
     return value.startsWith('7') || value.startsWith('07');
   }
 
@@ -58,7 +58,7 @@ export const ScanPage = () => {
       }
     };
 
-    initCamera();
+    void initCamera();
 
     const handleAppStateChangeSubscription = AppState.addEventListener('change', (nextAppState: AppStateStatus) => {
       if (nextAppState.match(/inactive|background/)) {
@@ -71,7 +71,7 @@ export const ScanPage = () => {
     return () => {
       handleAppStateChangeSubscription.remove();
       stopCapture();
-      dataCaptureContext.removeMode(barcodeBatchRef.current);
+      void dataCaptureContext.removeMode(barcodeBatchRef.current);
     }
   }, []);
 
@@ -91,13 +91,13 @@ export const ScanPage = () => {
 
   const stopCamera = () => {
     if (cameraRef.current) {
-      cameraRef.current.switchToDesiredState(FrameSourceState.Off);
+      void cameraRef.current.switchToDesiredState(FrameSourceState.Off);
     }
   };
 
   const startCamera = () => {
     if (cameraRef.current) {
-      cameraRef.current.switchToDesiredState(FrameSourceState.On);
+      void cameraRef.current.switchToDesiredState(FrameSourceState.On);
     }
   };
 
@@ -139,7 +139,7 @@ export const ScanPage = () => {
         // Return a custom Brush based on the tracked barcode.
         const { barcode } = trackedBarcode;
 
-        if (barcode.data && is_rejected(barcode.data)) {
+        if (barcode.data && isRejected(barcode.data)) {
           return new Brush(Color.fromRGBA(255, 255, 255, 0), Color.fromHex('#FF3939FF'), 3);
         } else {
           return new Brush(Color.fromRGBA(0, 255, 255, .45), Color.fromHex('#00FFFF'), 3);
@@ -170,7 +170,7 @@ export const ScanPage = () => {
     const barcodeBatch = new BarcodeBatch(settings);
 
     // Set the barcode batch mode to the data capture context.
-    dataCaptureContext.setMode(barcodeBatch);
+    void dataCaptureContext.setMode(barcodeBatch);
 
     return barcodeBatch;
   }
@@ -178,14 +178,14 @@ export const ScanPage = () => {
   function setupBarcodeBatchListener(): BarcodeBatchListener {
     // Register a listener to get informed whenever a new barcode is tracked.
     const barcodeBatchListener = {
-      didUpdateSession: async (_, session: BarcodeBatchSession) => {
+      didUpdateSession: async (_: BarcodeBatch, session: BarcodeBatchSession) => {
         setResults({});
 
         Object.values(session.trackedBarcodes).forEach(trackedBarcode => {
           const { data, symbology } = trackedBarcode.barcode;
 
           // Keep track of all non-rejected barcodes.
-          if (data && !is_rejected(data)) {
+          if (data && !isRejected(data)) {
             setResults(prevResults => ({
               ...prevResults,
               [data]: { data, symbology }
@@ -193,10 +193,10 @@ export const ScanPage = () => {
           }
         });
 
-        barcodeBatchRef.current.addListener(barcodeBatchListener);
       }
     };
 
+    void barcodeBatchRef.current.addListener(barcodeBatchListener);
     return barcodeBatchListener;
   }
 

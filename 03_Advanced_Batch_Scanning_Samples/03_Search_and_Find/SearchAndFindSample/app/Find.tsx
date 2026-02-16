@@ -81,8 +81,7 @@ export const Find = ({ route, navigation }: Props) => {
     // Set the list of items to find.
     const itemList = [
       new BarcodeFindItem(
-        new BarcodeFindItemSearchOptions(route.params.itemToFind.data!),
-        new BarcodeFindItemContent('Example item')
+        new BarcodeFindItemSearchOptions(route.params.itemToFind.data!)
       ),
     ];
     barcodeFind.setItemList(itemList);

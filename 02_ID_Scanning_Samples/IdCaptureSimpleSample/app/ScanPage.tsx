@@ -1,10 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Alert, AppState, AppStateStatus } from 'react-native';
-import {
-  Camera,
-  DataCaptureView,
-  FrameSourceState,
-} from 'scandit-react-native-datacapture-core';
+import { Camera, DataCaptureView, FrameSourceState } from 'scandit-react-native-datacapture-core';
 import {
   IdCapture,
   IdCaptureOverlay,
@@ -23,7 +19,6 @@ import {
 import dataCaptureContext from './CaptureContext';
 
 export const ScanPage = () => {
-
   const viewRef = React.createRef();
   const camera = useRef<Camera | null>(null);
 
@@ -51,7 +46,7 @@ export const ScanPage = () => {
     return () => {
       handleAppStateChangeSubscription.remove();
       dataCaptureContext.removeMode(idCapture.current);
-    }
+    };
   }, []);
 
   const handleAppStateChange = async (nextAppState: AppStateStatus) => {
@@ -60,17 +55,17 @@ export const ScanPage = () => {
     } else {
       startCapture();
     }
-  }
+  };
 
   const startCapture = () => {
     startCamera();
     idCapture.current.isEnabled = true;
-  }
+  };
 
   const stopCapture = () => {
     idCapture.current.isEnabled = false;
     stopCamera();
-  }
+  };
 
   const stopCamera = () => {
     if (camera.current) {
@@ -141,12 +136,9 @@ export const ScanPage = () => {
 
         const result = descriptionForCapturedId(capturedId);
 
-        Alert.alert(
-          'Result',
-          result,
-          [{ text: 'OK', onPress: () => idCapture.isEnabled = true }],
-          { cancelable: false }
-        );
+        Alert.alert('Result', result, [{ text: 'OK', onPress: () => (idCapture.isEnabled = true) }], {
+          cancelable: false,
+        });
       },
       didRejectId: (_: IdCapture, rejectedId: CapturedId, reason: RejectionReason) => {
         idCapture.isEnabled = false;
@@ -154,10 +146,10 @@ export const ScanPage = () => {
         Alert.alert(
           'Error',
           getRejectionReasonMessage(reason),
-          [{ text: 'OK', onPress: () => idCapture.isEnabled = true }],
+          [{ text: 'OK', onPress: () => (idCapture.isEnabled = true) }],
           { cancelable: false }
         );
-      }
+      },
     };
 
     idCapture.addListener(idCaptureListener);
@@ -173,32 +165,39 @@ export const ScanPage = () => {
     Full Name: ${result.fullName}
     Date of Birth: ${getDateAsString(result.dateOfBirth)}
     Date of Expiry: ${getDateAsString(result.dateOfExpiry)}
-    Document Number: ${result.documentNumber || "empty"}
-    Nationality: ${result.nationality || "empty"}`
-  }
+    Document Number: ${result.documentNumber || 'empty'}
+    Nationality: ${result.nationality || 'empty'}`;
+  };
 
   const getRejectionReasonMessage = (reason: RejectionReason) => {
     switch (reason) {
-      case  RejectionReason.NotAcceptedDocumentType:
+      case RejectionReason.NotAcceptedDocumentType:
         return 'Document not supported. Try scanning another document.';
       case RejectionReason.Timeout:
         return 'Document capture failed. Make sure the document is well lit and free of glare. Alternatively, try scanning another document';
       default:
         return `Document capture was rejected. Reason=${reason}`;
     }
-  }
+  };
 
   const getDateAsString = (dateObject: DateResult | null) => {
-    return dateObject && dateObject.localDate ? dateObject.localDate
-      .toLocaleDateString("en-GB") : "empty";
-  }
+    return dateObject
+      ? new Date(Date.UTC(dateObject.year, dateObject.month - 1, dateObject.day)).toLocaleDateString('en-GB', {
+          timeZone: 'UTC',
+        })
+      : 'empty';
+  };
 
   return (
-    <DataCaptureView style={{ flex: 1 }} context={dataCaptureContext} ref={(view) => {
-      if (view && !viewRef.current) {
-        view.addOverlay(overlay.current);
-        viewRef.current = view;
-      }
-    }} />
+    <DataCaptureView
+      style={{ flex: 1 }}
+      context={dataCaptureContext}
+      ref={view => {
+        if (view && !viewRef.current) {
+          view.addOverlay(overlay.current);
+          viewRef.current = view;
+        }
+      }}
+    />
   );
-}
+};

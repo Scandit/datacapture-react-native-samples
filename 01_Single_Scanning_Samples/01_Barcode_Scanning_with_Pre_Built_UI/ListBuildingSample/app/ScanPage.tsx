@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {View, ScrollView, Text, Pressable} from 'react-native';
 
 import {Color, Brush} from 'scandit-react-native-datacapture-core';
@@ -100,28 +100,30 @@ export const ScanPage = () => {
     return sparkScan;
   };
 
-  const isValidBarcode = (barcode: Barcode) => {
+  const isValidBarcode = useCallback((barcode: Barcode) => {
     return barcode.data != null && barcode.data !== '123456789';
-  };
+  }, []);
 
   // Setup the feedback delegate in order to emit different feedback based on the scanned barcode
-  const sparkScanFeedbackDelegate = {
-    feedbackForBarcode: (barcode: Barcode) => {
-      if (isValidBarcode(barcode)) {
-        // return a success feedback
-        return new SparkScanBarcodeSuccessFeedback();
-      } else {
-        // customize and return an error feedback
-        return new SparkScanBarcodeErrorFeedback(
-          'Wrong barcode',
-          60,
-          Color.fromHex('#FF0000'),
-          new Brush(Color.fromHex('#FF0000'), Color.fromHex('#FF0000'), 1),
-          null,
-        );
-      }
-    },
-  };
+  const sparkScanFeedbackDelegate = useMemo(() => {
+    const errorFeedback = new SparkScanBarcodeErrorFeedback(
+      'Wrong barcode',
+      60,
+      Color.fromHex('#FF0000'),
+      new Brush(Color.fromHex('#FF0000'), Color.fromHex('#FF0000'), 1),
+      null,
+    );
+    const successFeedback = new SparkScanBarcodeSuccessFeedback();
+
+    return {
+      feedbackForBarcode: (barcode: Barcode) => {
+        if (isValidBarcode(barcode)) {
+          return successFeedback;
+        }
+        return errorFeedback;
+      },
+    };
+  }, [isValidBarcode]);
 
   const handleClearButtonClick = () => {
     setCodes([]);

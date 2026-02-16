@@ -1,27 +1,23 @@
-import React, { useEffect, useMemo, useRef } from 'react';
-import { Alert, AppState, StyleSheet, View } from 'react-native';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { AppState, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import {
-  Brush,
   Camera,
   Color,
   DataCaptureContext,
   DataCaptureView,
   FrameSourceState,
-  TorchSwitchControl,
 } from 'scandit-react-native-datacapture-core';
 import {
   CustomBarcode,
   LabelCaptureSettings,
   LabelDefinition,
-  UnitPriceText,
-  WeightText,
+  TotalPriceText,
   ExpiryDateText,
   LabelDateFormat,
   LabelDateComponentFormat,
   LabelCapture,
   LabelCaptureBasicOverlay,
-  LabelCaptureBasicOverlayListener,
   LabelCaptureValidationFlowListener,
   LabelField,
 } from 'scandit-react-native-datacapture-label';
@@ -38,6 +34,9 @@ export default function App() {
   const basicOverlayRef = useRef<LabelCaptureBasicOverlay | null>(null);
   const validationFlowRef = useRef<LabelCaptureValidationFlowOverlay | null>(null);
   const wasCameraOnBeforeBackground = useRef<boolean>(false);
+
+  const [isResultModalVisible, setIsResultModalVisible] = useState(false);
+  const [capturedLabelData, setCapturedLabelData] = useState<string>('');
 
   const cameraRef = useRef<Camera>(null!);
   if (!cameraRef.current) {
@@ -79,63 +78,32 @@ export default function App() {
     };
   }, []);
 
-  const basicOverlayListener = useMemo<LabelCaptureBasicOverlayListener>(
-    () => ({
-      brushForFieldOfLabel: (_, field) => {
-        return getBrushForField(field);
-      },
-      brushForLabel() {
-        const transparentColor = Color.fromRGBA(0, 0, 0, 0);
-        return new Brush(transparentColor, transparentColor, 0);
-      },
-    }),
-    [],
-  );
-
   const validationFlowListener = useMemo<LabelCaptureValidationFlowListener>(
     () => ({
       didCaptureLabelWithFields(labelFields) {
         const formattedMessage = formatLabelFields(labelFields);
-
-        Alert.alert('Label Captured', formattedMessage || 'No data captured', [
-          {
-            text: 'Continue Scanning',
-            onPress: () => {
-              cameraRef.current.switchToDesiredState(FrameSourceState.On);
-              labelCaptureRef.current.isEnabled = true;
-            },
-          },
-        ]);
+        setCapturedLabelData(formattedMessage || 'No data captured');
+        setIsResultModalVisible(true);
       },
     }),
     [],
   );
+
+  const handleContinueScanning = async () => {
+    setIsResultModalVisible(false);
+    await cameraRef.current.switchToDesiredState(FrameSourceState.On);
+    labelCaptureRef.current.isEnabled = true;
+  };
 
   const startScanning = async () => {
     await cameraRef.current.switchToDesiredState(FrameSourceState.On);
     labelCaptureRef.current.isEnabled = true;
   };
 
-  const stopScanning = async () => {
-    await cameraRef.current.switchToDesiredState(FrameSourceState.Off);
-    labelCaptureRef.current.isEnabled = false;
-  };
-
-  useEffect(() => {
-    if (!basicOverlayRef.current) return;
-
-    const basicOverlay = basicOverlayRef.current!;
-    basicOverlay.listener = basicOverlayListener;
-
-    return () => {
-      basicOverlay.listener = null;
-    };
-  }, [basicOverlayListener]);
-
   useEffect(() => {
     if (!validationFlowRef.current) return;
 
-    const validationFlow = validationFlowRef.current!;
+    const validationFlow = validationFlowRef.current;
     validationFlow.listener = validationFlowListener;
 
     return () => {
@@ -156,8 +124,6 @@ export default function App() {
               dataCaptureViewRef.current = newView;
 
               const basicOverlay = new LabelCaptureBasicOverlay(labelCaptureRef.current);
-
-              basicOverlay.listener = basicOverlayListener;
               basicOverlayRef.current = basicOverlay;
               newView.addOverlay(basicOverlay);
 
@@ -166,11 +132,26 @@ export default function App() {
               validationFlowRef.current = validationFlow;
 
               newView.addOverlay(validationFlow);
-
-              const torchControl = new TorchSwitchControl();
-              newView.addControl(torchControl);
             }}
           />
+
+          <Modal
+            animationType="fade"
+            transparent={true}
+            visible={isResultModalVisible}
+            onRequestClose={() => setIsResultModalVisible(false)}>
+            <View style={styles.modalOverlay}>
+              <View style={styles.modalContent}>
+                <Text style={styles.modalTitle}>LABEL CAPTURED</Text>
+                <Text style={styles.modalMessage}>{capturedLabelData}</Text>
+                <TouchableOpacity
+                  style={styles.continueButton}
+                  onPress={handleContinueScanning}>
+                  <Text style={styles.continueButtonText}>CONTINUE SCANNING</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </Modal>
         </View>
       </SafeAreaView>
     </SafeAreaProvider>
@@ -187,33 +168,70 @@ const styles = StyleSheet.create({
   dataCaptureView: {
     flex: 1,
   },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    borderRadius: 8,
+    padding: 24,
+    width: '100%',
+    maxWidth: 400,
+    alignItems: 'center',
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 16,
+    textAlign: 'center',
+  },
+  modalMessage: {
+    fontSize: 14,
+    marginBottom: 24,
+    textAlign: 'left',
+    width: '100%',
+  },
+  continueButton: {
+    backgroundColor: '#000000',
+    paddingVertical: 16,
+    paddingHorizontal: 24,
+    borderRadius: 4,
+    width: '100%',
+  },
+  continueButtonText: {
+    color: '#FFFFFF',
+    fontSize: 14,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
 });
 
 function setupLabelCapture() {
-  const customBarcode = CustomBarcode.initWithNameAndSymbologies('barcode', [
+  const customBarcode = CustomBarcode.initWithNameAndSymbologies('Barcode', [
     Symbology.EAN13UPCA,
-    Symbology.GS1DatabarLimited,
+    Symbology.GS1DatabarExpanded,
     Symbology.Code128,
   ]);
   customBarcode.optional = false;
 
-  const expiryDateText = new ExpiryDateText('value:expiry_date');
+  const expiryDateText = new ExpiryDateText('Expiry Date');
   expiryDateText.labelDateFormat = new LabelDateFormat(LabelDateComponentFormat.MDY, false);
-  expiryDateText.optional = true;
+  expiryDateText.optional = false;
 
-  const unitPriceText = new UnitPriceText('value:unit_price');
-  unitPriceText.optional = true;
+  const totalPriceText = new TotalPriceText('Total Price');
+  totalPriceText.optional = true;
 
-  const weightText = new WeightText('value:weight');
-  weightText.optional = true;
-
-  const label = new LabelDefinition('weighted_item');
-  label.fields = [customBarcode, expiryDateText, unitPriceText, weightText];
+  const label = new LabelDefinition('Retail Item');
+  label.fields = [customBarcode, expiryDateText, totalPriceText];
 
   // You can customize the label definition to adapt it to your use-case.
   // For example, you can use the following label definition for Smart Devices box Scanning.
   //
-  // const customBarcode = CustomBarcode.initWithNameAndSymbologies('custom_barcode', [
+  // const customBarcode = CustomBarcode.initWithNameAndSymbologies('Barcode', [
   //   Symbology.EAN13UPCA,
   //   Symbology.Code128,
   //   Symbology.Code39,
@@ -221,19 +239,19 @@ function setupLabelCapture() {
   // ]);
   // customBarcode.optional = false;
   //
-  // const imeiOne = ImeiOneBarcode.initWithNameAndSymbologies('imei_one', []);
-  // imeiOne.optional = true;
+  // const imeiOne = ImeiOneBarcode.initWithNameAndSymbologies('IMEI1', []);
+  // imeiOne.optional = false;
   //
-  // const imeiTwo = ImeiOneBarcode.initWithNameAndSymbologies('imei_two', []);
+  // const imeiTwo = ImeiTwoBarcode.initWithNameAndSymbologies('IMEI2', []);
   // imeiTwo.optional = true;
   //
-  // const serial = CustomBarcode.initWithNameAndSymbologies('serial', []);
+  // const serial = SerialNumberBarcode.initWithNameAndSymbologies('Serial Number', []);
   // serial.optional = true;
   //
-  // const labelDefinition = new LabelDefinition('imei_label');
-  // labelDefinition.fields = [customBarcode2, imeiOne, imeiTwo, serial];
+  // const labelDefinition = new LabelDefinition('Smart Device');
+  // labelDefinition.fields = [customBarcode, imeiOne, imeiTwo, serial];
   //
-  // const settings = LabelCaptureSettings.settingsFromLabelDefinitions([labelDefinition], {})!;
+  // const settings = LabelCaptureSettings.settingsFromLabelDefinitions([labelDefinition], {});
 
   const settings = LabelCaptureSettings.settingsFromLabelDefinitions([label], {});
 
@@ -253,45 +271,17 @@ function formatLabelFields(labelFields: LabelField[]): string {
     .map(field => {
       if (field.type === 'barcode') {
         const barcodeData = field.barcode?.data || field.text || 'N/A';
-        return `${capitalize(field.name)}: ${barcodeData}`;
+        return `${field.name}: ${barcodeData}`;
       }
       if (field.type === 'text') {
         const date = field.asDate();
         if (date) {
-          return `Expiry Date: ${date.day?.toString()} - ${date.month?.toString()} - ${date.year?.toString()}`;
+          return `${field.name}: ${date.day?.toString()} - ${date.month?.toString()} - ${date.year?.toString()}`;
         }
-        let fieldName = field.name;
-        if (fieldName === 'value:unit_price') {
-          fieldName = 'Unit Price';
-        } else if (fieldName === 'value:weight') {
-          fieldName = 'Weight';
-        }
-        return `${capitalize(fieldName)}: ${field.text}`;
+        return `${field.name}: ${field.text}`;
       }
       return `${field.name}: ${field.text || 'N/A'}`;
     })
     .filter(item => item !== undefined)
     .join('\n');
-}
-
-const upcBrushColor = Color.fromHex('#FF2EC1CE');
-const expiryDateBrushColor = Color.fromHex('#FFFA4446');
-const weightBrushColor = Color.fromHex('#FFFBC02C');
-const unitPriceBrushColor = Color.fromHex('#FF0A3390');
-const upcBrush = new Brush(upcBrushColor.withAlpha(128), upcBrushColor, 1);
-const expiryDateBrush = new Brush(expiryDateBrushColor.withAlpha(128), expiryDateBrushColor, 1);
-const weightBrush = new Brush(weightBrushColor.withAlpha(128), weightBrushColor, 1);
-const unitPriceBrush = new Brush(unitPriceBrushColor.withAlpha(128), unitPriceBrushColor, 1);
-
-function getBrushForField(field: LabelField): Brush {
-  if (field.name === 'value:unit_price') {
-    return unitPriceBrush;
-  }
-  if (field.name === 'value:weight') {
-    return weightBrush;
-  }
-  if (field.name === 'value:expiry_date') {
-    return expiryDateBrush;
-  }
-  return upcBrush;
 }
