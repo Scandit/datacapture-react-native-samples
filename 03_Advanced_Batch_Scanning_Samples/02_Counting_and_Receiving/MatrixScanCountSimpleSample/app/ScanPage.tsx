@@ -102,11 +102,10 @@ export const ScanPage = () => {
   );
 
   useEffect(() => {
-    setupScanning();
     startCamera();
 
     return () => {
-      dataCaptureContext.dispose();
+      dataCaptureContext.setFrameSource(null);
     };
   }, []);
 

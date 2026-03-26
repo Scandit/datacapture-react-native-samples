@@ -16,8 +16,8 @@
         "react-native-gesture-handler": "2.28.0",
         "react-native-safe-area-context": "^5.6.1",
         "react-native-screens": "4.16.0",
-        "scandit-react-native-datacapture-barcode": "8.2.1",
-        "scandit-react-native-datacapture-core": "8.2.1",
+        "scandit-react-native-datacapture-barcode": "8.3.0",
+        "scandit-react-native-datacapture-core": "8.3.0",
         "react-native-svg": "^15.13.0"
     },
     "devDependencies": {
@@ -27,11 +27,11 @@
         "@react-native-community/cli": "20.0.2",
         "@react-native-community/cli-platform-android": "20.0.2",
         "@react-native-community/cli-platform-ios": "20.0.2",
-        "@react-native/metro-config": "0.81.1",
+        "@react-native/metro-config": "0.81.4",
         "@tsconfig/react-native": "^3.0.6",
         "@types/react": "^19.1.0",
-        "@react-native/babel-preset": "0.81.1",
-        "@react-native/gradle-plugin": "0.81.1",
+        "@react-native/babel-preset": "0.81.4",
+        "@react-native/gradle-plugin": "0.81.4",
         "typescript": "^5.8.3"
     },
     "resolutions": {

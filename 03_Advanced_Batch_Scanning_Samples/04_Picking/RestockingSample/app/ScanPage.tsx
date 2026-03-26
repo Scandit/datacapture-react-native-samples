@@ -56,7 +56,7 @@ export const ScanPage = () => {
   // Start and stop the barcode pick view when the component is focused or unfocused.
   useFocusEffect(
     useCallback(() => {
-      barcodePickViewRef.current?.resume();
+      barcodePickViewRef.current?.start();
       return () => {
         barcodePickViewRef.current?.pause();
       };
