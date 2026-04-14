@@ -37,8 +37,8 @@
         "react-native-svg": "15.12.1",
         "react-native-web": "~0.21.0",
         "react-native-worklets": "0.5.1",
-        "scandit-react-native-datacapture-barcode": "8.3.0",
-        "scandit-react-native-datacapture-core": "8.3.0"
+        "scandit-react-native-datacapture-barcode": "8.3.1",
+        "scandit-react-native-datacapture-core": "8.3.1"
     },
     "devDependencies": {
         "@types/react": "~19.1.0",
