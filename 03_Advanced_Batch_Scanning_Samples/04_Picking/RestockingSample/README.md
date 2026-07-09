@@ -1,25 +1,24 @@
 # Restocking Sample
 
-This sample demonstrates the pre-built MatrixScan Pick component (BarcodePick API). 
+This sample demonstrates the pre-built MatrixScan Pick component (BarcodePick API).
 It shows how an augmented reality overlay is used to highlight specific items that need to be picked.
 
-
 The MatrixScan Pick UI incorporates our best practices for usability and has been rigorously tested with target users in real-world scenarios.
-
 
 ## Installation
 
 - Clone this repo locally.
-- Sign in to your Developer Account at [ssl.scandit.com](http://ssl.scandit.com) and generate a license key.  If you do not have an account, sign up here: [https://ssl.scandit.com/dashboard/sign-up?p=test](https://ssl.scandit.com/dashboard/sign-up?p=test).
+- Sign in to your Developer Account at [ssl.scandit.com](http://ssl.scandit.com) and generate a license key. If you do not have an account, sign up here: [https://ssl.scandit.com/dashboard/sign-up?p=test](https://ssl.scandit.com/dashboard/sign-up?p=test).
 - Replace the license key in the sample where you see `-- ENTER YOUR SCANDIT LICENSE KEY HERE --`.
 - Build and run this sample on your mobile device.
 
 ## What is MatrixScan Pick?
 
-MatrixScan Pick is a pre-built UI that uses augmented reality overlays to highlight specific items that need to be picked. 
+MatrixScan Pick is a pre-built UI that uses augmented reality overlays to highlight specific items that need to be picked.
 Whereas MatrixScan AR is fully customizable, MatrixScan Pick is a pre-built solution that allows you to add a scan and pick experience with augmented reality to an existing native app, with just a few lines of code.
 
 ## Documentation
+
 [Get started](https://docs.scandit.com/sdks/react-native/matrixscan-pick/intro/)
 
 MatrixScan Pick (BarcodePick API) is a pre-built component of the Scandit Data Capture SDK.
@@ -34,7 +33,7 @@ Once you get the sample up and running, go find some barcodes to scan. Don’t f
 
 ## Trial Signup
 
-To add MatrixScan Pick to your app, sign up for your Scandit Developer Account  and get instant access to your license key: [https://ssl.scandit.com/dashboard/sign-up?p=test](https://ssl.scandit.com/dashboard/sign-up?p=test)
+To add MatrixScan Pick to your app, sign up for your Scandit Developer Account and get instant access to your license key: [https://ssl.scandit.com/dashboard/sign-up?p=test](https://ssl.scandit.com/dashboard/sign-up?p=test)
 
 ## Support
 

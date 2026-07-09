@@ -20,7 +20,7 @@ SparkScan is a camera-based solution for high-speed single scanning and scan-int
 
 ![SparkScan.png](https://github.com/Scandit/.github/blob/main/images/SparkScan.png)
 
-**List Building Sample** ([React Native](<https://github.com/Scandit/datacapture-react-native-samples/tree/master/01_Single_Scanning_Samples/01_Barcode_Scanning_with_Pre_Built_UI/ListBuildingSample>))
+**List Building Sample** ([React Native](https://github.com/Scandit/datacapture-react-native-samples/tree/master/01_Single_Scanning_Samples/01_Barcode_Scanning_with_Pre_Built_UI/ListBuildingSample))
 
 ### Search for Barcodes (**MatrixScan Find)**
 

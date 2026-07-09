@@ -86,7 +86,7 @@ export default function App() {
         setIsResultModalVisible(true);
       },
     }),
-    [],
+    []
   );
 
   const handleContinueScanning = async () => {
@@ -144,9 +144,7 @@ export default function App() {
               <View style={styles.modalContent}>
                 <Text style={styles.modalTitle}>LABEL CAPTURED</Text>
                 <Text style={styles.modalMessage}>{capturedLabelData}</Text>
-                <TouchableOpacity
-                  style={styles.continueButton}
-                  onPress={handleContinueScanning}>
+                <TouchableOpacity style={styles.continueButton} onPress={handleContinueScanning}>
                   <Text style={styles.continueButtonText}>CONTINUE SCANNING</Text>
                 </TouchableOpacity>
               </View>

@@ -25,24 +25,16 @@ export const ResultsPage = () => {
 
   React.useEffect(() => {
     navigation.setOptions({
-      headerLeft: (props) => (
-        <HeaderBackButton
-          {...props}
-          onPress={handleBackNavigation}
-        />
-      ),
+      headerLeft: props => <HeaderBackButton {...props} onPress={handleBackNavigation} />,
     });
   }, [navigation, handleBackNavigation]);
 
   useFocusEffect(
     React.useCallback(() => {
-      const subscription = BackHandler.addEventListener(
-        'hardwareBackPress',
-        () => {
-          handleBackNavigation();
-          return true;
-        }
-      );
+      const subscription = BackHandler.addEventListener('hardwareBackPress', () => {
+        handleBackNavigation();
+        return true;
+      });
       return () => subscription.remove();
     }, [handleBackNavigation])
   );
@@ -93,14 +85,10 @@ export const ResultsPage = () => {
         <Pressable
           style={styles.blackButton}
           onPress={
-            route.params.source === 'listButton'
-              ? handleResumeScanningButtonClick
-              : handleStartNewScanningButtonClick
+            route.params.source === 'listButton' ? handleResumeScanningButtonClick : handleStartNewScanningButtonClick
           }>
           <Text style={styles.blackButtonText}>
-            {route.params.source === 'listButton'
-              ? 'RESUME SCANNING'
-              : 'START NEW SCANNING'}
+            {route.params.source === 'listButton' ? 'RESUME SCANNING' : 'START NEW SCANNING'}
           </Text>
         </Pressable>
 

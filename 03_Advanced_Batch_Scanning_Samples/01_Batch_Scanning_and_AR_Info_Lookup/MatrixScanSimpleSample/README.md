@@ -9,12 +9,12 @@ Consider also using our **pre-built components** that contain user-tested and op
   - **Receiving Sample** ([iOS](https://github.com/Scandit/datacapture-ios-samples/tree/master/ReceivingSample), [Android](https://github.com/Scandit/datacapture-android-samples/tree/master/ReceivingSample))
   - **Expiry Management Sample** ([iOS](https://github.com/Scandit/datacapture-ios-samples/tree/master/ExpiryManagementSample), [Android](https://github.com/Scandit/datacapture-android-samples/tree/master/ExpiryManagementSample))
 - Search & Find (BarcodeFind API)
-  - **Seach  & Find Sample** ([iOS](https://github.com/Scandit/datacapture-ios-samples/tree/master/SearchAndFindSample), [Android](https://github.com/Scandit/datacapture-android-samples/tree/master/SearchAndFindSample))
+  - **Seach & Find Sample** ([iOS](https://github.com/Scandit/datacapture-ios-samples/tree/master/SearchAndFindSample), [Android](https://github.com/Scandit/datacapture-android-samples/tree/master/SearchAndFindSample))
 
 ## Installation
 
 - Clone this repo locally.
-- Sign in to your Developer Account at [ssl.scandit.com](http://ssl.scandit.com) and generate a license key.  If you do not have an account, sign up here: [https://ssl.scandit.com/dashboard/sign-up?p=test](https://ssl.scandit.com/dashboard/sign-up?p=test).
+- Sign in to your Developer Account at [ssl.scandit.com](http://ssl.scandit.com) and generate a license key. If you do not have an account, sign up here: [https://ssl.scandit.com/dashboard/sign-up?p=test](https://ssl.scandit.com/dashboard/sign-up?p=test).
 - Replace the license key in the sample where you see `-- ENTER YOUR SCANDIT LICENSE KEY HERE --`.
 - Build and run this sample on your mobile device.
 
@@ -30,7 +30,7 @@ Once you get the sample up and running, go find some barcodes to scan. Don’t f
 
 ## Trial Signup
 
-To add MatrixScan to your app, sign up for your Scandit Developer Account  and get instant access to your license key: [https://ssl.scandit.com/dashboard/sign-up?p=test](https://ssl.scandit.com/dashboard/sign-up?p=test)
+To add MatrixScan to your app, sign up for your Scandit Developer Account and get instant access to your license key: [https://ssl.scandit.com/dashboard/sign-up?p=test](https://ssl.scandit.com/dashboard/sign-up?p=test)
 
 ## Support
 

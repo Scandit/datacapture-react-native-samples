@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
     bottom: 12,
     display: 'flex',
     alignItems: 'center',
-    alignSelf: 'stretch'
+    alignSelf: 'stretch',
   },
 
   button: {
@@ -65,5 +65,5 @@ export const styles = StyleSheet.create({
   resultSymbology: {
     color: '#2EC1CE',
     fontSize: 12,
-  }
+  },
 });

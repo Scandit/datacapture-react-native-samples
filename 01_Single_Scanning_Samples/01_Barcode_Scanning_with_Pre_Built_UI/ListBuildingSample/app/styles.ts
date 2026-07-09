@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
   splitViewImage: {
     height: 40,
     width: 40,
-    backgroundColor: '#CDCDCD'
+    backgroundColor: '#CDCDCD',
   },
   splitViewResult: {
     flex: 1,
@@ -46,7 +46,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     color: '#000',
     fontSize: 11,
-    fontStyle: 'italic'
+    fontStyle: 'italic',
   },
   clearButton: {
     alignItems: 'center',
@@ -74,6 +74,6 @@ export const styles = StyleSheet.create({
     fontSize: 13,
     lineHeight: 21,
     fontWeight: 'bold',
-    paddingLeft:15,
-  }
+    paddingLeft: 15,
+  },
 });

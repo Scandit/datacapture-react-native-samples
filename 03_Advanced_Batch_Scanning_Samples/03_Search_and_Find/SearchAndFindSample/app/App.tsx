@@ -16,45 +16,38 @@ export type RootStackParamList = {
 const Stack = createStackNavigator<RootStackParamList>();
 
 export function App() {
-
   return (
     <SafeAreaProvider>
-
-          <NavigationContainer>
-            <Stack.Navigator initialRouteName='Home'>
-              <Stack.Screen
-                name='Home'
-                component={HomePage}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name='Search'
-                component={Search}
-                options={{
-                  title: 'Search',
-                  headerTitleAlign: 'center',
-                  headerStyle: {
-                    backgroundColor: 'black',
-                  },
-                  headerTintColor: 'white',
-                  headerShadowVisible: false,
-                }}
-              />
-              <Stack.Screen
-                name='Find'
-                component={Find}
-                options={{
-                  title: 'Find',
-                  headerTitleAlign: 'center',
-                  headerStyle: {
-                    backgroundColor: 'black',
-                  },
-                  headerTintColor: 'white',
-                }}
-              />
-            </Stack.Navigator>
-          </NavigationContainer>
-
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Home">
+          <Stack.Screen name="Home" component={HomePage} options={{ headerShown: false }} />
+          <Stack.Screen
+            name="Search"
+            component={Search}
+            options={{
+              title: 'Search',
+              headerTitleAlign: 'center',
+              headerStyle: {
+                backgroundColor: 'black',
+              },
+              headerTintColor: 'white',
+              headerShadowVisible: false,
+            }}
+          />
+          <Stack.Screen
+            name="Find"
+            component={Find}
+            options={{
+              title: 'Find',
+              headerTitleAlign: 'center',
+              headerStyle: {
+                backgroundColor: 'black',
+              },
+              headerTintColor: 'white',
+            }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
     </SafeAreaProvider>
   );
 }

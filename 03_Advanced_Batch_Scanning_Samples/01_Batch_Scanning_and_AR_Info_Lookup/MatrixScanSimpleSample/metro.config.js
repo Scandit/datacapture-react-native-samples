@@ -1,11 +1,11 @@
 const os = require('os');
 const path = require('path');
 
-const {getDefaultConfig, mergeConfig} = require('@react-native/metro-config');
+const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
 
 // Ensure the function exists
 if (!os.availableParallelism) {
-  os.availableParallelism = function() {
+  os.availableParallelism = function () {
     return os.cpus().length;
   };
 }

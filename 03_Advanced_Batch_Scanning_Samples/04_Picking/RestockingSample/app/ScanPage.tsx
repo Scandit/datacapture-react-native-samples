@@ -60,7 +60,7 @@ export const ScanPage = () => {
       return () => {
         barcodePickViewRef.current?.pause();
       };
-    }, []),
+    }, [])
   );
 
   const handleFinishButtonClicked = (_view: BarcodePickView) => {

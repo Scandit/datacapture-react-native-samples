@@ -25,9 +25,7 @@ export const Find = ({ route, navigation }: Props) => {
   }, [navigation]);
 
   const viewRef = useRef<BarcodeFindView | null>(null);
-  const barcodeFindViewUiListenerRef = useRef<BarcodeFindViewUiListener | null>(
-    null
-  );
+  const barcodeFindViewUiListenerRef = useRef<BarcodeFindViewUiListener | null>(null);
 
   const barcodeFindMode = useRef<BarcodeFind>(null!);
   if (!barcodeFindMode.current) {
@@ -43,7 +41,7 @@ export const Find = ({ route, navigation }: Props) => {
       }
       return () => {
         dataCaptureContext.removeMode(barcodeFindMode.current);
-      }
+      };
     }, [])
   );
 
@@ -51,13 +49,10 @@ export const Find = ({ route, navigation }: Props) => {
     dataCaptureContext.removeAllModes();
     barcodeFindMode.current = setupScanning();
 
-    const backHandler = BackHandler.addEventListener(
-      'hardwareBackPress',
-      () => {
-        navigation.goBack();
-        return true;
-      }
-    );
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+      navigation.goBack();
+      return true;
+    });
 
     return () => backHandler.remove();
   }, []);
@@ -82,11 +77,7 @@ export const Find = ({ route, navigation }: Props) => {
     };
 
     // Set the list of items to find.
-    const itemList = [
-      new BarcodeFindItem(
-        new BarcodeFindItemSearchOptions(route.params.itemToFind.data!)
-      ),
-    ];
+    const itemList = [new BarcodeFindItem(new BarcodeFindItemSearchOptions(route.params.itemToFind.data!))];
     barcodeFind.setItemList(itemList);
 
     // Set the barcode find mode to the data capture context.
@@ -109,10 +100,9 @@ export const Find = ({ route, navigation }: Props) => {
         style={{ flex: 1 }}
         context={dataCaptureContext}
         barcodeFind={barcodeFindMode.current}
-        ref={(view) => {
+        ref={view => {
           if (view) {
-            view.barcodeFindViewUiListener =
-              barcodeFindViewUiListenerRef.current;
+            view.barcodeFindViewUiListener = barcodeFindViewUiListenerRef.current;
             view.startSearching();
             viewRef.current = view;
           }

@@ -1,16 +1,16 @@
-import React from 'react'
-import Svg, { Path } from 'react-native-svg'
+import React from 'react';
+import Svg, {Path} from 'react-native-svg';
 
 interface LogoIconProps {
-  width?: number
-  height?: number
-  color?: string
+  width?: number;
+  height?: number;
+  color?: string;
 }
 
 export const LogoIcon: React.FC<LogoIconProps> = ({
   width = 96,
   height = 14,
-  color = '#16191C'
+  color = '#16191C',
 }) => {
   return (
     <Svg width={width} height={height} viewBox="0 0 96 14" fill="none">
@@ -21,5 +21,5 @@ export const LogoIcon: React.FC<LogoIconProps> = ({
         fill={color}
       />
     </Svg>
-  )
-}
+  );
+};

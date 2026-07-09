@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { AppState, AppStateStatus, View } from 'react-native';
 import {
   BarcodeBatch,
@@ -21,7 +21,7 @@ import {
 import { Button } from './Button';
 import { styles } from './styles';
 import dataCaptureContext from './CaptureContext';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import type { NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from './types';
 
@@ -73,6 +73,16 @@ export const ScanPage = () => {
       void dataCaptureContext.removeMode(barcodeBatchRef.current);
     };
   }, []);
+
+  // Stop capturing when navigating to different screens and enable when navigating back to this one.
+  useFocusEffect(
+    useCallback(() => {
+      startCapture();
+      return () => {
+        stopCapture();
+      };
+    }, [])
+  );
 
   const startCapture = () => {
     startCamera();

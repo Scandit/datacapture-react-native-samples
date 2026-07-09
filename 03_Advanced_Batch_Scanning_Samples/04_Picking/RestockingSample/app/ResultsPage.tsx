@@ -34,7 +34,7 @@ export const ResultsPage = () => {
       }
       navigation.goBack();
     },
-    [navigation, setPickedCodes, setAllCodes],
+    [navigation, setPickedCodes, setAllCodes]
   );
 
   React.useEffect(() => {
@@ -50,7 +50,7 @@ export const ResultsPage = () => {
         return true;
       });
       return () => subscription.remove();
-    }, [handleBackNavigation]),
+    }, [handleBackNavigation])
   );
 
   const handleContinueButtonClicked = () => {

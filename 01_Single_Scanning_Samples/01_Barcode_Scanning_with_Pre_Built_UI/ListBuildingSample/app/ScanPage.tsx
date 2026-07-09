@@ -98,7 +98,7 @@ export const ScanPage = () => {
     sparkScan.addListener(sparkScanListener);
 
     return sparkScan;
-  };
+  }
 
   const isValidBarcode = useCallback((barcode: Barcode) => {
     return barcode.data != null && barcode.data !== '123456789';
@@ -160,8 +160,8 @@ export const ScanPage = () => {
           ))}
         </ScrollView>
 
-        <Pressable 
-          style={styles.clearButton} 
+        <Pressable
+          style={styles.clearButton}
           onPress={handleClearButtonClick}
           hitSlop={{top: 10, bottom: 10, left: 10, right: 10}}>
           <Text style={styles.clearButtonText}>CLEAR LIST</Text>

@@ -1,12 +1,5 @@
-import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
-import {
-  AppState,
-  AppStateStatus,
-  Image,
-  Text,
-  Pressable,
-  View,
-} from 'react-native';
+import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { AppState, AppStateStatus, Image, Text, Pressable, View } from 'react-native';
 import {
   Barcode,
   BarcodeCapture,
@@ -31,8 +24,8 @@ import { useFocusEffect } from '@react-navigation/native';
 import { StackScreenProps } from '@react-navigation/stack';
 
 import { RootStackParamList } from './App';
-import { styles } from './styles'
-import dataCaptureContext from './CaptureContext'
+import { styles } from './styles';
+import dataCaptureContext from './CaptureContext';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 type Props = StackScreenProps<RootStackParamList, 'Search'>;
@@ -103,7 +96,7 @@ export const Search = ({ navigation }: Props) => {
     return () => {
       stopCapture();
       dataCaptureContext.removeMode(barcodeCaptureMode.current);
-    }
+    };
   }, []);
 
   const handleAppStateChange = (nextAppState: AppStateStatus) => {
@@ -116,7 +109,7 @@ export const Search = ({ navigation }: Props) => {
     } else {
       startCapture();
     }
-  }, [appStateVisible])
+  }, [appStateVisible]);
 
   async function setupCamera(): Promise<Camera> {
     // Use the world-facing (back) camera and set it as the frame source of the context. The camera is off by
@@ -156,9 +149,7 @@ export const Search = ({ navigation }: Props) => {
 
     // By setting the radius to zero, the barcode's frame has to contain the point of interest.
     // The point of interest is at the center of the data capture view by default, as in this case.
-    barcodeCaptureSettings.locationSelection = new RadiusLocationSelection(
-      new NumberWithUnit(0, MeasureUnit.Fraction)
-    );
+    barcodeCaptureSettings.locationSelection = new RadiusLocationSelection(new NumberWithUnit(0, MeasureUnit.Fraction));
 
     // Setting the code duplicate filter to one means that the scanner won't report the same code as recognized
     // for one second, once it's recognized.
@@ -181,7 +172,7 @@ export const Search = ({ navigation }: Props) => {
         const barcode = session.newlyRecognizedBarcode;
         setCode(barcode);
         setModalVisible(true);
-      }
+      },
     };
 
     // Add the listener to the barcode capture context.
@@ -191,23 +182,17 @@ export const Search = ({ navigation }: Props) => {
     dataCaptureContext.setMode(barcodeCapture);
 
     return barcodeCapture;
-  };
+  }
 
   function setupOverlay(): BarcodeCaptureOverlay {
     // Add a Barcode Capture overlay to the data capture view to render the location of captured
     // barcodes on top of the video preview. Viewfinders are visual components only, and as such
     // will not restrict the scan area.
     // This is optional, but recommended for better visual feedback.
-    const overlay = new BarcodeCaptureOverlay(
-        barcodeCaptureMode.current
-    );
+    const overlay = new BarcodeCaptureOverlay(barcodeCaptureMode.current);
     overlay.viewfinder = new AimerViewfinder();
 
-    overlay.brush = new Brush(
-      scannedBrush,
-      scannedBrush,
-      2
-    );
+    overlay.brush = new Brush(scannedBrush, scannedBrush, 2);
 
     return overlay;
   }
@@ -244,41 +229,53 @@ export const Search = ({ navigation }: Props) => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <DataCaptureView style={{ flex: 1 }} context={dataCaptureContext} ref={(view) => {
-        if (view && !viewRef.current) {
-          viewRef.current = view;
-          viewRef.current.addOverlay(overlay.current);
-        }
-      }} />
-      {isModalVisible &&
-      <>
-        <Pressable style={styles.closeButton} onPress={() => {
-          setModalVisible(false);
-          setCode(null);
-        }}>
-          <Image source={require('./closeButton.png')} style={{
-            width: 24,
-            height: 24
-          }}></Image>
-        </Pressable>
-        <View style={styles.modal} >
-          <View style={styles.textContainer} >
-            <Text style={styles.textData}>{code ? code.data : 'No barcode scanned'}</Text>
-            <Pressable style={styles.imageButton} onPress={() => {
+      <DataCaptureView
+        style={{ flex: 1 }}
+        context={dataCaptureContext}
+        ref={view => {
+          if (view && !viewRef.current) {
+            viewRef.current = view;
+            viewRef.current.addOverlay(overlay.current);
+          }
+        }}
+      />
+      {isModalVisible && (
+        <>
+          <Pressable
+            style={styles.closeButton}
+            onPress={() => {
               setModalVisible(false);
-              navigation.navigate('Find', {
-                itemToFind: code!
-              })}
-            }>
-              <Image source={require('./Search.png')} style={{
-                width: 50,
-                height: 50,
+              setCode(null);
+            }}>
+            <Image
+              source={require('./closeButton.png')}
+              style={{
+                width: 24,
+                height: 24,
               }}></Image>
-            </Pressable>
+          </Pressable>
+          <View style={styles.modal}>
+            <View style={styles.textContainer}>
+              <Text style={styles.textData}>{code ? code.data : 'No barcode scanned'}</Text>
+              <Pressable
+                style={styles.imageButton}
+                onPress={() => {
+                  setModalVisible(false);
+                  navigation.navigate('Find', {
+                    itemToFind: code!,
+                  });
+                }}>
+                <Image
+                  source={require('./Search.png')}
+                  style={{
+                    width: 50,
+                    height: 50,
+                  }}></Image>
+              </Pressable>
+            </View>
           </View>
-        </View>
-      </>
-      }
+        </>
+      )}
     </SafeAreaView>
   );
-}
+};

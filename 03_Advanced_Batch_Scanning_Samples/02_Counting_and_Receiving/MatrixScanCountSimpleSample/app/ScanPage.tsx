@@ -10,10 +10,7 @@ import {
   Symbology,
   TrackedBarcode,
 } from 'scandit-react-native-datacapture-barcode';
-import {
-  Camera,
-  FrameSourceState,
-} from 'scandit-react-native-datacapture-core';
+import { Camera, FrameSourceState } from 'scandit-react-native-datacapture-core';
 import { RootStackParamList } from './App';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
@@ -35,23 +32,17 @@ export const ScanPage = () => {
     barcodeCountMode.current = setupScanning();
   }
 
-  const viewListenerRef = useRef<BarcodeCountViewListener |null>(null);
+  const viewListenerRef = useRef<BarcodeCountViewListener | null>(null);
   if (!viewListenerRef.current) {
     viewListenerRef.current = {
       didTapRecognizedBarcode: (_, trackedBarcode: TrackedBarcode) => {
-        console.log(
-          `Tapped recognized barcode with data ${trackedBarcode.barcode.data}`,
-        );
+        console.log(`Tapped recognized barcode with data ${trackedBarcode.barcode.data}`);
       },
       didTapFilteredBarcode: (_, filteredBarcode: TrackedBarcode) => {
-        console.log(
-          `Tapped on filtered barcode with data ${filteredBarcode.barcode.data}`,
-        );
+        console.log(`Tapped on filtered barcode with data ${filteredBarcode.barcode.data}`);
       },
       didTapRecognizedBarcodeNotInList: (_, trackedBarcode: TrackedBarcode) => {
-        console.log(
-          `Tapped on recognized barcode not in list with data ${trackedBarcode.barcode.data}`,
-        );
+        console.log(`Tapped on recognized barcode not in list with data ${trackedBarcode.barcode.data}`);
       },
       didCompleteCaptureList: _ => {
         console.log('Completed capture list');
@@ -98,7 +89,7 @@ export const ScanPage = () => {
         setCodes([]);
         setFlags({ ...flags, shouldResetBarcodeCount: false });
       }
-    }, [flags]),
+    }, [flags])
   );
 
   useEffect(() => {
@@ -142,7 +133,7 @@ export const ScanPage = () => {
           Object.values(session.recognizedBarcodes).map(barcode => ({
             data: barcode.data,
             symbology: barcode.symbology,
-          })),
+          }))
         );
       },
     };
@@ -153,20 +144,20 @@ export const ScanPage = () => {
   }
 
   function setupCamera(): Camera {
-      // Use the recommended camera settings for the BarcodeCount mode.
-      const defaultCamera = Camera.withSettings(BarcodeCount.createRecommendedCameraSettings());
+    // Use the recommended camera settings for the BarcodeCount mode.
+    const defaultCamera = Camera.withSettings(BarcodeCount.createRecommendedCameraSettings());
 
-      if (!defaultCamera) {
-        throw new Error('Failed to create camera');
-      }
+    if (!defaultCamera) {
+      throw new Error('Failed to create camera');
+    }
 
-      dataCaptureContext.setFrameSource(defaultCamera);
-      return defaultCamera;
+    dataCaptureContext.setFrameSource(defaultCamera);
+    return defaultCamera;
   }
 
   function startCamera() {
     cameraRef.current.switchToDesiredState(FrameSourceState.On);
-  };
+  }
   return (
     barcodeCountMode && (
       <BarcodeCountView

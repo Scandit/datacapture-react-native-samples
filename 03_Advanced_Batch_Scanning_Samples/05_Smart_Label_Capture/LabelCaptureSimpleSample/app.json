@@ -1,7 +1,7 @@
 {
   "name": "LabelCaptureSimpleSample",
   "displayName": "LabelCaptureSimpleSample",
-    "android": {
+  "android": {
     "package": "undefined"
   }
 }

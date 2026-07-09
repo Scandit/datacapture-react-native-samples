@@ -39,23 +39,20 @@ export const ResultsPage = ({ route, navigation }: ResultsPageProps) => {
   };
 
   const resultsData = route?.params?.results || {};
-  const results = Object.values(resultsData).map((result) => ({
+  const results = Object.values(resultsData).map(result => ({
     data: (result as any).data,
-    symbology: (result as any).symbology
+    symbology: (result as any).symbology,
   }));
 
   return (
     <View style={styles.container}>
       <ScrollView style={styles.listContainer}>
-        {results.map(result => <Result key={result.data} result={result} />)}
+        {results.map(result => (
+          <Result key={result.data} result={result} />
+        ))}
       </ScrollView>
 
-      <Button
-        styles={styles.button}
-        textStyles={styles.buttonText}
-        title='Scan Again'
-        onPress={goBack}
-      />
+      <Button styles={styles.button} textStyles={styles.buttonText} title="Scan Again" onPress={goBack} />
     </View>
   );
 };

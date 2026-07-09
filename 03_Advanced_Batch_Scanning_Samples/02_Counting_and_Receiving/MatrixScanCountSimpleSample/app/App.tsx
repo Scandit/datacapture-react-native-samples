@@ -33,13 +33,13 @@ export default function App() {
             headerShadowVisible: false,
             headerTintColor: '#fff',
           }}>
-            <Stack.Screen
-              name="Home"
-              component={HomePage}
-              options={{
-                headerShown: false,
-              }}
-            />
+          <Stack.Screen
+            name="Home"
+            component={HomePage}
+            options={{
+              headerShown: false,
+            }}
+          />
           <Stack.Screen
             name="Scanner"
             component={ScanPage}

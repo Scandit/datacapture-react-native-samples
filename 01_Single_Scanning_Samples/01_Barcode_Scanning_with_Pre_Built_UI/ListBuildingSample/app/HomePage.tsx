@@ -1,33 +1,33 @@
-import React, { useState } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
-import { StackNavigationProp } from '@react-navigation/stack'
-import { RootStackParamList } from './App'
-import { ScanIcon } from './components/icons/ScanIcon'
-import { LogoIcon } from './components/icons/LogoIcon'
-import { requestCameraPermissionsIfNeeded } from './camera-permission-handler'
+import React, {useState} from 'react';
+import {View, Text, TouchableOpacity, StyleSheet, Alert} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {RootStackParamList} from './App';
+import {ScanIcon} from './components/icons/ScanIcon';
+import {LogoIcon} from './components/icons/LogoIcon';
+import {requestCameraPermissionsIfNeeded} from './camera-permission-handler';
 
-type HomePageNavigationProp = StackNavigationProp<RootStackParamList, 'home'>
+type HomePageNavigationProp = StackNavigationProp<RootStackParamList, 'home'>;
 
 export const HomePage = () => {
-  const navigation = useNavigation<HomePageNavigationProp>()
-  const [isRequestingPermission, setIsRequestingPermission] = useState(false)
+  const navigation = useNavigation<HomePageNavigationProp>();
+  const [isRequestingPermission, setIsRequestingPermission] = useState(false);
 
   const handleNavigateToScan = async () => {
-    setIsRequestingPermission(true)
+    setIsRequestingPermission(true);
     try {
-      await requestCameraPermissionsIfNeeded()
-      navigation.navigate('scan')
+      await requestCameraPermissionsIfNeeded();
+      navigation.navigate('scan');
     } catch (error) {
       Alert.alert(
         'Camera Permission Required',
         'Please grant camera permission to scan barcodes.',
-        [{ text: 'OK' }]
-      )
+        [{text: 'OK'}],
+      );
     } finally {
-      setIsRequestingPermission(false)
+      setIsRequestingPermission(false);
     }
-  }
+  };
 
   return (
     <View style={styles.container}>
@@ -41,16 +41,17 @@ export const HomePage = () => {
       <TouchableOpacity
         style={styles.button}
         onPress={handleNavigateToScan}
-        disabled={isRequestingPermission}
-        >
-          <ScanIcon width={20} height={20} color="white" />
-          <Text style={styles.buttonText}>
-            {isRequestingPermission ? 'Requesting permission...' : 'Start new scan'}
-          </Text>
-        </TouchableOpacity>
+        disabled={isRequestingPermission}>
+        <ScanIcon width={20} height={20} color="white" />
+        <Text style={styles.buttonText}>
+          {isRequestingPermission
+            ? 'Requesting permission...'
+            : 'Start new scan'}
+        </Text>
+      </TouchableOpacity>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -107,4 +108,4 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     letterSpacing: 0.5,
   },
-})
+});
