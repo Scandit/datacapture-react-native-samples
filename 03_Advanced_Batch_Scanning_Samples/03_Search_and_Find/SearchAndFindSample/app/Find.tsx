@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import {
   BarcodeFind,
   BarcodeFindItem,
@@ -77,7 +77,7 @@ export const Find = ({ route, navigation }: Props) => {
     };
 
     // Set the list of items to find.
-    const itemList = [new BarcodeFindItem(new BarcodeFindItemSearchOptions(route.params.itemToFind.data!))];
+    const itemList = [new BarcodeFindItem(new BarcodeFindItemSearchOptions(route.params.itemToFind.data!), null)];
     barcodeFind.setItemList(itemList);
 
     // Set the barcode find mode to the data capture context.

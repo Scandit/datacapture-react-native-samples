@@ -6,20 +6,6 @@ repositories {
 }
 apply plugin: "org.rnrepo.tools.prebuilds-plugin"
 
-/**
- * This is the configuration block to customize your React Native Android app.
- * By default you don't need to apply any configuration, just uncomment the lines you need.
- */
-react {
-    /* Autolinking */
-    autolinkLibrariesWithApp()
-}
-
-/**
- * Set this to true to Run Proguard on Release builds to minify the Java bytecode.
- */
-def enableProguardInReleaseBuilds = true
-
 def jscFlavor = 'io.github.react-native-community:jsc-android:2026004.0.0'
 
 android {
@@ -46,6 +32,7 @@ android {
             keyPassword 'android'
         }
     }
+
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
@@ -54,10 +41,16 @@ android {
             // Caution! In production, you need to generate your own keystore file.
             // see https://reactnative.dev/docs/signed-apk-android.
             signingConfig signingConfigs.debug
-            minifyEnabled enableProguardInReleaseBuilds
+            shrinkResources true
+            minifyEnabled true
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
+}
+
+react {
+    /* Autolinking */
+    autolinkLibrariesWithApp()
 }
 
 dependencies {

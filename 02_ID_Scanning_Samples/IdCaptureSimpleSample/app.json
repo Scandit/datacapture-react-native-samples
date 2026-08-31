@@ -1,7 +1,4 @@
 {
   "name": "IdCaptureSimpleSample",
-  "displayName": "IdCaptureSimpleSample",
-  "android": {
-    "package": "com.scandit.idcapturesimplesample"
-  }
+  "displayName": "ID Capture"
 }

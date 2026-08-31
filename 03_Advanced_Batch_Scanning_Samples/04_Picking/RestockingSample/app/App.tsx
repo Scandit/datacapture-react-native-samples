@@ -23,6 +23,7 @@ export default function App() {
     <CodesContext.Provider value={{ pickedCodes, allCodes, setPickedCodes, setAllCodes }}>
       <NavigationContainer>
         <Stack.Navigator
+          id={undefined}
           initialRouteName="Home"
           screenOptions={{
             headerStyle: { backgroundColor: '#000' },

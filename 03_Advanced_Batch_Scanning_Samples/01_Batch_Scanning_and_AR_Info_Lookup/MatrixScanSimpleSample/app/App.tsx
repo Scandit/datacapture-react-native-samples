@@ -14,7 +14,7 @@ const Stack = createStackNavigator<RootStackParamList>();
 export const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="home">
+      <Stack.Navigator id={undefined} initialRouteName="home">
         <Stack.Screen name="scan" component={ScanPage} options={{ title: 'Scan' }} />
         <Stack.Screen name="results" component={ResultsPage} options={{ title: 'Scan Results' }} />
         <Stack.Screen name="home" component={HomePage} options={{ headerShown: false }} />
@@ -22,3 +22,5 @@ export const App = () => {
     </NavigationContainer>
   );
 };
+
+export default App;

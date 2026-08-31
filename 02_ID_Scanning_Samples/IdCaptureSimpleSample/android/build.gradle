@@ -2,7 +2,6 @@
 
 buildscript {
     ext {
-        buildToolsVersion = "36.0.0"
         minSdkVersion = 24
         compileSdkVersion = 36
         targetSdkVersion = 36
@@ -25,7 +24,7 @@ apply plugin: "com.facebook.react.rootproject"
 
 def custom_config_scripts = [
         "$rootDir/frameworks.gradle",
-        "${rootDir}/../../../../../common/frameworks.gradle"
+        "${rootDir}/../../../../../../common/frameworks.gradle"
 ]
 
 static def findM2Directory(String startPath) {

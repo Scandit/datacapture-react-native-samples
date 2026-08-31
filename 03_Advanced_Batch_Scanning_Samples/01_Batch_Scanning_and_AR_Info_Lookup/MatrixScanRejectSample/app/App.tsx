@@ -14,7 +14,7 @@ const App = () => {
     <SafeAreaProvider>
       <SafeAreaView style={{ flex: 1 }} edges={['top', 'bottom']}>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="home">
+          <Stack.Navigator id={undefined} initialRouteName="home">
             <Stack.Screen name="home" component={HomePage} options={{ headerShown: false }} />
             <Stack.Screen name="scan" component={ScanPage} options={{ title: 'Scan' }} />
             <Stack.Screen name="results" component={ResultsPage} options={{ title: 'Scan Results' }} />

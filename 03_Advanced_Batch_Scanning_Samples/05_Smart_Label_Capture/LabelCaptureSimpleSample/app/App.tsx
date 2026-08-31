@@ -25,9 +25,7 @@ import { requestCameraPermissionsIfNeeded } from './cameraPermissionHandler';
 import { Symbology } from 'scandit-react-native-datacapture-barcode';
 import { LabelCaptureValidationFlowOverlay } from 'scandit-react-native-datacapture-label';
 
-// Enter your Scandit License key here.
-// Your Scandit License key is available via your Scandit SDK web account.
-const dataCaptureContext = DataCaptureContext.forLicenseKey('-- ENTER YOUR SCANDIT LICENSE KEY HERE --');
+import dataCaptureContext from './CaptureContext';
 
 export default function App() {
   const dataCaptureViewRef = useRef<DataCaptureView | null>(null);
@@ -85,6 +83,8 @@ export default function App() {
         setCapturedLabelData(formattedMessage || 'No data captured');
         setIsResultModalVisible(true);
       },
+      didSubmitManualInputForField() {},
+      async didUpdateValidationFlowResult() {},
     }),
     []
   );

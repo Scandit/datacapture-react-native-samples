@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		02E4FADC1596711A45429D8D /* libPods-MatrixScanBubblesSample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EF6D0874F5C5800C4976FA5 /* libPods-MatrixScanBubblesSample.a */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
-		368FB5F914E89AF383E3479E /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
-		7EFEE3B12D8334DD00B57996 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EFEE3B02D8334DD00B57996 /* AppDelegate.swift */; };
-		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		1FEDBE9545CA0FA4B8A5C3FF /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
+		3FEDF6F0976D4C3BAD1CB7C0 /* libPods-MatrixScanBubblesSample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA10E8EAC8D4E5210494920E /* libPods-MatrixScanBubblesSample.a */; };
+		7E6C731C2D82F3C200D2BF9F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6C731B2D82F3C200D2BF9F /* AppDelegate.swift */; };
+		7E6C731E2D82F6DA00D2BF9F /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E6C731D2D82F6DA00D2BF9F /* Launch Screen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,11 +20,11 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = MatrixScanBubblesSample/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = MatrixScanBubblesSample/Info.plist; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = MatrixScanBubblesSample/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		2EF6D0874F5C5800C4976FA5 /* libPods-MatrixScanBubblesSample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MatrixScanBubblesSample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		32707732BF2202D34F97A7A1 /* Pods-MatrixScanBubblesSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MatrixScanBubblesSample.release.xcconfig"; path = "Target Support Files/Pods-MatrixScanBubblesSample/Pods-MatrixScanBubblesSample.release.xcconfig"; sourceTree = "<group>"; };
-		7EFEE3B02D8334DD00B57996 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = MatrixScanBubblesSample/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		CB320CCC7628F5D4A6A7A219 /* Pods-MatrixScanBubblesSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MatrixScanBubblesSample.debug.xcconfig"; path = "Target Support Files/Pods-MatrixScanBubblesSample/Pods-MatrixScanBubblesSample.debug.xcconfig"; sourceTree = "<group>"; };
+		7E6C731B2D82F3C200D2BF9F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = MatrixScanBubblesSample/AppDelegate.swift; sourceTree = "<group>"; };
+		7E6C731D2D82F6DA00D2BF9F /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "Launch Screen.storyboard"; path = "MatrixScanBubblesSample/Launch Screen.storyboard"; sourceTree = "<group>"; };
+		B9A783A9EF0AE5F053102A14 /* Pods-MatrixScanBubblesSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MatrixScanBubblesSample.debug.xcconfig"; path = "Target Support Files/Pods-MatrixScanBubblesSample/Pods-MatrixScanBubblesSample.debug.xcconfig"; sourceTree = "<group>"; };
+		BF6448208FF6BA429DDFF0DB /* Pods-MatrixScanBubblesSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MatrixScanBubblesSample.release.xcconfig"; path = "Target Support Files/Pods-MatrixScanBubblesSample/Pods-MatrixScanBubblesSample.release.xcconfig"; sourceTree = "<group>"; };
+		CA10E8EAC8D4E5210494920E /* libPods-MatrixScanBubblesSample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MatrixScanBubblesSample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
@@ -34,7 +34,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				02E4FADC1596711A45429D8D /* libPods-MatrixScanBubblesSample.a in Frameworks */,
+				3FEDF6F0976D4C3BAD1CB7C0 /* libPods-MatrixScanBubblesSample.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,12 +44,12 @@
 		13B07FAE1A68108700A75B9A /* MatrixScanBubblesSample */ = {
 			isa = PBXGroup;
 			children = (
-				7EFEE3B02D8334DD00B57996 /* AppDelegate.swift */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */,
+				7E6C731B2D82F3C200D2BF9F /* AppDelegate.swift */,
+				7E6C731D2D82F6DA00D2BF9F /* Launch Screen.storyboard */,
 			);
 			name = MatrixScanBubblesSample;
 			sourceTree = "<group>";
@@ -59,7 +59,7 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				2EF6D0874F5C5800C4976FA5 /* libPods-MatrixScanBubblesSample.a */,
+				CA10E8EAC8D4E5210494920E /* libPods-MatrixScanBubblesSample.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -78,7 +78,7 @@
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
-				8994AC1AD91EE9FA74A2EDBC /* Pods */,
+				CD6D4BAF2C08224D46E9D6E1 /* Pods */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -93,11 +93,11 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		8994AC1AD91EE9FA74A2EDBC /* Pods */ = {
+		CD6D4BAF2C08224D46E9D6E1 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				CB320CCC7628F5D4A6A7A219 /* Pods-MatrixScanBubblesSample.debug.xcconfig */,
-				32707732BF2202D34F97A7A1 /* Pods-MatrixScanBubblesSample.release.xcconfig */,
+				B9A783A9EF0AE5F053102A14 /* Pods-MatrixScanBubblesSample.debug.xcconfig */,
+				BF6448208FF6BA429DDFF0DB /* Pods-MatrixScanBubblesSample.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -109,14 +109,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "MatrixScanBubblesSample" */;
 			buildPhases = (
-				C0A0268DF8F9B35E0F099C2A /* [CP] Check Pods Manifest.lock */,
+				0DB9B6CCD5E403CFD4B5395D /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				7A5635D6F8EAA12A41A27961 /* [CP] Embed Pods Frameworks */,
-				653366E24FD742566385A123 /* [CP] Copy Pods Resources */,
+				DAC4C12A5F1F0495073F5922 /* [CP] Embed Pods Frameworks */,
+				21C95A0301E7C1F42F93BC4E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -137,7 +137,6 @@
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
 						LastSwiftMigration = 1620;
-						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -164,9 +163,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				7E6C731E2D82F6DA00D2BF9F /* Launch Screen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				368FB5F914E89AF383E3479E /* PrivacyInfo.xcprivacy in Resources */,
+				1FEDBE9545CA0FA4B8A5C3FF /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,7 +186,29 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"$REACT_NATIVE_PATH/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"$REACT_NATIVE_PATH/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		653366E24FD742566385A123 /* [CP] Copy Pods Resources */ = {
+		0DB9B6CCD5E403CFD4B5395D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MatrixScanBubblesSample-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		21C95A0301E7C1F42F93BC4E /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -215,7 +236,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MatrixScanBubblesSample/Pods-MatrixScanBubblesSample-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7A5635D6F8EAA12A41A27961 /* [CP] Embed Pods Frameworks */ = {
+		DAC4C12A5F1F0495073F5922 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -235,28 +256,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MatrixScanBubblesSample/Pods-MatrixScanBubblesSample-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C0A0268DF8F9B35E0F099C2A /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MatrixScanBubblesSample-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -285,7 +284,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7EFEE3B12D8334DD00B57996 /* AppDelegate.swift in Sources */,
+				7E6C731C2D82F3C200D2BF9F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,15 +293,14 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CB320CCC7628F5D4A6A7A219 /* Pods-MatrixScanBubblesSample.debug.xcconfig */;
+			baseConfigurationReference = B9A783A9EF0AE5F053102A14 /* Pods-MatrixScanBubblesSample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = MatrixScanBubblesSample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -322,7 +320,10 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/FlipperKit\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/Folly\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/RCTTypeSafety\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/RNSVG\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RNCMaskedView\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RNGestureHandler\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RNReanimated\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RNScreens\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-Core\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-CoreModules\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-RCTAnimation\"",
@@ -334,6 +335,7 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-RCTText\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-RCTVibration\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-cxxreact\"",
+					"\"$(SDKROOT)/usr/lib/swift\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-jsi\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-jsiexecutor\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-jsinspector\"",
@@ -342,18 +344,17 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/YogaKit\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/glog\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/libevent\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/react-native-safe-area-context\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/scandit-react-native-datacapture-barcode\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/scandit-react-native-datacapture-core\"",
-					"\"$(SDKROOT)/usr/lib/swift\"",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.scandit.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.scandit.MatrixScanBubblesSample;
 				PRODUCT_NAME = MatrixScanBubblesSample;
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -362,7 +363,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 32707732BF2202D34F97A7A1 /* Pods-MatrixScanBubblesSample.release.xcconfig */;
+			baseConfigurationReference = BF6448208FF6BA429DDFF0DB /* Pods-MatrixScanBubblesSample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -381,7 +382,10 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/Flipper-Fmt\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/Folly\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/RCTTypeSafety\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/RNSVG\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RNCMaskedView\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RNGestureHandler\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RNReanimated\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RNScreens\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-Core\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-CoreModules\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-RCTAnimation\"",
@@ -401,6 +405,7 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/YogaKit\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/glog\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/libevent\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/react-native-safe-area-context\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/scandit-react-native-datacapture-barcode\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/scandit-react-native-datacapture-core\"",
 					"\"$(SDKROOT)/usr/lib/swift\"",
@@ -410,7 +415,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.scandit.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.scandit.MatrixScanBubblesSample;
 				PRODUCT_NAME = MatrixScanBubblesSample;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";

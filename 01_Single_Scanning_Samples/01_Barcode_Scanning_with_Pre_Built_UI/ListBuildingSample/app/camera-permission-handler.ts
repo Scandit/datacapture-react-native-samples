@@ -1,13 +1,10 @@
-import {PermissionsAndroid, Platform} from 'react-native';
+import { PermissionsAndroid, Platform } from 'react-native';
 
-const isAndroidMarshmallowOrNewer =
-  Platform.OS === 'android' && Platform.Version >= 23;
+const isAndroidMarshmallowOrNewer = Platform.OS === 'android' && Platform.Version >= 23;
 
 export const checkCameraPermissions = async () => {
   if (isAndroidMarshmallowOrNewer) {
-    return await PermissionsAndroid.check(
-      PermissionsAndroid.PERMISSIONS.CAMERA,
-    );
+    return await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.CAMERA);
   } else {
     return true;
   }
@@ -16,9 +13,7 @@ export const checkCameraPermissions = async () => {
 export const requestCameraPermissions = async () => {
   if (isAndroidMarshmallowOrNewer) {
     try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.CAMERA,
-      );
+      const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA);
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
         console.log('Android Camera Permission has been granted.');
         return Promise.resolve();

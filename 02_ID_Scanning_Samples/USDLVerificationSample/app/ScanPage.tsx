@@ -134,6 +134,9 @@ export const ScanPage = () => {
     // Reject forged AAMVA barcodes.
     settings.rejectForgedAamvaBarcodes = true;
 
+    // Reject inconsistent data between front and back side.
+    settings.rejectInconsistentData = true;
+
     // Create new Id capture mode with the settings from above.
     const idCapture = new IdCapture(settings);
 
@@ -211,6 +214,8 @@ export const ScanPage = () => {
         } else {
           return 'Document barcode is forged.';
         }
+      case RejectionReason.InconsistentData:
+        return 'Document capture failed. Inconsistent data between front and back side.';
       case RejectionReason.Timeout:
         return 'Document capture failed. Make sure the document is well lit and free of glare. Alternatively, try scanning another document';
       default:

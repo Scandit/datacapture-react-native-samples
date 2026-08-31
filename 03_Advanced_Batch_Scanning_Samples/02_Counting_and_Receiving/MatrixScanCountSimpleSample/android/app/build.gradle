@@ -6,37 +6,24 @@ repositories {
 }
 apply plugin: "org.rnrepo.tools.prebuilds-plugin"
 
-/**
- * This is the configuration block to customize your React Native Android app.
- * By default you don't need to apply any configuration, just uncomment the lines you need.
- */
-react {
-    /* Autolinking */
-    autolinkLibrariesWithApp()
-}
-
-/**
- * Set this to true to Run Proguard on Release builds to minify the Java bytecode.
- */
-def enableProguardInReleaseBuilds = false
-
 def jscFlavor = 'io.github.react-native-community:jsc-android:2026004.0.0'
 
 android {
-    ndkVersion rootProject.ext.ndkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
+    ndkVersion rootProject.ext.ndkVersion
 
     namespace "com.scandit.matrixscancountsimplesample"
+
     defaultConfig {
         applicationId "com.scandit.matrixscancountsimplesample"
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
+        minSdk rootProject.ext.minSdkVersion
+        targetSdk rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", (findProperty("newArchEnabled") ?: false).toString()
         buildConfigField "boolean", "IS_HERMES_ENABLED", (findProperty("hermesEnabled") ?: true).toString()
     }
+
     signingConfigs {
         debug {
             storeFile file('debug.keystore')
@@ -45,6 +32,7 @@ android {
             keyPassword 'android'
         }
     }
+
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
@@ -53,10 +41,16 @@ android {
             // Caution! In production, you need to generate your own keystore file.
             // see https://reactnative.dev/docs/signed-apk-android.
             signingConfig signingConfigs.debug
-            minifyEnabled enableProguardInReleaseBuilds
+            shrinkResources true
+            minifyEnabled true
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
+}
+
+react {
+    /* Autolinking */
+    autolinkLibrariesWithApp()
 }
 
 dependencies {

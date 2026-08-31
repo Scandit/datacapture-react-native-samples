@@ -1,10 +1,10 @@
 apply plugin: "com.android.application"
+apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
 repositories {
     maven { url "https://packages.rnrepo.org/releases" }
 }
 apply plugin: "org.rnrepo.tools.prebuilds-plugin"
-apply plugin: "org.jetbrains.kotlin.android"
 
 def jscFlavor = 'io.github.react-native-community:jsc-android:2026004.0.0'
 
@@ -40,6 +40,7 @@ android {
         release {
             // Caution! In production, you need to generate your own keystore file.
             // see https://reactnative.dev/docs/signed-apk-android.
+            signingConfig signingConfigs.debug
             shrinkResources true
             minifyEnabled true
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"

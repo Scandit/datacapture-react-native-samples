@@ -1,7 +1,7 @@
-import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
-import {View, ScrollView, Text, Pressable} from 'react-native';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { View, ScrollView, Text, Pressable } from 'react-native';
 
-import {Color, Brush} from 'scandit-react-native-datacapture-core';
+import { Color, Brush } from 'scandit-react-native-datacapture-core';
 import {
   SparkScan,
   SparkScanSettings,
@@ -15,13 +15,11 @@ import {
   SparkScanBarcodeErrorFeedback,
 } from 'scandit-react-native-datacapture-barcode';
 
-import {styles} from './styles';
+import { styles } from './styles';
 import dataCaptureContext from './CaptureContext';
 
 export const ScanPage = () => {
-  const [codes, setCodes] = useState<
-    {data: string | null; symbology: string}[]
-  >([]);
+  const [codes, setCodes] = useState<{ data: string | null; symbology: string }[]>([]);
 
   const sparkScanMode = useRef<SparkScan>(null!);
   if (!sparkScanMode.current) {
@@ -60,13 +58,9 @@ export const ScanPage = () => {
     // falling outside the default range, you may need to adjust the "active symbol counts"
     // for this symbology. This is shown in the following few lines of code for one of the
     // variable-length symbologies.
-    const symbologySettings = sparkScanSettings.settingsForSymbology(
-      Symbology.Code39,
-    );
+    const symbologySettings = sparkScanSettings.settingsForSymbology(Symbology.Code39);
 
-    symbologySettings.activeSymbolCounts = [
-      7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-    ];
+    symbologySettings.activeSymbolCounts = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 
     // Create the spark scan instance.
     // Spark scan will automatically apply and maintain the optimal camera settings.
@@ -111,7 +105,7 @@ export const ScanPage = () => {
       60,
       Color.fromHex('#FF0000'),
       new Brush(Color.fromHex('#FF0000'), Color.fromHex('#FF0000'), 1),
-      null,
+      null
     );
     const successFeedback = new SparkScanBarcodeSuccessFeedback();
 
@@ -143,8 +137,7 @@ export const ScanPage = () => {
       }}>
       <View style={styles.contentContainer}>
         <Text style={styles.scanCount}>
-          {codes.length}{' '}
-          {codes.length === 0 || codes.length > 1 ? 'items' : 'item'}
+          {codes.length} {codes.length === 0 || codes.length > 1 ? 'items' : 'item'}
         </Text>
         <ScrollView style={styles.splitViewResults} nestedScrollEnabled={true}>
           {codes.map((result, index) => (
@@ -152,9 +145,7 @@ export const ScanPage = () => {
               <View style={styles.splitViewImage} />
               <View key={index} style={styles.splitViewResultBarcodeData}>
                 <Text style={styles.splitViewResultData}>{result.data}</Text>
-                <Text style={styles.splitViewResultSymbology}>
-                  {result.symbology}
-                </Text>
+                <Text style={styles.splitViewResultSymbology}>{result.symbology}</Text>
               </View>
             </View>
           ))}
@@ -163,7 +154,7 @@ export const ScanPage = () => {
         <Pressable
           style={styles.clearButton}
           onPress={handleClearButtonClick}
-          hitSlop={{top: 10, bottom: 10, left: 10, right: 10}}>
+          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
           <Text style={styles.clearButtonText}>CLEAR LIST</Text>
         </Pressable>
       </View>

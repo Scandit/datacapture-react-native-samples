@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
-		1880869836DDD91788C01794 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
-		7EFEE3A92D831D1800B57996 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EFEE3A82D831D1800B57996 /* AppDelegate.swift */; };
-		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		E33A127FDD0CEFF5A5678C6B /* libPods-IdCaptureSimpleSample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57647E2E7C1C3C49CB48F177 /* libPods-IdCaptureSimpleSample.a */; };
+		1FEDBE9545CA0FA4B8A5C3FF /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
+		3FEDF6F0976D4C3BAD1CB7C0 /* libPods-IdCaptureSimpleSample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA10E8EAC8D4E5210494920E /* libPods-IdCaptureSimpleSample.a */; };
+		7E6C731C2D82F3C200D2BF9F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6C731B2D82F3C200D2BF9F /* AppDelegate.swift */; };
+		7E6C731E2D82F6DA00D2BF9F /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E6C731D2D82F6DA00D2BF9F /* Launch Screen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,14 +20,11 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = IdCaptureSimpleSample/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = IdCaptureSimpleSample/Info.plist; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = IdCaptureSimpleSample/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		2C34FE7A5CB1F1A51439AC4C /* Pods-IdCaptureSimpleSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IdCaptureSimpleSample.release.xcconfig"; path = "Target Support Files/Pods-IdCaptureSimpleSample/Pods-IdCaptureSimpleSample.release.xcconfig"; sourceTree = "<group>"; };
-		3F41083C2072DBB8EF458793 /* Pods-IdCaptureSimpleSample-IdCaptureSimpleSampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IdCaptureSimpleSample-IdCaptureSimpleSampleTests.release.xcconfig"; path = "Target Support Files/Pods-IdCaptureSimpleSample-IdCaptureSimpleSampleTests/Pods-IdCaptureSimpleSample-IdCaptureSimpleSampleTests.release.xcconfig"; sourceTree = "<group>"; };
-		57647E2E7C1C3C49CB48F177 /* libPods-IdCaptureSimpleSample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-IdCaptureSimpleSample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7EFEE3A82D831D1800B57996 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = IdCaptureSimpleSample/AppDelegate.swift; sourceTree = "<group>"; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = IdCaptureSimpleSample/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		8851D9293291D8B27D6441FE /* libPods-IdCaptureSimpleSample-IdCaptureSimpleSampleTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-IdCaptureSimpleSample-IdCaptureSimpleSampleTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C299F0A8A65B08B459E06771 /* Pods-IdCaptureSimpleSample-IdCaptureSimpleSampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IdCaptureSimpleSample-IdCaptureSimpleSampleTests.debug.xcconfig"; path = "Target Support Files/Pods-IdCaptureSimpleSample-IdCaptureSimpleSampleTests/Pods-IdCaptureSimpleSample-IdCaptureSimpleSampleTests.debug.xcconfig"; sourceTree = "<group>"; };
-		D726B7949DAA84FCD0698FBF /* Pods-IdCaptureSimpleSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IdCaptureSimpleSample.debug.xcconfig"; path = "Target Support Files/Pods-IdCaptureSimpleSample/Pods-IdCaptureSimpleSample.debug.xcconfig"; sourceTree = "<group>"; };
+		7E6C731B2D82F3C200D2BF9F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = IdCaptureSimpleSample/AppDelegate.swift; sourceTree = "<group>"; };
+		7E6C731D2D82F6DA00D2BF9F /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "Launch Screen.storyboard"; path = "IdCaptureSimpleSample/Launch Screen.storyboard"; sourceTree = "<group>"; };
+		B9A783A9EF0AE5F053102A14 /* Pods-IdCaptureSimpleSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IdCaptureSimpleSample.debug.xcconfig"; path = "Target Support Files/Pods-IdCaptureSimpleSample/Pods-IdCaptureSimpleSample.debug.xcconfig"; sourceTree = "<group>"; };
+		BF6448208FF6BA429DDFF0DB /* Pods-IdCaptureSimpleSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IdCaptureSimpleSample.release.xcconfig"; path = "Target Support Files/Pods-IdCaptureSimpleSample/Pods-IdCaptureSimpleSample.release.xcconfig"; sourceTree = "<group>"; };
+		CA10E8EAC8D4E5210494920E /* libPods-IdCaptureSimpleSample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-IdCaptureSimpleSample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
@@ -37,7 +34,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E33A127FDD0CEFF5A5678C6B /* libPods-IdCaptureSimpleSample.a in Frameworks */,
+				3FEDF6F0976D4C3BAD1CB7C0 /* libPods-IdCaptureSimpleSample.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,9 +47,9 @@
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */,
-				7EFEE3A82D831D1800B57996 /* AppDelegate.swift */,
+				7E6C731B2D82F3C200D2BF9F /* AppDelegate.swift */,
+				7E6C731D2D82F6DA00D2BF9F /* Launch Screen.storyboard */,
 			);
 			name = IdCaptureSimpleSample;
 			sourceTree = "<group>";
@@ -62,8 +59,7 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				8851D9293291D8B27D6441FE /* libPods-IdCaptureSimpleSample-IdCaptureSimpleSampleTests.a */,
-				57647E2E7C1C3C49CB48F177 /* libPods-IdCaptureSimpleSample.a */,
+				CA10E8EAC8D4E5210494920E /* libPods-IdCaptureSimpleSample.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -82,7 +78,7 @@
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
-				B2E478161F2711D74650FBC7 /* Pods */,
+				CD6D4BAF2C08224D46E9D6E1 /* Pods */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -97,13 +93,11 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B2E478161F2711D74650FBC7 /* Pods */ = {
+		CD6D4BAF2C08224D46E9D6E1 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				D726B7949DAA84FCD0698FBF /* Pods-IdCaptureSimpleSample.debug.xcconfig */,
-				2C34FE7A5CB1F1A51439AC4C /* Pods-IdCaptureSimpleSample.release.xcconfig */,
-				C299F0A8A65B08B459E06771 /* Pods-IdCaptureSimpleSample-IdCaptureSimpleSampleTests.debug.xcconfig */,
-				3F41083C2072DBB8EF458793 /* Pods-IdCaptureSimpleSample-IdCaptureSimpleSampleTests.release.xcconfig */,
+				B9A783A9EF0AE5F053102A14 /* Pods-IdCaptureSimpleSample.debug.xcconfig */,
+				BF6448208FF6BA429DDFF0DB /* Pods-IdCaptureSimpleSample.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -115,14 +109,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "IdCaptureSimpleSample" */;
 			buildPhases = (
-				847E86CD917AAD6868105EBF /* [CP] Check Pods Manifest.lock */,
+				0DB9B6CCD5E403CFD4B5395D /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				B0DC62B3497509C8BEBD7E49 /* [CP] Embed Pods Frameworks */,
-				528977023D26B320C7757508 /* [CP] Copy Pods Resources */,
+				DAC4C12A5F1F0495073F5922 /* [CP] Embed Pods Frameworks */,
+				21C95A0301E7C1F42F93BC4E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -169,9 +163,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				7E6C731E2D82F6DA00D2BF9F /* Launch Screen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				1880869836DDD91788C01794 /* PrivacyInfo.xcprivacy in Resources */,
+				1FEDBE9545CA0FA4B8A5C3FF /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -192,7 +186,29 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"$REACT_NATIVE_PATH/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"$REACT_NATIVE_PATH/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		528977023D26B320C7757508 /* [CP] Copy Pods Resources */ = {
+		0DB9B6CCD5E403CFD4B5395D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-IdCaptureSimpleSample-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		21C95A0301E7C1F42F93BC4E /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -220,29 +236,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-IdCaptureSimpleSample/Pods-IdCaptureSimpleSample-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		847E86CD917AAD6868105EBF /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-IdCaptureSimpleSample-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B0DC62B3497509C8BEBD7E49 /* [CP] Embed Pods Frameworks */ = {
+		DAC4C12A5F1F0495073F5922 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -250,16 +244,14 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-IdCaptureSimpleSample/Pods-IdCaptureSimpleSample-frameworks.sh",
 				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/scandit-datacapture-frameworks-barcode/ScanditBarcodeCapture.framework/ScanditBarcodeCapture",
 				"${PODS_XCFRAMEWORKS_BUILD_DIR}/scandit-datacapture-frameworks-core/ScanditCaptureCore.framework/ScanditCaptureCore",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/scandit-datacapture-frameworks-id/ScanditIdCapture.framework/ScanditIdCapture",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/scandit-datacapture-frameworks-id/ScanditIDC.framework/ScanditIDC",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ScanditBarcodeCapture.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ScanditCaptureCore.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ScanditIdCapture.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ScanditIDC.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -292,7 +284,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7EFEE3A92D831D1800B57996 /* AppDelegate.swift in Sources */,
+				7E6C731C2D82F3C200D2BF9F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,13 +293,14 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D726B7949DAA84FCD0698FBF /* Pods-IdCaptureSimpleSample.debug.xcconfig */;
+			baseConfigurationReference = B9A783A9EF0AE5F053102A14 /* Pods-IdCaptureSimpleSample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = IdCaptureSimpleSample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -317,14 +310,20 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/DoubleConversion\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/FBReactNativeSpec\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/Flipper\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Flipper-Boost-iOSX\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/Flipper-DoubleConversion\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Flipper-Fmt\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/Flipper-Folly\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/Flipper-Glog\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/Flipper-PeerTalk\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/Flipper-RSocket\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/FlipperKit\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/RCT-Folly\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Folly\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/RCTTypeSafety\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RNCMaskedView\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RNGestureHandler\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RNReanimated\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RNScreens\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-Core\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-CoreModules\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-RCTAnimation\"",
@@ -336,26 +335,25 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-RCTText\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-RCTVibration\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-cxxreact\"",
+					"\"$(SDKROOT)/usr/lib/swift\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-jsi\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-jsiexecutor\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-jsinspector\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-perflogger\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/Yoga\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/YogaKit\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/glog\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/libevent\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/react-native-safe-area-context\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/scandit-react-native-datacapture-barcode\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/scandit-react-native-datacapture-core\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/scandit-react-native-datacapture-id\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/scandit-react-native-datacapture-text\"",
-					"\"$(SDKROOT)/usr/lib/swift\"",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.scandit.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.scandit.IdCaptureSimpleSample;
 				PRODUCT_NAME = IdCaptureSimpleSample;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -365,7 +363,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2C34FE7A5CB1F1A51439AC4C /* Pods-IdCaptureSimpleSample.release.xcconfig */;
+			baseConfigurationReference = BF6448208FF6BA429DDFF0DB /* Pods-IdCaptureSimpleSample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -380,8 +378,14 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/CocoaAsyncSocket\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/DoubleConversion\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/FBReactNativeSpec\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/RCT-Folly\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Flipper-Boost-iOSX\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Flipper-Fmt\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Folly\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/RCTTypeSafety\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RNCMaskedView\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RNGestureHandler\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RNReanimated\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RNScreens\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-Core\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-CoreModules\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-RCTAnimation\"",
@@ -396,15 +400,14 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-jsi\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-jsiexecutor\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-jsinspector\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-perflogger\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/Yoga\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/YogaKit\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/glog\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/libevent\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/react-native-safe-area-context\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/scandit-react-native-datacapture-barcode\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/scandit-react-native-datacapture-core\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/scandit-react-native-datacapture-id\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/scandit-react-native-datacapture-text\"",
 					"\"$(SDKROOT)/usr/lib/swift\"",
 				);
 				OTHER_LDFLAGS = (
@@ -412,7 +415,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.scandit.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.scandit.IdCaptureSimpleSample;
 				PRODUCT_NAME = IdCaptureSimpleSample;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -475,7 +478,7 @@
 					"${PODS_CONFIGURATION_BUILD_DIR}/React-NativeModulesApple/React_NativeModulesApple.framework/Headers",
 					"${PODS_CONFIGURATION_BUILD_DIR}/React-graphics/React_graphics.framework/Headers/react/renderer/graphics/platform/ios",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited)";
 				LIBRARY_SEARCH_PATHS = (
 					"$(SDKROOT)/usr/lib/swift",
@@ -546,7 +549,7 @@
 					"${PODS_CONFIGURATION_BUILD_DIR}/React-NativeModulesApple/React_NativeModulesApple.framework/Headers",
 					"${PODS_CONFIGURATION_BUILD_DIR}/React-graphics/React_graphics.framework/Headers/react/renderer/graphics/platform/ios",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited)";
 				LIBRARY_SEARCH_PATHS = (
 					"$(SDKROOT)/usr/lib/swift",

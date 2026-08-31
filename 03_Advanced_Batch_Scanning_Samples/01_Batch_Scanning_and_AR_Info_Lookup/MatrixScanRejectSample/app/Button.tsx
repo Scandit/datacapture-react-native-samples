@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
 
 export const Button = (props: {
-  disabled: boolean;
+  disabled?: boolean;
   styles: any;
   textStyles: any;
   title: string;

@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
-		59775FB4466F75E843328F47 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
-		7EFEE3B52D83E6D800B57996 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EFEE3B42D83E6D800B57996 /* AppDelegate.swift */; };
-		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		D79A7C05EAB953D38C506E8D /* libPods-MatrixScanSimpleSample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DB3FC5986C19D60EA4B2373 /* libPods-MatrixScanSimpleSample.a */; };
+		1FEDBE9545CA0FA4B8A5C3FF /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
+		3FEDF6F0976D4C3BAD1CB7C0 /* libPods-MatrixScanSimpleSample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA10E8EAC8D4E5210494920E /* libPods-MatrixScanSimpleSample.a */; };
+		7E6C731C2D82F3C200D2BF9F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6C731B2D82F3C200D2BF9F /* AppDelegate.swift */; };
+		7E6C731E2D82F6DA00D2BF9F /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E6C731D2D82F6DA00D2BF9F /* Launch Screen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,14 +20,11 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = MatrixScanSimpleSample/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = MatrixScanSimpleSample/Info.plist; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = MatrixScanSimpleSample/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		3DB3FC5986C19D60EA4B2373 /* libPods-MatrixScanSimpleSample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MatrixScanSimpleSample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		538155579471DF283E2D3390 /* Pods-MatrixScanSimpleSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MatrixScanSimpleSample.release.xcconfig"; path = "Target Support Files/Pods-MatrixScanSimpleSample/Pods-MatrixScanSimpleSample.release.xcconfig"; sourceTree = "<group>"; };
-		7EFEE3B42D83E6D800B57996 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = MatrixScanSimpleSample/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		AD68F94ABBED737FC30CBFAC /* libPods-MatrixScanSimpleSample-MatrixScanSimpleSampleTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MatrixScanSimpleSample-MatrixScanSimpleSampleTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B24FCC3CE1C9F52FA627E0E0 /* Pods-MatrixScanSimpleSample-MatrixScanSimpleSampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MatrixScanSimpleSample-MatrixScanSimpleSampleTests.release.xcconfig"; path = "Target Support Files/Pods-MatrixScanSimpleSample-MatrixScanSimpleSampleTests/Pods-MatrixScanSimpleSample-MatrixScanSimpleSampleTests.release.xcconfig"; sourceTree = "<group>"; };
-		B2D400CA64C229D45942EC74 /* Pods-MatrixScanSimpleSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MatrixScanSimpleSample.debug.xcconfig"; path = "Target Support Files/Pods-MatrixScanSimpleSample/Pods-MatrixScanSimpleSample.debug.xcconfig"; sourceTree = "<group>"; };
-		ECF7B2E77ABB5EB29242211C /* Pods-MatrixScanSimpleSample-MatrixScanSimpleSampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MatrixScanSimpleSample-MatrixScanSimpleSampleTests.debug.xcconfig"; path = "Target Support Files/Pods-MatrixScanSimpleSample-MatrixScanSimpleSampleTests/Pods-MatrixScanSimpleSample-MatrixScanSimpleSampleTests.debug.xcconfig"; sourceTree = "<group>"; };
+		7E6C731B2D82F3C200D2BF9F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = MatrixScanSimpleSample/AppDelegate.swift; sourceTree = "<group>"; };
+		7E6C731D2D82F6DA00D2BF9F /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "Launch Screen.storyboard"; path = "MatrixScanSimpleSample/Launch Screen.storyboard"; sourceTree = "<group>"; };
+		B9A783A9EF0AE5F053102A14 /* Pods-MatrixScanSimpleSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MatrixScanSimpleSample.debug.xcconfig"; path = "Target Support Files/Pods-MatrixScanSimpleSample/Pods-MatrixScanSimpleSample.debug.xcconfig"; sourceTree = "<group>"; };
+		BF6448208FF6BA429DDFF0DB /* Pods-MatrixScanSimpleSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MatrixScanSimpleSample.release.xcconfig"; path = "Target Support Files/Pods-MatrixScanSimpleSample/Pods-MatrixScanSimpleSample.release.xcconfig"; sourceTree = "<group>"; };
+		CA10E8EAC8D4E5210494920E /* libPods-MatrixScanSimpleSample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MatrixScanSimpleSample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
@@ -37,7 +34,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D79A7C05EAB953D38C506E8D /* libPods-MatrixScanSimpleSample.a in Frameworks */,
+				3FEDF6F0976D4C3BAD1CB7C0 /* libPods-MatrixScanSimpleSample.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -47,12 +44,12 @@
 		13B07FAE1A68108700A75B9A /* MatrixScanSimpleSample */ = {
 			isa = PBXGroup;
 			children = (
-				7EFEE3B42D83E6D800B57996 /* AppDelegate.swift */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */,
+				7E6C731B2D82F3C200D2BF9F /* AppDelegate.swift */,
+				7E6C731D2D82F6DA00D2BF9F /* Launch Screen.storyboard */,
 			);
 			name = MatrixScanSimpleSample;
 			sourceTree = "<group>";
@@ -62,8 +59,7 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				AD68F94ABBED737FC30CBFAC /* libPods-MatrixScanSimpleSample-MatrixScanSimpleSampleTests.a */,
-				3DB3FC5986C19D60EA4B2373 /* libPods-MatrixScanSimpleSample.a */,
+				CA10E8EAC8D4E5210494920E /* libPods-MatrixScanSimpleSample.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -82,7 +78,7 @@
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
-				8F006256FD827281C0B28AE8 /* Pods */,
+				CD6D4BAF2C08224D46E9D6E1 /* Pods */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -97,13 +93,11 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		8F006256FD827281C0B28AE8 /* Pods */ = {
+		CD6D4BAF2C08224D46E9D6E1 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				B2D400CA64C229D45942EC74 /* Pods-MatrixScanSimpleSample.debug.xcconfig */,
-				538155579471DF283E2D3390 /* Pods-MatrixScanSimpleSample.release.xcconfig */,
-				ECF7B2E77ABB5EB29242211C /* Pods-MatrixScanSimpleSample-MatrixScanSimpleSampleTests.debug.xcconfig */,
-				B24FCC3CE1C9F52FA627E0E0 /* Pods-MatrixScanSimpleSample-MatrixScanSimpleSampleTests.release.xcconfig */,
+				B9A783A9EF0AE5F053102A14 /* Pods-MatrixScanSimpleSample.debug.xcconfig */,
+				BF6448208FF6BA429DDFF0DB /* Pods-MatrixScanSimpleSample.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -115,14 +109,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "MatrixScanSimpleSample" */;
 			buildPhases = (
-				9D58FE1D29F3269A6C341FE3 /* [CP] Check Pods Manifest.lock */,
+				0DB9B6CCD5E403CFD4B5395D /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				7D44A0AF14CF0C13109F9449 /* [CP] Embed Pods Frameworks */,
-				1F42F375BA4F188C18F0B222 /* [CP] Copy Pods Resources */,
+				DAC4C12A5F1F0495073F5922 /* [CP] Embed Pods Frameworks */,
+				21C95A0301E7C1F42F93BC4E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -169,9 +163,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				7E6C731E2D82F6DA00D2BF9F /* Launch Screen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				59775FB4466F75E843328F47 /* PrivacyInfo.xcprivacy in Resources */,
+				1FEDBE9545CA0FA4B8A5C3FF /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -192,7 +186,29 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"$REACT_NATIVE_PATH/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"$REACT_NATIVE_PATH/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		1F42F375BA4F188C18F0B222 /* [CP] Copy Pods Resources */ = {
+		0DB9B6CCD5E403CFD4B5395D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MatrixScanSimpleSample-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		21C95A0301E7C1F42F93BC4E /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -220,7 +236,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MatrixScanSimpleSample/Pods-MatrixScanSimpleSample-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7D44A0AF14CF0C13109F9449 /* [CP] Embed Pods Frameworks */ = {
+		DAC4C12A5F1F0495073F5922 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -240,28 +256,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MatrixScanSimpleSample/Pods-MatrixScanSimpleSample-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9D58FE1D29F3269A6C341FE3 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MatrixScanSimpleSample-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -290,7 +284,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7EFEE3B52D83E6D800B57996 /* AppDelegate.swift in Sources */,
+				7E6C731C2D82F3C200D2BF9F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,13 +293,16 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B2D400CA64C229D45942EC74 /* Pods-MatrixScanSimpleSample.debug.xcconfig */;
+			baseConfigurationReference = B9A783A9EF0AE5F053102A14 /* Pods-MatrixScanSimpleSample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = MatrixScanSimpleSample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -313,13 +310,15 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/DoubleConversion\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/FBReactNativeSpec\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/Flipper\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Flipper-Boost-iOSX\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/Flipper-DoubleConversion\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Flipper-Fmt\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/Flipper-Folly\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/Flipper-Glog\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/Flipper-PeerTalk\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/Flipper-RSocket\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/FlipperKit\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/RCT-Folly\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Folly\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/RCTTypeSafety\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/RNCMaskedView\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/RNGestureHandler\"",
@@ -336,10 +335,10 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-RCTText\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-RCTVibration\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-cxxreact\"",
+					"\"$(SDKROOT)/usr/lib/swift\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-jsi\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-jsiexecutor\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-jsinspector\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-perflogger\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/Yoga\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/YogaKit\"",
@@ -348,14 +347,13 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/react-native-safe-area-context\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/scandit-react-native-datacapture-barcode\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/scandit-react-native-datacapture-core\"",
-					"\"$(SDKROOT)/usr/lib/swift\"",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.scandit.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.scandit.MatrixScanSimpleSample;
 				PRODUCT_NAME = MatrixScanSimpleSample;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -365,20 +363,24 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 538155579471DF283E2D3390 /* Pods-MatrixScanSimpleSample.release.xcconfig */;
+			baseConfigurationReference = BF6448208FF6BA429DDFF0DB /* Pods-MatrixScanSimpleSample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = MatrixScanSimpleSample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/CocoaAsyncSocket\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/DoubleConversion\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/FBReactNativeSpec\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/RCT-Folly\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Flipper-Boost-iOSX\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Flipper-Fmt\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Folly\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/RCTTypeSafety\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/RNCMaskedView\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/RNGestureHandler\"",
@@ -398,7 +400,6 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-jsi\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-jsiexecutor\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-jsinspector\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-perflogger\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/Yoga\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/YogaKit\"",
@@ -414,7 +415,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.scandit.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.scandit.MatrixScanSimpleSample;
 				PRODUCT_NAME = MatrixScanSimpleSample;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";

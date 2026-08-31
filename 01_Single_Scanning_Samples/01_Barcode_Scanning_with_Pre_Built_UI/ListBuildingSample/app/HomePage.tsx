@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet, Alert} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import {StackNavigationProp} from '@react-navigation/stack';
-import {RootStackParamList} from './App';
-import {ScanIcon} from './components/icons/ScanIcon';
-import {LogoIcon} from './components/icons/LogoIcon';
-import {requestCameraPermissionsIfNeeded} from './camera-permission-handler';
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from './App';
+import { ScanIcon } from './components/icons/ScanIcon';
+import { LogoIcon } from './components/icons/LogoIcon';
+import { requestCameraPermissionsIfNeeded } from './camera-permission-handler';
 
 type HomePageNavigationProp = StackNavigationProp<RootStackParamList, 'home'>;
 
@@ -19,11 +19,7 @@ export const HomePage = () => {
       await requestCameraPermissionsIfNeeded();
       navigation.navigate('scan');
     } catch (error) {
-      Alert.alert(
-        'Camera Permission Required',
-        'Please grant camera permission to scan barcodes.',
-        [{text: 'OK'}],
-      );
+      Alert.alert('Camera Permission Required', 'Please grant camera permission to scan barcodes.', [{ text: 'OK' }]);
     } finally {
       setIsRequestingPermission(false);
     }
@@ -34,20 +30,11 @@ export const HomePage = () => {
       <View style={styles.contentContainer}>
         <LogoIcon width={96} height={14} color="#16191C" />
         <Text style={styles.title}>ListBuilding</Text>
-        <Text style={styles.subtitle}>
-          Test the most advanced barcode scanning software
-        </Text>
+        <Text style={styles.subtitle}>Test the most advanced barcode scanning software</Text>
       </View>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={handleNavigateToScan}
-        disabled={isRequestingPermission}>
+      <TouchableOpacity style={styles.button} onPress={handleNavigateToScan} disabled={isRequestingPermission}>
         <ScanIcon width={20} height={20} color="white" />
-        <Text style={styles.buttonText}>
-          {isRequestingPermission
-            ? 'Requesting permission...'
-            : 'Start new scan'}
-        </Text>
+        <Text style={styles.buttonText}>{isRequestingPermission ? 'Requesting permission...' : 'Start new scan'}</Text>
       </TouchableOpacity>
     </View>
   );

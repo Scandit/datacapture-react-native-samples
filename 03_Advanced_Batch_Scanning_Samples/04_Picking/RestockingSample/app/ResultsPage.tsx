@@ -8,8 +8,8 @@ import AppContext from './AppContext';
 import { HeaderBackButton } from '@react-navigation/elements';
 import { PRODUCT_MAPPER, productsToPick } from './ScanPage';
 
-const SuccessIcon = require('../assets/success.png');
-const WarningIcon = require('../assets/warning.png');
+const SuccessIcon = require('./assets/success.png');
+const WarningIcon = require('./assets/warning.png');
 
 type ResultsPageNavigationProp = StackNavigationProp<RootStackParamList>;
 

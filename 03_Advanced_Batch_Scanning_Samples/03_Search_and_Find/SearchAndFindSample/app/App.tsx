@@ -19,7 +19,7 @@ export function App() {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home">
+        <Stack.Navigator id={undefined} initialRouteName="Home">
           <Stack.Screen name="Home" component={HomePage} options={{ headerShown: false }} />
           <Stack.Screen
             name="Search"
@@ -51,3 +51,5 @@ export function App() {
     </SafeAreaProvider>
   );
 }
+
+export default App;

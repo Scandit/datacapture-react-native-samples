@@ -28,6 +28,7 @@ export default function App() {
     <CodesContext.Provider value={{ codes, flags, setCodes, setFlags }}>
       <NavigationContainer>
         <Stack.Navigator
+          id={undefined}
           screenOptions={{
             headerStyle: { backgroundColor: '#000' },
             headerShadowVisible: false,

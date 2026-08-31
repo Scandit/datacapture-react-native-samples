@@ -6,6 +6,7 @@ import UIKit
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
+
     var reactNativeDelegate: ReactNativeDelegate?
     var reactNativeFactory: RCTReactNativeFactory?
 
@@ -21,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         reactNativeFactory = factory
 
         window = UIWindow(frame: UIScreen.main.bounds)
+
         factory.startReactNative(
             withModuleName: "MatrixScanBubblesSample",
             in: window,
@@ -28,12 +30,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         )
 
         return true
-    }
-
-    // MARK: - React Native Factory Access
-    // The Scandit SDK will automatically detect this property using runtime inspection
-    var rootViewFactory: RCTRootViewFactory? {
-        reactNativeFactory?.rootViewFactory()
     }
 }
 
