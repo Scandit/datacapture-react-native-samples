@@ -23,10 +23,10 @@
         "react-native-svg-transformer": "1.5.3",
         "react-native-vector-icons": "10.3.0",
         "@rnrepo/build-tools": "0.1.0",
-        "scandit-react-native-datacapture-core": "8.6.0",
-        "scandit-react-native-datacapture-barcode": "8.6.0",
-        "scandit-react-native-datacapture-label": "8.6.0",
-        "scandit-react-native-datacapture-label-text": "8.6.0"
+        "scandit-react-native-datacapture-core": "8.6.1",
+        "scandit-react-native-datacapture-barcode": "8.6.1",
+        "scandit-react-native-datacapture-label": "8.6.1",
+        "scandit-react-native-datacapture-label-text": "8.6.1"
     },
     "devDependencies": {
         "@babel/core": "^7.28.6",
