@@ -1,0 +1,119 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    ext {
+        minSdkVersion = 24
+        compileSdkVersion = 36
+        targetSdkVersion = 36
+
+        ndkVersion = "27.0.12077973"
+    }
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin"
+        classpath fileTree(dir: "${rootDir}/../node_modules/@rnrepo/build-tools/gradle-plugin/build/libs", include: ["prebuilds-plugin-*.jar"])
+        classpath("com.facebook.react:react-native-gradle-plugin")
+    }
+}
+
+apply plugin: "com.facebook.react.rootproject"
+
+def custom_config_scripts = [
+        "$rootDir/frameworks.gradle",
+        "${rootDir}/../../../../../../common/frameworks.gradle"
+]
+
+static def findM2Directory(String startPath) {
+    File currentPath = new File(startPath).absoluteFile
+
+    while (currentPath.parentFile != null) {  // Check if we are at the root
+        File m2Path = new File(currentPath, '.m2')
+        if (m2Path.isDirectory()) {
+            return m2Path.absolutePath
+        }
+        currentPath = currentPath.parentFile  // Move up one directory
+    }
+
+    return null  // Return null if .m2 is not found
+}
+
+allprojects {
+    repositories {
+        def m2Dir = findM2Directory(rootDir.path)
+        if (m2Dir != null) {
+            maven { url "file://${m2Dir}/repository" }
+        }
+    }
+    custom_config_scripts.each { location ->
+        def file = file(location)
+        if (file.exists()) {
+            apply from: file
+            repositories repos
+            return
+        }
+    }
+
+    // Reorder repositories to put our priority ones first
+    def allRepos = repositories.collect()
+    repositories.clear()
+
+    // Add our priority repositories first
+    allRepos.each { repo ->
+        def url = repo.url?.toString()
+        if (url?.contains("/.m2/repository") ||
+            url?.contains("gitlab.scandit.com")) {
+            repositories.add(repo)
+        }
+    }
+
+    // Add remaining repositories after our priority ones
+    allRepos.each { repo ->
+        def url = repo.url?.toString()
+        if (!(url?.contains("/.m2/repository") ||
+              url?.contains("gitlab.scandit.com"))) {
+            repositories.add(repo)
+        }
+    }
+
+    // RNRepo: add Maven repository after reorder so it is always present when plugin resolves
+    repositories {
+        maven { url "https://packages.rnrepo.org/releases" }
+    }
+
+    configurations.configureEach {
+        if (project.hasProperty("snapshotCacheDuration")) {
+            resolutionStrategy.cacheChangingModulesFor project.property("snapshotCacheDuration") as int, 'seconds'
+        }
+    }
+}
+
+subprojects {
+    pluginManager.withPlugin("com.android.application") {
+        android {
+            defaultConfig {
+                externalNativeBuild {
+                    cmake {
+                        arguments "-DCMAKE_C_COMPILER_LAUNCHER=ccache",
+                                  "-DCMAKE_CXX_COMPILER_LAUNCHER=ccache"
+                    }
+                }
+            }
+        }
+    }
+    pluginManager.withPlugin("com.android.library") {
+        android {
+            defaultConfig {
+                externalNativeBuild {
+                    cmake {
+                        arguments "-DCMAKE_C_COMPILER_LAUNCHER=ccache",
+                                  "-DCMAKE_CXX_COMPILER_LAUNCHER=ccache"
+                    }
+                }
+            }
+        }
+    }
+}

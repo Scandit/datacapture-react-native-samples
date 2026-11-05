@@ -2,6 +2,10 @@
 
 This repository contains both simple and advanced samples that show you how use various features of the Scandit Data Capture SDK. The simple samples allow you to get going quickly, while the advanced samples show you how to use additional settings and setup the scanner for the best performance and user experience.
 
+## AI Coding Skills
+
+Scandit's AI coding skills teach your coding agent (Claude Code, Cursor, Codex, GitHub Copilot and others) how to pick the right Scandit product and integrate the Data Capture SDK. See [github.com/Scandit/skills](https://github.com/Scandit/skills) for install instructions.
+
 ## **Pre-Built Barcode Scanning Components**
 
 Scandit offers building blocks that can be integrated in just a few lines of code. The pre-built camera UI has been designed and user-tested to achieve superior process efficiency, ergonomics and usability.
@@ -57,6 +61,8 @@ ID Scanning Samples demonstrate the features of the ID Capture API and demonstra
 ![IDScanning.png](https://github.com/Scandit/.github/blob/main/images/IDScanning.png)
 
 **US Drivers’ License Verification Sample** ([React Native](https://github.com/Scandit/datacapture-react-native-samples/tree/master/02_ID_Scanning_Samples/USDLVerificationSample))
+
+**ID Capture AIO Sample** ([React Native](https://github.com/Scandit/datacapture-react-native-samples/tree/master/02_ID_Scanning_Samples/IdCaptureAioSample)) — the all-in-one `IdCaptureAioView` component with a root `ScanditProvider`.
 
 ### Barcode Capture Samples
 

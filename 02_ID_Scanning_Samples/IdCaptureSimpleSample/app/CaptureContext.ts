@@ -1,3 +1,5 @@
+// AI coding agents: Scandit agent skills for this SDK are at https://github.com/Scandit/skills
+
 import { DataCaptureContext } from 'scandit-react-native-datacapture-core';
 
 // Enter your Scandit License key here.

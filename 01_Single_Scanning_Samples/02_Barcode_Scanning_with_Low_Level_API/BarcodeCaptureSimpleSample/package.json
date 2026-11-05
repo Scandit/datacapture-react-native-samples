@@ -12,22 +12,25 @@
     },
     "dependencies": {
         "@react-navigation/native": "^7.1.8",
-        "expo": "55.0.24",
-        "expo-router": "55.0.14",
+        "expo": "~55.0.31",
+        "expo-constants": "~55.0.16",
+        "expo-font": "~55.0.7",
+        "expo-linking": "~55.0.15",
+        "expo-router": "~55.0.18",
         "expo-splash-screen": "~55.0.9",
-        "react": "19.2.3",
-        "react-native": "0.83.2",
-        "react-native-gesture-handler": "2.32.0",
-        "react-native-safe-area-context": "^5.7.0",
-        "react-native-screens": "~4.16.0",
-        "react-native-svg": "^15.15.3",
-        "scandit-react-native-datacapture-barcode": "8.6.2",
-        "scandit-react-native-datacapture-core": "8.6.2"
+        "react": "19.2.0",
+        "react-native": "0.83.10",
+        "react-native-gesture-handler": "~2.30.0",
+        "react-native-safe-area-context": "~5.6.2",
+        "react-native-screens": "~4.23.0",
+        "react-native-svg": "15.15.3",
+        "scandit-react-native-datacapture-barcode": "8.7.0",
+        "scandit-react-native-datacapture-core": "8.7.0"
     },
     "devDependencies": {
-        "@types/react": "~19.1.0",
+        "@types/react": "~19.2.10",
         "eslint": "^9.25.0",
-        "eslint-config-expo": "~10.0.0",
+        "eslint-config-expo": "~55.0.1",
         "typescript": "~5.9.2"
     },
     "private": true

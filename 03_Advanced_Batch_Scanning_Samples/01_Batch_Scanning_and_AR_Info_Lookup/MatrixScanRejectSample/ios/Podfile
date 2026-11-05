@@ -24,6 +24,11 @@ require Pod::Executable.execute_command('node', ['-p',
   )', __dir__]).strip
 
 
+# Scandit pods are published to Scandit's specs repo; CocoaPods trunk stops accepting
+# new pods on 2026-12-02. Declaring any source drops the implicit trunk, so list it too.
+source 'https://github.com/Scandit/scandit-cocoapods-specs.git'
+source 'https://cdn.cocoapods.org/'
+
 platform :ios, '15.1'
 prepare_react_native_project!
 inhibit_all_warnings!
